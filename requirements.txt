@@ -1,4 +1,6 @@
 streamlit
+numpy==1.26.4
+
 openai
 python-dotenv
 chromadb==0.4.24
