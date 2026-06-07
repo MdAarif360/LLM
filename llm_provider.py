@@ -1,26 +1,22 @@
 import os
 import streamlit as st
 from openai import OpenAI
-from dotenv import load_dotenv
-
-def get_openai_api_key():
-    # 1. Streamlit Cloud secrets
-    if "OPENAI_API_KEY" in st.secrets:
-        return st.secrets["OPENAI_API_KEY"]
-
-    # 2. Local environment variable fallback
-    return os.getenv("OPENAI_API_KEY")
-    
 
 
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+def _get_api_key() -> str:
+    # Streamlit Cloud secrets take priority
+    try:
+        if "OPENAI_API_KEY" in st.secrets:
+            return st.secrets["OPENAI_API_KEY"]
+    except Exception:
+        pass
+    return os.getenv("OPENAI_API_KEY", "")
 
-#load_dotenv()
 
-def ask_llm(prompt):
+def ask_llm(prompt: str) -> str:
+    client = OpenAI(api_key=_get_api_key())
     response = client.responses.create(
-        model="gpt-4.1-mini",
-        input=prompt
+        model=os.getenv("OPENAI_MODEL", "gpt-4.1-mini"),
+        input=prompt,
     )
-
     return response.output_text

@@ -1,92 +1,64 @@
 import os
-from pathlib import Path
-
 from dotenv import load_dotenv
-import chromadb
-from chromadb.utils.embedding_functions import SentenceTransformerEmbeddingFunction
 
 from llm_provider import ask_llm
 
-
 load_dotenv()
 
-BASE_DIR = Path(__file__).resolve().parent
 
-CHROMA_PATH = BASE_DIR / os.getenv("CHROMA_PATH", "data/chroma_db")
-COLLECTION_NAME = os.getenv("CHROMA_COLLECTION", "ocr_documents")
-EMBED_MODEL = os.getenv("EMBED_MODEL", "all-MiniLM-L6-v2")
-
-
-def get_collection():
-    client = chromadb.PersistentClient(path=str(CHROMA_PATH))
-
-    embedding_fn = SentenceTransformerEmbeddingFunction(
-        model_name=EMBED_MODEL
-    )
-
-    collection = client.get_or_create_collection(
-        name=COLLECTION_NAME,
-        embedding_function=embedding_fn
-    )
-
-    return collection
-
-
-def retrieve_context(question, top_k=5):
-    collection = get_collection()
-
-    results = collection.query(
-        query_texts=[question],
-        n_results=top_k
-    )
+def retrieve_context(question: str, collection, top_k: int = 5) -> list:
+    try:
+        count = collection.count()
+        if count == 0:
+            return []
+        results = collection.query(
+            query_texts=[question],
+            n_results=min(top_k, count),
+        )
+    except Exception:
+        return []
 
     documents = results.get("documents", [[]])[0]
     metadatas = results.get("metadatas", [[]])[0]
     distances = results.get("distances", [[]])[0]
 
-    retrieved = []
-
-    for doc, meta, distance in zip(documents, metadatas, distances):
-        retrieved.append({
+    return [
+        {
             "text": doc,
             "doc_id": meta.get("doc_id"),
             "source_file": meta.get("source_file"),
             "page": meta.get("page"),
-            "distance": distance
-        })
+            "distance": dist,
+        }
+        for doc, meta, dist in zip(documents, metadatas, distances)
+    ]
 
-    return retrieved
 
+def answer_question(question: str, collection) -> dict:
+    chunks = retrieve_context(question, collection)
 
-def answer_question(question):
-    retrieved_chunks = retrieve_context(question)
-
-    if not retrieved_chunks:
+    if not chunks:
         return {
-            "answer": "I could not find relevant information in the source document.",
-            "sources": []
+            "answer": "I could not find relevant information in the indexed documents.",
+            "sources": [],
         }
 
     context_text = ""
+    for i, item in enumerate(chunks, start=1):
+        context_text += (
+            f"\nSource {i}\n"
+            f"Document: {item['doc_id']}\n"
+            f"File: {item['source_file']}\n"
+            f"Page: {item['page']}\n"
+            f"Text:\n{item['text']}\n"
+        )
 
-    for i, item in enumerate(retrieved_chunks, start=1):
-        context_text += f"""
-Source {i}
-Document: {item['doc_id']}
-File: {item['source_file']}
-Page: {item['page']}
-Text:
-{item['text']}
-"""
-
-    prompt = f"""
-You are a document question-answering assistant.
+    prompt = f"""You are a document question-answering assistant.
 
 Rules:
 1. Answer only using the provided source context.
 2. Do not use outside knowledge.
-3. If the answer is not available in the source context, say:
-   "The answer is not available in the provided document."
+3. If the answer is not available in the source context, say: "The answer is not available in the provided document."
 4. Mention the page number used for the answer.
 5. Keep the answer clear and concise.
 
@@ -96,21 +68,11 @@ Source Context:
 User Question:
 {question}
 
-Answer:
-"""
+Answer:"""
 
     answer = ask_llm(prompt)
-
     sources = [
-        {
-            "doc_id": item["doc_id"],
-            "source_file": item["source_file"],
-            "page": item["page"]
-        }
-        for item in retrieved_chunks
+        {"doc_id": c["doc_id"], "source_file": c["source_file"], "page": c["page"]}
+        for c in chunks
     ]
-
-    return {
-        "answer": answer,
-        "sources": sources
-    }
+    return {"answer": answer, "sources": sources}
