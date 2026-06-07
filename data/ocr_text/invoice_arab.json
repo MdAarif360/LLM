@@ -1,0 +1,5203 @@
+{
+  "doc_id": "invoice_arab",
+  "file_name": "invoice_arab.pdf",
+  "document_type": "scanned_pdf",
+  "source_pdf": "C:\\Users\\MAarif\\OneDrive - Agility\\Documents 1\\Guvi\\Task\\Final\\OCR_PDF\\data\\uploads\\invoice_arab.pdf",
+  "searchable_pdf": "C:\\Users\\MAarif\\OneDrive - Agility\\Documents 1\\Guvi\\Task\\Final\\OCR_PDF\\data\\uploads\\invoice_arab_searchable_ocr.pdf",
+  "text_file": "C:\\Users\\MAarif\\OneDrive - Agility\\Documents 1\\Guvi\\Task\\Final\\OCR_PDF\\data\\ocr_text\\invoice_arab.txt",
+  "full_text": "ALSHUWAIKH ALALAMIYA QroJisdl ayquid! Quuw\n6.\nRetail Establishment For Electrical and Electronic Devices\ndig SI g Ayils 5955 5gm SU Ad joes\nao\nShuwaikh Industrial 2 - Block 1 - Street 18 - Parcel 147 - Shop 6 V dome = Werk VEY tudtl Ae » ~ ¥\n\\daladll dpc linall rasp\nMob. : 99592042 - 98832402\nVAAN YE HY = V4048Ye EY: SL\nE-mail : shuwaikhglobal@gmail.com [ Cash Sales )\nDate :_ 13/05/2026.\nasst\nInv No. ASA-6587 L.P.O. No.* Not Applicable L.P.O. Date. DO No. * Not Applicable\nAGILITY\nMe RUNES Virerrrca\nwinnie ae tReet eee Solid! / btn\n{© oie! a3, wel a isi\nBum oll | AroS! | Ste oll paw iilee 2 raves)\nS No.| Item Number\nDescription Unit Qty. | Unit Price | Total Amount\n1 | CELLPACK-M16)M16 CAST RESIN CABLE JOINT KIT CELLPACK GERMANY KIT 1.000 47.000 47.00!\niL sclabine M16 Gapped! geiil sl ye GUIS Clue y pile\nYou a set)\nee wv es Ye tery\nQer\nmA#s,|lod 3 iD\nes\nMA-LIE 4d\n. +e\nCaos! Asoo\nALSHUWAIKH ALALAMIYA\nRetail Establishment For Electrical and Electronic Devices C\n>)\nANN\n\"\nPAID\n:\n- Discount s—.>\nTOTAL E Kuwaiti Dinar Forty Seven Only 47.00\nNe : 5 : & gacell\nSS\nGoods Once Sold Ca ogg 10 JU Achat ala Sachul ySce\nSalesman Sigh.",
+  "pages": [
+    {
+      "page": 1,
+      "text": "ALSHUWAIKH ALALAMIYA QroJisdl ayquid! Quuw\n6.\nRetail Establishment For Electrical and Electronic Devices\ndig SI g Ayils 5955 5gm SU Ad joes\nao\nShuwaikh Industrial 2 - Block 1 - Street 18 - Parcel 147 - Shop 6 V dome = Werk VEY tudtl Ae » ~ ¥\n\\daladll dpc linall rasp\nMob. : 99592042 - 98832402\nVAAN YE HY = V4048Ye EY: SL\nE-mail : shuwaikhglobal@gmail.com [ Cash Sales )\nDate :_ 13/05/2026.\nasst\nInv No. ASA-6587 L.P.O. No.* Not Applicable L.P.O. Date. DO No. * Not Applicable\nAGILITY\nMe RUNES Virerrrca\nwinnie ae tReet eee Solid! / btn\n{© oie! a3, wel a isi\nBum oll | AroS! | Ste oll paw iilee 2 raves)\nS No.| Item Number\nDescription Unit Qty. | Unit Price | Total Amount\n1 | CELLPACK-M16)M16 CAST RESIN CABLE JOINT KIT CELLPACK GERMANY KIT 1.000 47.000 47.00!\niL sclabine M16 Gapped! geiil sl ye GUIS Clue y pile\nYou a set)\nee wv es Ye tery\nQer\nmA#s,|lod 3 iD\nes\nMA-LIE 4d\n. +e\nCaos! Asoo\nALSHUWAIKH ALALAMIYA\nRetail Establishment For Electrical and Electronic Devices C\n>)\nANN\n\"\nPAID\n:\n- Discount s—.>\nTOTAL E Kuwaiti Dinar Forty Seven Only 47.00\nNe : 5 : & gacell\nSS\nGoods Once Sold Ca ogg 10 JU Achat ala Sachul ySce\nSalesman Sigh.",
+      "lines": [
+        {
+          "line_no": 1,
+          "text": "ALSHUWAIKH ALALAMIYA QroJisdl ayquid! Quuw",
+          "top": 54,
+          "left": 36,
+          "words": [
+            {
+              "text": "ALSHUWAIKH",
+              "confidence": 91.0,
+              "left": 36,
+              "top": 56,
+              "width": 594,
+              "height": 82,
+              "block_num": 1,
+              "line_num": 1,
+              "word_num": 1
+            },
+            {
+              "text": "ALALAMIYA",
+              "confidence": 88.0,
+              "left": 656,
+              "top": 62,
+              "width": 512,
+              "height": 82,
+              "block_num": 1,
+              "line_num": 1,
+              "word_num": 2
+            },
+            {
+              "text": "QroJisdl",
+              "confidence": 36.0,
+              "left": 1382,
+              "top": 56,
+              "width": 368,
+              "height": 102,
+              "block_num": 6,
+              "line_num": 1,
+              "word_num": 1
+            },
+            {
+              "text": "ayquid!",
+              "confidence": 0.0,
+              "left": 1782,
+              "top": 54,
+              "width": 318,
+              "height": 108,
+              "block_num": 6,
+              "line_num": 1,
+              "word_num": 2
+            },
+            {
+              "text": "Quuw",
+              "confidence": 0.0,
+              "left": 2130,
+              "top": 62,
+              "width": 256,
+              "height": 82,
+              "block_num": 6,
+              "line_num": 1,
+              "word_num": 3
+            }
+          ]
+        },
+        {
+          "line_no": 2,
+          "text": "6.",
+          "top": 70,
+          "left": 2396,
+          "words": [
+            {
+              "text": "6.",
+              "confidence": 0.0,
+              "left": 2396,
+              "top": 70,
+              "width": 84,
+              "height": 92,
+              "block_num": 6,
+              "line_num": 1,
+              "word_num": 4
+            }
+          ]
+        },
+        {
+          "line_no": 3,
+          "text": "Retail Establishment For Electrical and Electronic Devices",
+          "top": 176,
+          "left": 34,
+          "words": [
+            {
+              "text": "Retail",
+              "confidence": 95.0,
+              "left": 34,
+              "top": 176,
+              "width": 108,
+              "height": 48,
+              "block_num": 2,
+              "line_num": 1,
+              "word_num": 1
+            },
+            {
+              "text": "Establishment",
+              "confidence": 95.0,
+              "left": 158,
+              "top": 178,
+              "width": 278,
+              "height": 48,
+              "block_num": 2,
+              "line_num": 1,
+              "word_num": 2
+            },
+            {
+              "text": "For",
+              "confidence": 96.0,
+              "left": 450,
+              "top": 180,
+              "width": 64,
+              "height": 46,
+              "block_num": 2,
+              "line_num": 1,
+              "word_num": 3
+            },
+            {
+              "text": "Electrical",
+              "confidence": 96.0,
+              "left": 528,
+              "top": 180,
+              "width": 178,
+              "height": 50,
+              "block_num": 2,
+              "line_num": 1,
+              "word_num": 4
+            },
+            {
+              "text": "and",
+              "confidence": 96.0,
+              "left": 722,
+              "top": 184,
+              "width": 70,
+              "height": 46,
+              "block_num": 2,
+              "line_num": 1,
+              "word_num": 5
+            },
+            {
+              "text": "Electronic",
+              "confidence": 96.0,
+              "left": 808,
+              "top": 184,
+              "width": 194,
+              "height": 48,
+              "block_num": 2,
+              "line_num": 1,
+              "word_num": 6
+            },
+            {
+              "text": "Devices",
+              "confidence": 97.0,
+              "left": 1018,
+              "top": 186,
+              "width": 150,
+              "height": 48,
+              "block_num": 2,
+              "line_num": 1,
+              "word_num": 7
+            }
+          ]
+        },
+        {
+          "line_no": 4,
+          "text": "dig SI g Ayils 5955 5gm SU Ad joes",
+          "top": 160,
+          "left": 1384,
+          "words": [
+            {
+              "text": "dig",
+              "confidence": 39.0,
+              "left": 1384,
+              "top": 160,
+              "width": 108,
+              "height": 117,
+              "block_num": 7,
+              "line_num": 1,
+              "word_num": 1
+            },
+            {
+              "text": "SI",
+              "confidence": 12.0,
+              "left": 1540,
+              "top": 194,
+              "width": 108,
+              "height": 60,
+              "block_num": 7,
+              "line_num": 1,
+              "word_num": 2
+            },
+            {
+              "text": "g",
+              "confidence": 33.0,
+              "left": 1676,
+              "top": 198,
+              "width": 11,
+              "height": 58,
+              "block_num": 7,
+              "line_num": 1,
+              "word_num": 3
+            },
+            {
+              "text": "Ayils",
+              "confidence": 11.0,
+              "left": 1715,
+              "top": 160,
+              "width": 108,
+              "height": 117,
+              "block_num": 7,
+              "line_num": 1,
+              "word_num": 4
+            },
+            {
+              "text": "5955",
+              "confidence": 0.0,
+              "left": 1852,
+              "top": 160,
+              "width": 132,
+              "height": 117,
+              "block_num": 7,
+              "line_num": 1,
+              "word_num": 5
+            },
+            {
+              "text": "5gm",
+              "confidence": 0.0,
+              "left": 1984,
+              "top": 190,
+              "width": 166,
+              "height": 68,
+              "block_num": 7,
+              "line_num": 1,
+              "word_num": 6
+            },
+            {
+              "text": "SU",
+              "confidence": 44.0,
+              "left": 2105,
+              "top": 160,
+              "width": 40,
+              "height": 117,
+              "block_num": 7,
+              "line_num": 1,
+              "word_num": 7
+            },
+            {
+              "text": "Ad",
+              "confidence": 16.0,
+              "left": 2173,
+              "top": 160,
+              "width": 40,
+              "height": 117,
+              "block_num": 7,
+              "line_num": 1,
+              "word_num": 8
+            },
+            {
+              "text": "joes",
+              "confidence": 26.0,
+              "left": 2218,
+              "top": 198,
+              "width": 156,
+              "height": 64,
+              "block_num": 7,
+              "line_num": 1,
+              "word_num": 9
+            }
+          ]
+        },
+        {
+          "line_no": 5,
+          "text": "ao",
+          "top": 210,
+          "left": 2390,
+          "words": [
+            {
+              "text": "ao",
+              "confidence": 32.0,
+              "left": 2390,
+              "top": 210,
+              "width": 90,
+              "height": 60,
+              "block_num": 7,
+              "line_num": 1,
+              "word_num": 10
+            }
+          ]
+        },
+        {
+          "line_no": 6,
+          "text": "Shuwaikh Industrial 2 - Block 1 - Street 18 - Parcel 147 - Shop 6 V dome = Werk VEY tudtl Ae » ~ ¥",
+          "top": 286,
+          "left": 36,
+          "words": [
+            {
+              "text": "Shuwaikh",
+              "confidence": 92.0,
+              "left": 36,
+              "top": 286,
+              "width": 178,
+              "height": 40,
+              "block_num": 4,
+              "line_num": 1,
+              "word_num": 1
+            },
+            {
+              "text": "Industrial",
+              "confidence": 96.0,
+              "left": 228,
+              "top": 288,
+              "width": 170,
+              "height": 40,
+              "block_num": 4,
+              "line_num": 1,
+              "word_num": 2
+            },
+            {
+              "text": "2",
+              "confidence": 82.0,
+              "left": 412,
+              "top": 290,
+              "width": 20,
+              "height": 38,
+              "block_num": 4,
+              "line_num": 1,
+              "word_num": 3
+            },
+            {
+              "text": "-",
+              "confidence": 82.0,
+              "left": 446,
+              "top": 310,
+              "width": 10,
+              "height": 8,
+              "block_num": 4,
+              "line_num": 1,
+              "word_num": 4
+            },
+            {
+              "text": "Block",
+              "confidence": 93.0,
+              "left": 470,
+              "top": 292,
+              "width": 102,
+              "height": 38,
+              "block_num": 4,
+              "line_num": 1,
+              "word_num": 5
+            },
+            {
+              "text": "1",
+              "confidence": 87.0,
+              "left": 586,
+              "top": 292,
+              "width": 14,
+              "height": 38,
+              "block_num": 4,
+              "line_num": 1,
+              "word_num": 6
+            },
+            {
+              "text": "-",
+              "confidence": 90.0,
+              "left": 618,
+              "top": 312,
+              "width": 10,
+              "height": 8,
+              "block_num": 4,
+              "line_num": 1,
+              "word_num": 7
+            },
+            {
+              "text": "Street",
+              "confidence": 95.0,
+              "left": 640,
+              "top": 292,
+              "width": 110,
+              "height": 40,
+              "block_num": 4,
+              "line_num": 1,
+              "word_num": 8
+            },
+            {
+              "text": "18",
+              "confidence": 92.0,
+              "left": 764,
+              "top": 294,
+              "width": 38,
+              "height": 38,
+              "block_num": 4,
+              "line_num": 1,
+              "word_num": 9
+            },
+            {
+              "text": "-",
+              "confidence": 92.0,
+              "left": 816,
+              "top": 314,
+              "width": 10,
+              "height": 8,
+              "block_num": 4,
+              "line_num": 1,
+              "word_num": 10
+            },
+            {
+              "text": "Parcel",
+              "confidence": 95.0,
+              "left": 840,
+              "top": 294,
+              "width": 112,
+              "height": 38,
+              "block_num": 4,
+              "line_num": 1,
+              "word_num": 11
+            },
+            {
+              "text": "147",
+              "confidence": 93.0,
+              "left": 968,
+              "top": 296,
+              "width": 60,
+              "height": 38,
+              "block_num": 4,
+              "line_num": 1,
+              "word_num": 12
+            },
+            {
+              "text": "-",
+              "confidence": 88.0,
+              "left": 1042,
+              "top": 316,
+              "width": 12,
+              "height": 8,
+              "block_num": 4,
+              "line_num": 1,
+              "word_num": 13
+            },
+            {
+              "text": "Shop",
+              "confidence": 96.0,
+              "left": 1066,
+              "top": 296,
+              "width": 94,
+              "height": 48,
+              "block_num": 4,
+              "line_num": 1,
+              "word_num": 14
+            },
+            {
+              "text": "6",
+              "confidence": 96.0,
+              "left": 1174,
+              "top": 298,
+              "width": 18,
+              "height": 36,
+              "block_num": 4,
+              "line_num": 1,
+              "word_num": 15
+            },
+            {
+              "text": "V",
+              "confidence": 79.0,
+              "left": 1386,
+              "top": 296,
+              "width": 16,
+              "height": 34,
+              "block_num": 9,
+              "line_num": 1,
+              "word_num": 1
+            },
+            {
+              "text": "dome",
+              "confidence": 44.0,
+              "left": 1418,
+              "top": 294,
+              "width": 112,
+              "height": 48,
+              "block_num": 9,
+              "line_num": 1,
+              "word_num": 2
+            },
+            {
+              "text": "=",
+              "confidence": 66.0,
+              "left": 1518,
+              "top": 290,
+              "width": 12,
+              "height": 68,
+              "block_num": 9,
+              "line_num": 1,
+              "word_num": 3
+            },
+            {
+              "text": "Werk",
+              "confidence": 15.0,
+              "left": 1550,
+              "top": 296,
+              "width": 156,
+              "height": 58,
+              "block_num": 9,
+              "line_num": 1,
+              "word_num": 4
+            },
+            {
+              "text": "VEY",
+              "confidence": 5.0,
+              "left": 1727,
+              "top": 296,
+              "width": 52,
+              "height": 38,
+              "block_num": 9,
+              "line_num": 1,
+              "word_num": 5
+            },
+            {
+              "text": "tudtl",
+              "confidence": 0.0,
+              "left": 1794,
+              "top": 296,
+              "width": 176,
+              "height": 56,
+              "block_num": 9,
+              "line_num": 1,
+              "word_num": 7
+            },
+            {
+              "text": "Ae",
+              "confidence": 33.0,
+              "left": 1801,
+              "top": 290,
+              "width": 40,
+              "height": 68,
+              "block_num": 9,
+              "line_num": 1,
+              "word_num": 6
+            },
+            {
+              "text": "»",
+              "confidence": 34.0,
+              "left": 1954,
+              "top": 290,
+              "width": 18,
+              "height": 68,
+              "block_num": 9,
+              "line_num": 1,
+              "word_num": 8
+            },
+            {
+              "text": "~",
+              "confidence": 35.0,
+              "left": 2160,
+              "top": 324,
+              "width": 10,
+              "height": 8,
+              "block_num": 9,
+              "line_num": 1,
+              "word_num": 10
+            },
+            {
+              "text": "¥",
+              "confidence": 49.0,
+              "left": 2190,
+              "top": 302,
+              "width": 12,
+              "height": 36,
+              "block_num": 9,
+              "line_num": 1,
+              "word_num": 11
+            }
+          ]
+        },
+        {
+          "line_no": 7,
+          "text": "\\daladll dpc linall rasp",
+          "top": 294,
+          "left": 1990,
+          "words": [
+            {
+              "text": "\\daladll",
+              "confidence": 20.0,
+              "left": 1990,
+              "top": 294,
+              "width": 150,
+              "height": 70,
+              "block_num": 9,
+              "line_num": 1,
+              "word_num": 9
+            },
+            {
+              "text": "dpc",
+              "confidence": 0.0,
+              "left": 2225,
+              "top": 294,
+              "width": 59,
+              "height": 70,
+              "block_num": 9,
+              "line_num": 1,
+              "word_num": 12
+            },
+            {
+              "text": "linall",
+              "confidence": 0.0,
+              "left": 2289,
+              "top": 294,
+              "width": 89,
+              "height": 70,
+              "block_num": 9,
+              "line_num": 1,
+              "word_num": 13
+            },
+            {
+              "text": "rasp",
+              "confidence": 5.0,
+              "left": 2394,
+              "top": 294,
+              "width": 82,
+              "height": 70,
+              "block_num": 9,
+              "line_num": 1,
+              "word_num": 14
+            }
+          ]
+        },
+        {
+          "line_no": 8,
+          "text": "Mob. : 99592042 - 98832402",
+          "top": 346,
+          "left": 34,
+          "words": [
+            {
+              "text": "Mob.",
+              "confidence": 93.0,
+              "left": 34,
+              "top": 346,
+              "width": 102,
+              "height": 38,
+              "block_num": 5,
+              "line_num": 1,
+              "word_num": 1
+            },
+            {
+              "text": ":",
+              "confidence": 93.0,
+              "left": 154,
+              "top": 358,
+              "width": 8,
+              "height": 26,
+              "block_num": 5,
+              "line_num": 1,
+              "word_num": 2
+            },
+            {
+              "text": "99592042",
+              "confidence": 93.0,
+              "left": 180,
+              "top": 348,
+              "width": 198,
+              "height": 38,
+              "block_num": 5,
+              "line_num": 1,
+              "word_num": 3
+            },
+            {
+              "text": "-",
+              "confidence": 92.0,
+              "left": 396,
+              "top": 368,
+              "width": 12,
+              "height": 8,
+              "block_num": 5,
+              "line_num": 1,
+              "word_num": 4
+            },
+            {
+              "text": "98832402",
+              "confidence": 96.0,
+              "left": 422,
+              "top": 350,
+              "width": 200,
+              "height": 38,
+              "block_num": 5,
+              "line_num": 1,
+              "word_num": 5
+            }
+          ]
+        },
+        {
+          "line_no": 9,
+          "text": "VAAN YE HY = V4048Ye EY: SL",
+          "top": 357,
+          "left": 1886,
+          "words": [
+            {
+              "text": "VAAN",
+              "confidence": 12.0,
+              "left": 1886,
+              "top": 374,
+              "width": 250,
+              "height": 40,
+              "block_num": 13,
+              "line_num": 1,
+              "word_num": 1
+            },
+            {
+              "text": "YE",
+              "confidence": 12.0,
+              "left": 1994,
+              "top": 357,
+              "width": 51,
+              "height": 75,
+              "block_num": 13,
+              "line_num": 1,
+              "word_num": 2
+            },
+            {
+              "text": "HY",
+              "confidence": 10.0,
+              "left": 2057,
+              "top": 357,
+              "width": 44,
+              "height": 75,
+              "block_num": 13,
+              "line_num": 1,
+              "word_num": 3
+            },
+            {
+              "text": "=",
+              "confidence": 62.0,
+              "left": 2119,
+              "top": 357,
+              "width": 20,
+              "height": 75,
+              "block_num": 13,
+              "line_num": 1,
+              "word_num": 4
+            },
+            {
+              "text": "V4048Ye",
+              "confidence": 0.0,
+              "left": 2158,
+              "top": 378,
+              "width": 322,
+              "height": 50,
+              "block_num": 13,
+              "line_num": 1,
+              "word_num": 5
+            },
+            {
+              "text": "EY:",
+              "confidence": 56.0,
+              "left": 2325,
+              "top": 357,
+              "width": 76,
+              "height": 75,
+              "block_num": 13,
+              "line_num": 1,
+              "word_num": 6
+            },
+            {
+              "text": "SL",
+              "confidence": 85.0,
+              "left": 2419,
+              "top": 357,
+              "width": 57,
+              "height": 75,
+              "block_num": 13,
+              "line_num": 1,
+              "word_num": 7
+            }
+          ]
+        },
+        {
+          "line_no": 10,
+          "text": "E-mail : shuwaikhglobal@gmail.com [ Cash Sales )",
+          "top": 372,
+          "left": 34,
+          "words": [
+            {
+              "text": "E-mail",
+              "confidence": 93.0,
+              "left": 34,
+              "top": 408,
+              "width": 116,
+              "height": 34,
+              "block_num": 5,
+              "line_num": 2,
+              "word_num": 1
+            },
+            {
+              "text": ":",
+              "confidence": 67.0,
+              "left": 168,
+              "top": 418,
+              "width": 6,
+              "height": 24,
+              "block_num": 5,
+              "line_num": 2,
+              "word_num": 2
+            },
+            {
+              "text": "shuwaikhglobal@gmail.com",
+              "confidence": 90.0,
+              "left": 190,
+              "top": 408,
+              "width": 540,
+              "height": 46,
+              "block_num": 5,
+              "line_num": 2,
+              "word_num": 3
+            },
+            {
+              "text": "[",
+              "confidence": 29.0,
+              "left": 992,
+              "top": 372,
+              "width": 38,
+              "height": 128,
+              "block_num": 11,
+              "line_num": 1,
+              "word_num": 1
+            },
+            {
+              "text": "Cash",
+              "confidence": 96.0,
+              "left": 1192,
+              "top": 408,
+              "width": 92,
+              "height": 30,
+              "block_num": 11,
+              "line_num": 1,
+              "word_num": 2
+            },
+            {
+              "text": "Sales",
+              "confidence": 96.0,
+              "left": 1298,
+              "top": 408,
+              "width": 98,
+              "height": 30,
+              "block_num": 11,
+              "line_num": 1,
+              "word_num": 3
+            },
+            {
+              "text": ")",
+              "confidence": 88.0,
+              "left": 1514,
+              "top": 376,
+              "width": 42,
+              "height": 128,
+              "block_num": 11,
+              "line_num": 1,
+              "word_num": 4
+            }
+          ]
+        },
+        {
+          "line_no": 11,
+          "text": "Date :_ 13/05/2026.",
+          "top": 437,
+          "left": 1924,
+          "words": [
+            {
+              "text": "Date",
+              "confidence": 93.0,
+              "left": 1924,
+              "top": 464,
+              "width": 94,
+              "height": 40,
+              "block_num": 25,
+              "line_num": 1,
+              "word_num": 1
+            },
+            {
+              "text": ":_",
+              "confidence": 17.0,
+              "left": 2036,
+              "top": 437,
+              "width": 47,
+              "height": 93,
+              "block_num": 25,
+              "line_num": 1,
+              "word_num": 2
+            },
+            {
+              "text": "13/05/2026.",
+              "confidence": 43.0,
+              "left": 2094,
+              "top": 460,
+              "width": 256,
+              "height": 52,
+              "block_num": 25,
+              "line_num": 1,
+              "word_num": 3
+            }
+          ]
+        },
+        {
+          "line_no": 12,
+          "text": "asst",
+          "top": 470,
+          "left": 2366,
+          "words": [
+            {
+              "text": "asst",
+              "confidence": 0.0,
+              "left": 2366,
+              "top": 470,
+              "width": 114,
+              "height": 56,
+              "block_num": 25,
+              "line_num": 1,
+              "word_num": 4
+            }
+          ]
+        },
+        {
+          "line_no": 13,
+          "text": "Inv No. ASA-6587 L.P.O. No.* Not Applicable L.P.O. Date. DO No. * Not Applicable",
+          "top": 524,
+          "left": 34,
+          "words": [
+            {
+              "text": "Inv",
+              "confidence": 96.0,
+              "left": 34,
+              "top": 530,
+              "width": 62,
+              "height": 38,
+              "block_num": 25,
+              "line_num": 2,
+              "word_num": 1
+            },
+            {
+              "text": "No.",
+              "confidence": 96.0,
+              "left": 112,
+              "top": 530,
+              "width": 68,
+              "height": 38,
+              "block_num": 25,
+              "line_num": 2,
+              "word_num": 2
+            },
+            {
+              "text": "ASA-6587",
+              "confidence": 82.0,
+              "left": 272,
+              "top": 524,
+              "width": 188,
+              "height": 57,
+              "block_num": 25,
+              "line_num": 2,
+              "word_num": 3
+            },
+            {
+              "text": "L.P.O.",
+              "confidence": 80.0,
+              "left": 574,
+              "top": 536,
+              "width": 120,
+              "height": 38,
+              "block_num": 25,
+              "line_num": 2,
+              "word_num": 4
+            },
+            {
+              "text": "No.*",
+              "confidence": 86.0,
+              "left": 712,
+              "top": 534,
+              "width": 84,
+              "height": 40,
+              "block_num": 25,
+              "line_num": 2,
+              "word_num": 5
+            },
+            {
+              "text": "Not",
+              "confidence": 84.0,
+              "left": 812,
+              "top": 534,
+              "width": 66,
+              "height": 32,
+              "block_num": 25,
+              "line_num": 2,
+              "word_num": 6
+            },
+            {
+              "text": "Applicable",
+              "confidence": 96.0,
+              "left": 888,
+              "top": 534,
+              "width": 206,
+              "height": 38,
+              "block_num": 25,
+              "line_num": 2,
+              "word_num": 7
+            },
+            {
+              "text": "L.P.O.",
+              "confidence": 88.0,
+              "left": 1192,
+              "top": 540,
+              "width": 120,
+              "height": 38,
+              "block_num": 25,
+              "line_num": 2,
+              "word_num": 8
+            },
+            {
+              "text": "Date.",
+              "confidence": 96.0,
+              "left": 1330,
+              "top": 542,
+              "width": 106,
+              "height": 38,
+              "block_num": 25,
+              "line_num": 2,
+              "word_num": 9
+            },
+            {
+              "text": "DO",
+              "confidence": 96.0,
+              "left": 1854,
+              "top": 546,
+              "width": 62,
+              "height": 38,
+              "block_num": 25,
+              "line_num": 2,
+              "word_num": 10
+            },
+            {
+              "text": "No.",
+              "confidence": 93.0,
+              "left": 1934,
+              "top": 546,
+              "width": 68,
+              "height": 38,
+              "block_num": 25,
+              "line_num": 2,
+              "word_num": 11
+            },
+            {
+              "text": "*",
+              "confidence": 92.0,
+              "left": 2022,
+              "top": 542,
+              "width": 20,
+              "height": 26,
+              "block_num": 25,
+              "line_num": 2,
+              "word_num": 12
+            },
+            {
+              "text": "Not",
+              "confidence": 96.0,
+              "left": 2056,
+              "top": 542,
+              "width": 66,
+              "height": 32,
+              "block_num": 25,
+              "line_num": 2,
+              "word_num": 13
+            },
+            {
+              "text": "Applicable",
+              "confidence": 96.0,
+              "left": 2132,
+              "top": 542,
+              "width": 208,
+              "height": 40,
+              "block_num": 25,
+              "line_num": 2,
+              "word_num": 14
+            }
+          ]
+        },
+        {
+          "line_no": 14,
+          "text": "AGILITY",
+          "top": 612,
+          "left": 418,
+          "words": [
+            {
+              "text": "AGILITY",
+              "confidence": 96.0,
+              "left": 418,
+              "top": 612,
+              "width": 158,
+              "height": 30,
+              "block_num": 25,
+              "line_num": 3,
+              "word_num": 1
+            }
+          ]
+        },
+        {
+          "line_no": 15,
+          "text": "Me RUNES Virerrrca",
+          "top": 646,
+          "left": 32,
+          "words": [
+            {
+              "text": "Me",
+              "confidence": 4.0,
+              "left": 32,
+              "top": 650,
+              "width": 49,
+              "height": 38,
+              "block_num": 25,
+              "line_num": 4,
+              "word_num": 1
+            },
+            {
+              "text": "RUNES",
+              "confidence": 30.0,
+              "left": 88,
+              "top": 650,
+              "width": 208,
+              "height": 40,
+              "block_num": 25,
+              "line_num": 4,
+              "word_num": 2
+            },
+            {
+              "text": "Virerrrca",
+              "confidence": 0.0,
+              "left": 284,
+              "top": 646,
+              "width": 186,
+              "height": 70,
+              "block_num": 25,
+              "line_num": 4,
+              "word_num": 3
+            }
+          ]
+        },
+        {
+          "line_no": 16,
+          "text": "winnie ae tReet eee Solid! / btn",
+          "top": 670,
+          "left": 488,
+          "words": [
+            {
+              "text": "winnie",
+              "confidence": 20.0,
+              "left": 488,
+              "top": 690,
+              "width": 159,
+              "height": 6,
+              "block_num": 25,
+              "line_num": 4,
+              "word_num": 4
+            },
+            {
+              "text": "ae",
+              "confidence": 10.0,
+              "left": 675,
+              "top": 692,
+              "width": 95,
+              "height": 6,
+              "block_num": 25,
+              "line_num": 4,
+              "word_num": 5
+            },
+            {
+              "text": "tReet",
+              "confidence": 0.0,
+              "left": 815,
+              "top": 694,
+              "width": 413,
+              "height": 8,
+              "block_num": 25,
+              "line_num": 4,
+              "word_num": 6
+            },
+            {
+              "text": "eee",
+              "confidence": 17.0,
+              "left": 1433,
+              "top": 698,
+              "width": 195,
+              "height": 8,
+              "block_num": 25,
+              "line_num": 4,
+              "word_num": 7
+            },
+            {
+              "text": "Solid!",
+              "confidence": 6.0,
+              "left": 2184,
+              "top": 670,
+              "width": 136,
+              "height": 36,
+              "block_num": 25,
+              "line_num": 4,
+              "word_num": 8
+            },
+            {
+              "text": "/",
+              "confidence": 80.0,
+              "left": 2340,
+              "top": 672,
+              "width": 16,
+              "height": 42,
+              "block_num": 25,
+              "line_num": 4,
+              "word_num": 9
+            },
+            {
+              "text": "btn",
+              "confidence": 21.0,
+              "left": 2380,
+              "top": 678,
+              "width": 100,
+              "height": 44,
+              "block_num": 25,
+              "line_num": 4,
+              "word_num": 10
+            }
+          ]
+        },
+        {
+          "line_no": 17,
+          "text": "{© oie! a3, wel a isi",
+          "top": 704,
+          "left": 32,
+          "words": [
+            {
+              "text": "{©",
+              "confidence": 28.0,
+              "left": 32,
+              "top": 704,
+              "width": 52,
+              "height": 60,
+              "block_num": 25,
+              "line_num": 5,
+              "word_num": 1
+            },
+            {
+              "text": "oie!",
+              "confidence": 26.0,
+              "left": 194,
+              "top": 726,
+              "width": 146,
+              "height": 28,
+              "block_num": 25,
+              "line_num": 5,
+              "word_num": 2
+            },
+            {
+              "text": "a3,",
+              "confidence": 19.0,
+              "left": 352,
+              "top": 726,
+              "width": 82,
+              "height": 40,
+              "block_num": 25,
+              "line_num": 5,
+              "word_num": 3
+            },
+            {
+              "text": "wel",
+              "confidence": 0.0,
+              "left": 938,
+              "top": 726,
+              "width": 144,
+              "height": 48,
+              "block_num": 25,
+              "line_num": 5,
+              "word_num": 4
+            },
+            {
+              "text": "a",
+              "confidence": 0.0,
+              "left": 1094,
+              "top": 726,
+              "width": 20,
+              "height": 48,
+              "block_num": 25,
+              "line_num": 5,
+              "word_num": 5
+            },
+            {
+              "text": "isi",
+              "confidence": 0.0,
+              "left": 1134,
+              "top": 726,
+              "width": 52,
+              "height": 48,
+              "block_num": 25,
+              "line_num": 5,
+              "word_num": 6
+            }
+          ]
+        },
+        {
+          "line_no": 18,
+          "text": "Bum oll | AroS! | Ste oll paw iilee 2 raves)",
+          "top": 730,
+          "left": 1634,
+          "words": [
+            {
+              "text": "Bum",
+              "confidence": 0.0,
+              "left": 1634,
+              "top": 736,
+              "width": 64,
+              "height": 48,
+              "block_num": 25,
+              "line_num": 5,
+              "word_num": 7
+            },
+            {
+              "text": "oll",
+              "confidence": 0.0,
+              "left": 1710,
+              "top": 736,
+              "width": 38,
+              "height": 48,
+              "block_num": 25,
+              "line_num": 5,
+              "word_num": 8
+            },
+            {
+              "text": "|",
+              "confidence": 83.0,
+              "left": 1774,
+              "top": 736,
+              "width": 16,
+              "height": 48,
+              "block_num": 25,
+              "line_num": 5,
+              "word_num": 9
+            },
+            {
+              "text": "AroS!",
+              "confidence": 0.0,
+              "left": 1810,
+              "top": 742,
+              "width": 102,
+              "height": 36,
+              "block_num": 25,
+              "line_num": 5,
+              "word_num": 10
+            },
+            {
+              "text": "|",
+              "confidence": 94.0,
+              "left": 1938,
+              "top": 736,
+              "width": 16,
+              "height": 48,
+              "block_num": 25,
+              "line_num": 5,
+              "word_num": 11
+            },
+            {
+              "text": "Ste",
+              "confidence": 0.0,
+              "left": 1964,
+              "top": 742,
+              "width": 196,
+              "height": 38,
+              "block_num": 25,
+              "line_num": 5,
+              "word_num": 12
+            },
+            {
+              "text": "oll",
+              "confidence": 0.0,
+              "left": 2042,
+              "top": 736,
+              "width": 44,
+              "height": 48,
+              "block_num": 25,
+              "line_num": 5,
+              "word_num": 13
+            },
+            {
+              "text": "paw",
+              "confidence": 59.0,
+              "left": 2102,
+              "top": 742,
+              "width": 58,
+              "height": 38,
+              "block_num": 25,
+              "line_num": 5,
+              "word_num": 14
+            },
+            {
+              "text": "iilee",
+              "confidence": 14.0,
+              "left": 2208,
+              "top": 738,
+              "width": 92,
+              "height": 50,
+              "block_num": 25,
+              "line_num": 5,
+              "word_num": 15
+            },
+            {
+              "text": "2",
+              "confidence": 33.0,
+              "left": 2316,
+              "top": 742,
+              "width": 28,
+              "height": 36,
+              "block_num": 25,
+              "line_num": 5,
+              "word_num": 16
+            },
+            {
+              "text": "raves)",
+              "confidence": 28.0,
+              "left": 2350,
+              "top": 730,
+              "width": 128,
+              "height": 59,
+              "block_num": 25,
+              "line_num": 5,
+              "word_num": 17
+            }
+          ]
+        },
+        {
+          "line_no": 19,
+          "text": "S No.| Item Number",
+          "top": 774,
+          "left": 52,
+          "words": [
+            {
+              "text": "S",
+              "confidence": 67.0,
+              "left": 52,
+              "top": 774,
+              "width": 22,
+              "height": 26,
+              "block_num": 25,
+              "line_num": 6,
+              "word_num": 1
+            },
+            {
+              "text": "No.|",
+              "confidence": 67.0,
+              "left": 90,
+              "top": 774,
+              "width": 58,
+              "height": 26,
+              "block_num": 25,
+              "line_num": 6,
+              "word_num": 2
+            },
+            {
+              "text": "Item",
+              "confidence": 94.0,
+              "left": 196,
+              "top": 776,
+              "width": 76,
+              "height": 26,
+              "block_num": 25,
+              "line_num": 6,
+              "word_num": 3
+            },
+            {
+              "text": "Number",
+              "confidence": 95.0,
+              "left": 288,
+              "top": 776,
+              "width": 146,
+              "height": 28,
+              "block_num": 25,
+              "line_num": 6,
+              "word_num": 4
+            }
+          ]
+        },
+        {
+          "line_no": 20,
+          "text": "Description Unit Qty. | Unit Price | Total Amount",
+          "top": 776,
+          "left": 938,
+          "words": [
+            {
+              "text": "Description",
+              "confidence": 95.0,
+              "left": 938,
+              "top": 776,
+              "width": 252,
+              "height": 49,
+              "block_num": 25,
+              "line_num": 6,
+              "word_num": 5
+            },
+            {
+              "text": "Unit",
+              "confidence": 96.0,
+              "left": 1654,
+              "top": 781,
+              "width": 72,
+              "height": 48,
+              "block_num": 25,
+              "line_num": 6,
+              "word_num": 6
+            },
+            {
+              "text": "Qty.",
+              "confidence": 92.0,
+              "left": 1826,
+              "top": 788,
+              "width": 70,
+              "height": 32,
+              "block_num": 25,
+              "line_num": 6,
+              "word_num": 7
+            },
+            {
+              "text": "|",
+              "confidence": 92.0,
+              "left": 1934,
+              "top": 784,
+              "width": 16,
+              "height": 48,
+              "block_num": 25,
+              "line_num": 6,
+              "word_num": 8
+            },
+            {
+              "text": "Unit",
+              "confidence": 93.0,
+              "left": 1974,
+              "top": 792,
+              "width": 72,
+              "height": 26,
+              "block_num": 25,
+              "line_num": 6,
+              "word_num": 9
+            },
+            {
+              "text": "Price",
+              "confidence": 96.0,
+              "left": 2060,
+              "top": 794,
+              "width": 90,
+              "height": 24,
+              "block_num": 25,
+              "line_num": 6,
+              "word_num": 10
+            },
+            {
+              "text": "|",
+              "confidence": 96.0,
+              "left": 2182,
+              "top": 784,
+              "width": 16,
+              "height": 48,
+              "block_num": 25,
+              "line_num": 6,
+              "word_num": 11
+            },
+            {
+              "text": "Total",
+              "confidence": 96.0,
+              "left": 2218,
+              "top": 794,
+              "width": 86,
+              "height": 26,
+              "block_num": 25,
+              "line_num": 6,
+              "word_num": 12
+            },
+            {
+              "text": "Amount",
+              "confidence": 96.0,
+              "left": 2316,
+              "top": 796,
+              "width": 146,
+              "height": 26,
+              "block_num": 25,
+              "line_num": 6,
+              "word_num": 13
+            }
+          ]
+        },
+        {
+          "line_no": 21,
+          "text": "1 | CELLPACK-M16)M16 CAST RESIN CABLE JOINT KIT CELLPACK GERMANY KIT 1.000 47.000 47.00!",
+          "top": 869,
+          "left": 122,
+          "words": [
+            {
+              "text": "1",
+              "confidence": 46.0,
+              "left": 122,
+              "top": 878,
+              "width": 12,
+              "height": 28,
+              "block_num": 25,
+              "line_num": 7,
+              "word_num": 1
+            },
+            {
+              "text": "|",
+              "confidence": 46.0,
+              "left": 157,
+              "top": 869,
+              "width": 19,
+              "height": 53,
+              "block_num": 25,
+              "line_num": 7,
+              "word_num": 2
+            },
+            {
+              "text": "CELLPACK-M16)M16",
+              "confidence": 0.0,
+              "left": 218,
+              "top": 878,
+              "width": 320,
+              "height": 32,
+              "block_num": 25,
+              "line_num": 7,
+              "word_num": 3
+            },
+            {
+              "text": "CAST",
+              "confidence": 96.0,
+              "left": 554,
+              "top": 880,
+              "width": 102,
+              "height": 30,
+              "block_num": 25,
+              "line_num": 7,
+              "word_num": 4
+            },
+            {
+              "text": "RESIN",
+              "confidence": 96.0,
+              "left": 670,
+              "top": 882,
+              "width": 114,
+              "height": 30,
+              "block_num": 25,
+              "line_num": 7,
+              "word_num": 5
+            },
+            {
+              "text": "CABLE",
+              "confidence": 95.0,
+              "left": 800,
+              "top": 882,
+              "width": 124,
+              "height": 30,
+              "block_num": 25,
+              "line_num": 7,
+              "word_num": 6
+            },
+            {
+              "text": "JOINT",
+              "confidence": 95.0,
+              "left": 938,
+              "top": 884,
+              "width": 112,
+              "height": 30,
+              "block_num": 25,
+              "line_num": 7,
+              "word_num": 7
+            },
+            {
+              "text": "KIT",
+              "confidence": 93.0,
+              "left": 1064,
+              "top": 884,
+              "width": 58,
+              "height": 30,
+              "block_num": 25,
+              "line_num": 7,
+              "word_num": 8
+            },
+            {
+              "text": "CELLPACK",
+              "confidence": 91.0,
+              "left": 1134,
+              "top": 886,
+              "width": 202,
+              "height": 30,
+              "block_num": 25,
+              "line_num": 7,
+              "word_num": 9
+            },
+            {
+              "text": "GERMANY",
+              "confidence": 96.0,
+              "left": 1350,
+              "top": 886,
+              "width": 196,
+              "height": 30,
+              "block_num": 25,
+              "line_num": 7,
+              "word_num": 10
+            },
+            {
+              "text": "KIT",
+              "confidence": 96.0,
+              "left": 1652,
+              "top": 888,
+              "width": 58,
+              "height": 30,
+              "block_num": 25,
+              "line_num": 7,
+              "word_num": 11
+            },
+            {
+              "text": "1.000",
+              "confidence": 96.0,
+              "left": 1808,
+              "top": 890,
+              "width": 92,
+              "height": 30,
+              "block_num": 25,
+              "line_num": 7,
+              "word_num": 12
+            },
+            {
+              "text": "47.000",
+              "confidence": 96.0,
+              "left": 2018,
+              "top": 892,
+              "width": 116,
+              "height": 28,
+              "block_num": 25,
+              "line_num": 7,
+              "word_num": 13
+            },
+            {
+              "text": "47.00!",
+              "confidence": 79.0,
+              "left": 2378,
+              "top": 892,
+              "width": 102,
+              "height": 30,
+              "block_num": 25,
+              "line_num": 7,
+              "word_num": 14
+            }
+          ]
+        },
+        {
+          "line_no": 22,
+          "text": "iL sclabine M16 Gapped! geiil sl ye GUIS Clue y pile",
+          "top": 924,
+          "left": 468,
+          "words": [
+            {
+              "text": "iL",
+              "confidence": 23.0,
+              "left": 468,
+              "top": 928,
+              "width": 70,
+              "height": 36,
+              "block_num": 25,
+              "line_num": 8,
+              "word_num": 1
+            },
+            {
+              "text": "sclabine",
+              "confidence": 0.0,
+              "left": 554,
+              "top": 930,
+              "width": 98,
+              "height": 36,
+              "block_num": 25,
+              "line_num": 8,
+              "word_num": 2
+            },
+            {
+              "text": "M16",
+              "confidence": 41.0,
+              "left": 668,
+              "top": 936,
+              "width": 92,
+              "height": 28,
+              "block_num": 25,
+              "line_num": 8,
+              "word_num": 3
+            },
+            {
+              "text": "Gapped!",
+              "confidence": 0.0,
+              "left": 774,
+              "top": 932,
+              "width": 124,
+              "height": 36,
+              "block_num": 25,
+              "line_num": 8,
+              "word_num": 4
+            },
+            {
+              "text": "geiil",
+              "confidence": 0.0,
+              "left": 912,
+              "top": 932,
+              "width": 88,
+              "height": 42,
+              "block_num": 25,
+              "line_num": 8,
+              "word_num": 5
+            },
+            {
+              "text": "sl",
+              "confidence": 14.0,
+              "left": 978,
+              "top": 924,
+              "width": 27,
+              "height": 63,
+              "block_num": 25,
+              "line_num": 8,
+              "word_num": 6
+            },
+            {
+              "text": "ye",
+              "confidence": 49.0,
+              "left": 1014,
+              "top": 944,
+              "width": 38,
+              "height": 24,
+              "block_num": 25,
+              "line_num": 8,
+              "word_num": 7
+            },
+            {
+              "text": "GUIS",
+              "confidence": 45.0,
+              "left": 1066,
+              "top": 938,
+              "width": 92,
+              "height": 30,
+              "block_num": 25,
+              "line_num": 8,
+              "word_num": 8
+            },
+            {
+              "text": "Clue",
+              "confidence": 14.0,
+              "left": 1170,
+              "top": 938,
+              "width": 92,
+              "height": 26,
+              "block_num": 25,
+              "line_num": 8,
+              "word_num": 9
+            },
+            {
+              "text": "y",
+              "confidence": 45.0,
+              "left": 1272,
+              "top": 952,
+              "width": 6,
+              "height": 18,
+              "block_num": 25,
+              "line_num": 8,
+              "word_num": 10
+            },
+            {
+              "text": "pile",
+              "confidence": 16.0,
+              "left": 1290,
+              "top": 938,
+              "width": 54,
+              "height": 38,
+              "block_num": 25,
+              "line_num": 8,
+              "word_num": 11
+            }
+          ]
+        },
+        {
+          "line_no": 23,
+          "text": "You a set)",
+          "top": 1861,
+          "left": 1560,
+          "words": [
+            {
+              "text": "You",
+              "confidence": 73.0,
+              "left": 1560,
+              "top": 1875,
+              "width": 48,
+              "height": 52,
+              "block_num": 25,
+              "line_num": 9,
+              "word_num": 3
+            },
+            {
+              "text": "a",
+              "confidence": 38.0,
+              "left": 1702,
+              "top": 1885,
+              "width": 32,
+              "height": 36,
+              "block_num": 25,
+              "line_num": 9,
+              "word_num": 4
+            },
+            {
+              "text": "set)",
+              "confidence": 34.0,
+              "left": 1732,
+              "top": 1861,
+              "width": 98,
+              "height": 56,
+              "block_num": 25,
+              "line_num": 9,
+              "word_num": 5
+            }
+          ]
+        },
+        {
+          "line_no": 24,
+          "text": "ee wv es Ye tery",
+          "top": 1881,
+          "left": 1204,
+          "words": [
+            {
+              "text": "ee",
+              "confidence": 48.0,
+              "left": 1204,
+              "top": 1881,
+              "width": 45,
+              "height": 60,
+              "block_num": 25,
+              "line_num": 9,
+              "word_num": 1
+            },
+            {
+              "text": "wv",
+              "confidence": 0.0,
+              "left": 1306,
+              "top": 1905,
+              "width": 38,
+              "height": 26,
+              "block_num": 25,
+              "line_num": 10,
+              "word_num": 2
+            },
+            {
+              "text": "es",
+              "confidence": 37.0,
+              "left": 1356,
+              "top": 1899,
+              "width": 40,
+              "height": 22,
+              "block_num": 25,
+              "line_num": 9,
+              "word_num": 2
+            },
+            {
+              "text": "Ye",
+              "confidence": 76.0,
+              "left": 1486,
+              "top": 1889,
+              "width": 66,
+              "height": 62,
+              "block_num": 25,
+              "line_num": 10,
+              "word_num": 3
+            },
+            {
+              "text": "tery",
+              "confidence": 74.0,
+              "left": 1616,
+              "top": 1895,
+              "width": 48,
+              "height": 54,
+              "block_num": 25,
+              "line_num": 10,
+              "word_num": 4
+            }
+          ]
+        },
+        {
+          "line_no": 25,
+          "text": "Qer",
+          "top": 1905,
+          "left": 1016,
+          "words": [
+            {
+              "text": "Qer",
+              "confidence": 0.0,
+              "left": 1016,
+              "top": 1905,
+              "width": 182,
+              "height": 52,
+              "block_num": 25,
+              "line_num": 10,
+              "word_num": 1
+            }
+          ]
+        },
+        {
+          "line_no": 26,
+          "text": "mA#s,|lod 3 iD",
+          "top": 1997,
+          "left": 1666,
+          "words": [
+            {
+              "text": "mA#s,|lod",
+              "confidence": 0.0,
+              "left": 1666,
+              "top": 1997,
+              "width": 410,
+              "height": 98,
+              "block_num": 25,
+              "line_num": 12,
+              "word_num": 1
+            },
+            {
+              "text": "3",
+              "confidence": 94.0,
+              "left": 2094,
+              "top": 2017,
+              "width": 34,
+              "height": 54,
+              "block_num": 25,
+              "line_num": 12,
+              "word_num": 2
+            },
+            {
+              "text": "iD",
+              "confidence": 19.0,
+              "left": 2134,
+              "top": 2007,
+              "width": 78,
+              "height": 54,
+              "block_num": 25,
+              "line_num": 11,
+              "word_num": 1
+            }
+          ]
+        },
+        {
+          "line_no": 27,
+          "text": "es",
+          "top": 2129,
+          "left": 2072,
+          "words": [
+            {
+              "text": "es",
+              "confidence": 0.0,
+              "left": 2072,
+              "top": 2129,
+              "width": 40,
+              "height": 16,
+              "block_num": 25,
+              "line_num": 13,
+              "word_num": 1
+            }
+          ]
+        },
+        {
+          "line_no": 28,
+          "text": "MA-LIE 4d",
+          "top": 2125,
+          "left": 1650,
+          "words": [
+            {
+              "text": "MA-LIE",
+              "confidence": 46.0,
+              "left": 1650,
+              "top": 2129,
+              "width": 460,
+              "height": 84,
+              "block_num": 25,
+              "line_num": 14,
+              "word_num": 3
+            },
+            {
+              "text": "4d",
+              "confidence": 39.0,
+              "left": 2025,
+              "top": 2125,
+              "width": 86,
+              "height": 93,
+              "block_num": 25,
+              "line_num": 14,
+              "word_num": 4
+            }
+          ]
+        },
+        {
+          "line_no": 29,
+          "text": ". +e",
+          "top": 2183,
+          "left": 762,
+          "words": [
+            {
+              "text": ".",
+              "confidence": 42.0,
+              "left": 762,
+              "top": 2187,
+              "width": 16,
+              "height": 6,
+              "block_num": 25,
+              "line_num": 14,
+              "word_num": 1
+            },
+            {
+              "text": "+e",
+              "confidence": 34.0,
+              "left": 1062,
+              "top": 2183,
+              "width": 148,
+              "height": 16,
+              "block_num": 25,
+              "line_num": 14,
+              "word_num": 2
+            }
+          ]
+        },
+        {
+          "line_no": 30,
+          "text": "Caos! Asoo",
+          "top": 2191,
+          "left": 754,
+          "words": [
+            {
+              "text": "Caos!",
+              "confidence": 20.0,
+              "left": 754,
+              "top": 2191,
+              "width": 284,
+              "height": 52,
+              "block_num": 25,
+              "line_num": 15,
+              "word_num": 1
+            },
+            {
+              "text": "Asoo",
+              "confidence": 0.0,
+              "left": 1054,
+              "top": 2191,
+              "width": 218,
+              "height": 50,
+              "block_num": 25,
+              "line_num": 15,
+              "word_num": 2
+            }
+          ]
+        },
+        {
+          "line_no": 31,
+          "text": "ALSHUWAIKH ALALAMIYA",
+          "top": 2303,
+          "left": 752,
+          "words": [
+            {
+              "text": "ALSHUWAIKH",
+              "confidence": 69.0,
+              "left": 752,
+              "top": 2305,
+              "width": 274,
+              "height": 34,
+              "block_num": 25,
+              "line_num": 16,
+              "word_num": 1
+            },
+            {
+              "text": "ALALAMIYA",
+              "confidence": 88.0,
+              "left": 1040,
+              "top": 2303,
+              "width": 238,
+              "height": 34,
+              "block_num": 25,
+              "line_num": 16,
+              "word_num": 2
+            }
+          ]
+        },
+        {
+          "line_no": 32,
+          "text": "Retail Establishment For Electrical and Electronic Devices C",
+          "top": 2289,
+          "left": 750,
+          "words": [
+            {
+              "text": "Retail",
+              "confidence": 96.0,
+              "left": 750,
+              "top": 2349,
+              "width": 50,
+              "height": 20,
+              "block_num": 25,
+              "line_num": 17,
+              "word_num": 1
+            },
+            {
+              "text": "Establishment",
+              "confidence": 96.0,
+              "left": 808,
+              "top": 2349,
+              "width": 130,
+              "height": 20,
+              "block_num": 25,
+              "line_num": 17,
+              "word_num": 2
+            },
+            {
+              "text": "For",
+              "confidence": 96.0,
+              "left": 944,
+              "top": 2349,
+              "width": 30,
+              "height": 20,
+              "block_num": 25,
+              "line_num": 17,
+              "word_num": 3
+            },
+            {
+              "text": "Electrical",
+              "confidence": 93.0,
+              "left": 980,
+              "top": 2349,
+              "width": 82,
+              "height": 18,
+              "block_num": 25,
+              "line_num": 17,
+              "word_num": 4
+            },
+            {
+              "text": "and",
+              "confidence": 96.0,
+              "left": 1072,
+              "top": 2349,
+              "width": 30,
+              "height": 18,
+              "block_num": 25,
+              "line_num": 17,
+              "word_num": 5
+            },
+            {
+              "text": "Electronic",
+              "confidence": 92.0,
+              "left": 1110,
+              "top": 2349,
+              "width": 92,
+              "height": 18,
+              "block_num": 25,
+              "line_num": 17,
+              "word_num": 6
+            },
+            {
+              "text": "Devices",
+              "confidence": 88.0,
+              "left": 1208,
+              "top": 2349,
+              "width": 70,
+              "height": 18,
+              "block_num": 25,
+              "line_num": 17,
+              "word_num": 7
+            },
+            {
+              "text": "C",
+              "confidence": 42.0,
+              "left": 1390,
+              "top": 2289,
+              "width": 87,
+              "height": 148,
+              "block_num": 25,
+              "line_num": 16,
+              "word_num": 3
+            }
+          ]
+        },
+        {
+          "line_no": 33,
+          "text": ">)",
+          "top": 2427,
+          "left": 1642,
+          "words": [
+            {
+              "text": ">)",
+              "confidence": 65.0,
+              "left": 1642,
+              "top": 2427,
+              "width": 82,
+              "height": 90,
+              "block_num": 25,
+              "line_num": 18,
+              "word_num": 1
+            }
+          ]
+        },
+        {
+          "line_no": 34,
+          "text": "ANN",
+          "top": 2471,
+          "left": 1494,
+          "words": [
+            {
+              "text": "ANN",
+              "confidence": 0.0,
+              "left": 1494,
+              "top": 2471,
+              "width": 160,
+              "height": 60,
+              "block_num": 25,
+              "line_num": 19,
+              "word_num": 1
+            }
+          ]
+        },
+        {
+          "line_no": 35,
+          "text": "\"",
+          "top": 2511,
+          "left": 1498,
+          "words": [
+            {
+              "text": "\"",
+              "confidence": 0.0,
+              "left": 1498,
+              "top": 2511,
+              "width": 60,
+              "height": 64,
+              "block_num": 25,
+              "line_num": 20,
+              "word_num": 2
+            }
+          ]
+        },
+        {
+          "line_no": 36,
+          "text": "PAID",
+          "top": 2545,
+          "left": 910,
+          "words": [
+            {
+              "text": "PAID",
+              "confidence": 96.0,
+              "left": 910,
+              "top": 2545,
+              "width": 420,
+              "height": 144,
+              "block_num": 25,
+              "line_num": 20,
+              "word_num": 1
+            }
+          ]
+        },
+        {
+          "line_no": 37,
+          "text": ":",
+          "top": 2717,
+          "left": 1036,
+          "words": [
+            {
+              "text": ":",
+              "confidence": 13.0,
+              "left": 1036,
+              "top": 2717,
+              "width": 8,
+              "height": 120,
+              "block_num": 25,
+              "line_num": 21,
+              "word_num": 2
+            }
+          ]
+        },
+        {
+          "line_no": 38,
+          "text": "- Discount s—.>",
+          "top": 2835,
+          "left": 964,
+          "words": [
+            {
+              "text": "-",
+              "confidence": 70.0,
+              "left": 964,
+              "top": 2845,
+              "width": 12,
+              "height": 6,
+              "block_num": 25,
+              "line_num": 21,
+              "word_num": 1
+            },
+            {
+              "text": "Discount",
+              "confidence": 91.0,
+              "left": 1670,
+              "top": 2835,
+              "width": 242,
+              "height": 40,
+              "block_num": 25,
+              "line_num": 21,
+              "word_num": 3
+            },
+            {
+              "text": "s—.>",
+              "confidence": 0.0,
+              "left": 1964,
+              "top": 2835,
+              "width": 158,
+              "height": 48,
+              "block_num": 25,
+              "line_num": 21,
+              "word_num": 4
+            }
+          ]
+        },
+        {
+          "line_no": 39,
+          "text": "TOTAL E Kuwaiti Dinar Forty Seven Only 47.00",
+          "top": 2917,
+          "left": 72,
+          "words": [
+            {
+              "text": "TOTAL",
+              "confidence": 92.0,
+              "left": 72,
+              "top": 2929,
+              "width": 188,
+              "height": 42,
+              "block_num": 25,
+              "line_num": 23,
+              "word_num": 1
+            },
+            {
+              "text": "E",
+              "confidence": 0.0,
+              "left": 282,
+              "top": 2943,
+              "width": 10,
+              "height": 8,
+              "block_num": 25,
+              "line_num": 22,
+              "word_num": 1
+            },
+            {
+              "text": "Kuwaiti",
+              "confidence": 96.0,
+              "left": 414,
+              "top": 2917,
+              "width": 142,
+              "height": 30,
+              "block_num": 25,
+              "line_num": 22,
+              "word_num": 2
+            },
+            {
+              "text": "Dinar",
+              "confidence": 96.0,
+              "left": 572,
+              "top": 2919,
+              "width": 104,
+              "height": 30,
+              "block_num": 25,
+              "line_num": 22,
+              "word_num": 3
+            },
+            {
+              "text": "Forty",
+              "confidence": 96.0,
+              "left": 690,
+              "top": 2919,
+              "width": 98,
+              "height": 38,
+              "block_num": 25,
+              "line_num": 22,
+              "word_num": 4
+            },
+            {
+              "text": "Seven",
+              "confidence": 96.0,
+              "left": 804,
+              "top": 2921,
+              "width": 116,
+              "height": 30,
+              "block_num": 25,
+              "line_num": 22,
+              "word_num": 5
+            },
+            {
+              "text": "Only",
+              "confidence": 95.0,
+              "left": 936,
+              "top": 2921,
+              "width": 88,
+              "height": 38,
+              "block_num": 25,
+              "line_num": 22,
+              "word_num": 6
+            },
+            {
+              "text": "47.00",
+              "confidence": 0.0,
+              "left": 2380,
+              "top": 2931,
+              "width": 100,
+              "height": 30,
+              "block_num": 25,
+              "line_num": 22,
+              "word_num": 8
+            }
+          ]
+        },
+        {
+          "line_no": 40,
+          "text": "Ne : 5 : & gacell",
+          "top": 2941,
+          "left": 24,
+          "words": [
+            {
+              "text": "Ne",
+              "confidence": 42.0,
+              "left": 24,
+              "top": 2951,
+              "width": 56,
+              "height": 50,
+              "block_num": 25,
+              "line_num": 24,
+              "word_num": 1
+            },
+            {
+              "text": ":",
+              "confidence": 92.0,
+              "left": 282,
+              "top": 2961,
+              "width": 10,
+              "height": 10,
+              "block_num": 25,
+              "line_num": 23,
+              "word_num": 2
+            },
+            {
+              "text": "5",
+              "confidence": 45.0,
+              "left": 1934,
+              "top": 2957,
+              "width": 10,
+              "height": 10,
+              "block_num": 25,
+              "line_num": 22,
+              "word_num": 7
+            },
+            {
+              "text": ":",
+              "confidence": 79.0,
+              "left": 1936,
+              "top": 2969,
+              "width": 8,
+              "height": 8,
+              "block_num": 25,
+              "line_num": 23,
+              "word_num": 3
+            },
+            {
+              "text": "&",
+              "confidence": 49.0,
+              "left": 1962,
+              "top": 2947,
+              "width": 26,
+              "height": 46,
+              "block_num": 25,
+              "line_num": 23,
+              "word_num": 4
+            },
+            {
+              "text": "gacell",
+              "confidence": 47.0,
+              "left": 2004,
+              "top": 2941,
+              "width": 118,
+              "height": 50,
+              "block_num": 25,
+              "line_num": 23,
+              "word_num": 5
+            }
+          ]
+        },
+        {
+          "line_no": 41,
+          "text": "SS",
+          "top": 3003,
+          "left": 2434,
+          "words": [
+            {
+              "text": "SS",
+              "confidence": 64.0,
+              "left": 2434,
+              "top": 3003,
+              "width": 46,
+              "height": 24,
+              "block_num": 30,
+              "line_num": 1,
+              "word_num": 1
+            }
+          ]
+        },
+        {
+          "line_no": 42,
+          "text": "Goods Once Sold Ca ogg 10 JU Achat ala Sachul ySce",
+          "top": 3018,
+          "left": 24,
+          "words": [
+            {
+              "text": "Goods",
+              "confidence": 96.0,
+              "left": 24,
+              "top": 3023,
+              "width": 130,
+              "height": 38,
+              "block_num": 27,
+              "line_num": 1,
+              "word_num": 1
+            },
+            {
+              "text": "Once",
+              "confidence": 96.0,
+              "left": 170,
+              "top": 3025,
+              "width": 102,
+              "height": 36,
+              "block_num": 27,
+              "line_num": 1,
+              "word_num": 2
+            },
+            {
+              "text": "Sold",
+              "confidence": 96.0,
+              "left": 288,
+              "top": 3025,
+              "width": 88,
+              "height": 38,
+              "block_num": 27,
+              "line_num": 1,
+              "word_num": 3
+            },
+            {
+              "text": "Ca",
+              "confidence": 95.0,
+              "left": 422,
+              "top": 3037,
+              "width": 20,
+              "height": 26,
+              "block_num": 27,
+              "line_num": 1,
+              "word_num": 4
+            },
+            {
+              "text": "ogg",
+              "confidence": 47.0,
+              "left": 1662,
+              "top": 3035,
+              "width": 84,
+              "height": 42,
+              "block_num": 30,
+              "line_num": 2,
+              "word_num": 1
+            },
+            {
+              "text": "10",
+              "confidence": 72.0,
+              "left": 1767,
+              "top": 3018,
+              "width": 37,
+              "height": 73,
+              "block_num": 30,
+              "line_num": 2,
+              "word_num": 2
+            },
+            {
+              "text": "JU",
+              "confidence": 59.0,
+              "left": 1808,
+              "top": 3035,
+              "width": 106,
+              "height": 42,
+              "block_num": 30,
+              "line_num": 2,
+              "word_num": 3
+            },
+            {
+              "text": "Achat",
+              "confidence": 16.0,
+              "left": 1930,
+              "top": 3037,
+              "width": 122,
+              "height": 42,
+              "block_num": 30,
+              "line_num": 2,
+              "word_num": 4
+            },
+            {
+              "text": "ala",
+              "confidence": 25.0,
+              "left": 2066,
+              "top": 3039,
+              "width": 152,
+              "height": 48,
+              "block_num": 30,
+              "line_num": 2,
+              "word_num": 5
+            },
+            {
+              "text": "Sachul",
+              "confidence": 0.0,
+              "left": 2230,
+              "top": 3039,
+              "width": 158,
+              "height": 42,
+              "block_num": 30,
+              "line_num": 2,
+              "word_num": 6
+            },
+            {
+              "text": "ySce",
+              "confidence": 0.0,
+              "left": 2402,
+              "top": 3041,
+              "width": 78,
+              "height": 44,
+              "block_num": 30,
+              "line_num": 2,
+              "word_num": 7
+            }
+          ]
+        },
+        {
+          "line_no": 43,
+          "text": "Salesman Sigh.",
+          "top": 3161,
+          "left": 24,
+          "words": [
+            {
+              "text": "Salesman",
+              "confidence": 96.0,
+              "left": 24,
+              "top": 3161,
+              "width": 240,
+              "height": 52,
+              "block_num": 29,
+              "line_num": 1,
+              "word_num": 1
+            },
+            {
+              "text": "Sigh.",
+              "confidence": 0.0,
+              "left": 332,
+              "top": 3177,
+              "width": 80,
+              "height": 44,
+              "block_num": 29,
+              "line_num": 1,
+              "word_num": 2
+            }
+          ]
+        }
+      ],
+      "words": [
+        {
+          "text": "ALSHUWAIKH",
+          "confidence": 91.0,
+          "left": 36,
+          "top": 56,
+          "width": 594,
+          "height": 82,
+          "block_num": 1,
+          "line_num": 1,
+          "word_num": 1
+        },
+        {
+          "text": "ALALAMIYA",
+          "confidence": 88.0,
+          "left": 656,
+          "top": 62,
+          "width": 512,
+          "height": 82,
+          "block_num": 1,
+          "line_num": 1,
+          "word_num": 2
+        },
+        {
+          "text": "Retail",
+          "confidence": 95.0,
+          "left": 34,
+          "top": 176,
+          "width": 108,
+          "height": 48,
+          "block_num": 2,
+          "line_num": 1,
+          "word_num": 1
+        },
+        {
+          "text": "Establishment",
+          "confidence": 95.0,
+          "left": 158,
+          "top": 178,
+          "width": 278,
+          "height": 48,
+          "block_num": 2,
+          "line_num": 1,
+          "word_num": 2
+        },
+        {
+          "text": "For",
+          "confidence": 96.0,
+          "left": 450,
+          "top": 180,
+          "width": 64,
+          "height": 46,
+          "block_num": 2,
+          "line_num": 1,
+          "word_num": 3
+        },
+        {
+          "text": "Electrical",
+          "confidence": 96.0,
+          "left": 528,
+          "top": 180,
+          "width": 178,
+          "height": 50,
+          "block_num": 2,
+          "line_num": 1,
+          "word_num": 4
+        },
+        {
+          "text": "and",
+          "confidence": 96.0,
+          "left": 722,
+          "top": 184,
+          "width": 70,
+          "height": 46,
+          "block_num": 2,
+          "line_num": 1,
+          "word_num": 5
+        },
+        {
+          "text": "Electronic",
+          "confidence": 96.0,
+          "left": 808,
+          "top": 184,
+          "width": 194,
+          "height": 48,
+          "block_num": 2,
+          "line_num": 1,
+          "word_num": 6
+        },
+        {
+          "text": "Devices",
+          "confidence": 97.0,
+          "left": 1018,
+          "top": 186,
+          "width": 150,
+          "height": 48,
+          "block_num": 2,
+          "line_num": 1,
+          "word_num": 7
+        },
+        {
+          "text": "Shuwaikh",
+          "confidence": 92.0,
+          "left": 36,
+          "top": 286,
+          "width": 178,
+          "height": 40,
+          "block_num": 4,
+          "line_num": 1,
+          "word_num": 1
+        },
+        {
+          "text": "Industrial",
+          "confidence": 96.0,
+          "left": 228,
+          "top": 288,
+          "width": 170,
+          "height": 40,
+          "block_num": 4,
+          "line_num": 1,
+          "word_num": 2
+        },
+        {
+          "text": "2",
+          "confidence": 82.0,
+          "left": 412,
+          "top": 290,
+          "width": 20,
+          "height": 38,
+          "block_num": 4,
+          "line_num": 1,
+          "word_num": 3
+        },
+        {
+          "text": "-",
+          "confidence": 82.0,
+          "left": 446,
+          "top": 310,
+          "width": 10,
+          "height": 8,
+          "block_num": 4,
+          "line_num": 1,
+          "word_num": 4
+        },
+        {
+          "text": "Block",
+          "confidence": 93.0,
+          "left": 470,
+          "top": 292,
+          "width": 102,
+          "height": 38,
+          "block_num": 4,
+          "line_num": 1,
+          "word_num": 5
+        },
+        {
+          "text": "1",
+          "confidence": 87.0,
+          "left": 586,
+          "top": 292,
+          "width": 14,
+          "height": 38,
+          "block_num": 4,
+          "line_num": 1,
+          "word_num": 6
+        },
+        {
+          "text": "-",
+          "confidence": 90.0,
+          "left": 618,
+          "top": 312,
+          "width": 10,
+          "height": 8,
+          "block_num": 4,
+          "line_num": 1,
+          "word_num": 7
+        },
+        {
+          "text": "Street",
+          "confidence": 95.0,
+          "left": 640,
+          "top": 292,
+          "width": 110,
+          "height": 40,
+          "block_num": 4,
+          "line_num": 1,
+          "word_num": 8
+        },
+        {
+          "text": "18",
+          "confidence": 92.0,
+          "left": 764,
+          "top": 294,
+          "width": 38,
+          "height": 38,
+          "block_num": 4,
+          "line_num": 1,
+          "word_num": 9
+        },
+        {
+          "text": "-",
+          "confidence": 92.0,
+          "left": 816,
+          "top": 314,
+          "width": 10,
+          "height": 8,
+          "block_num": 4,
+          "line_num": 1,
+          "word_num": 10
+        },
+        {
+          "text": "Parcel",
+          "confidence": 95.0,
+          "left": 840,
+          "top": 294,
+          "width": 112,
+          "height": 38,
+          "block_num": 4,
+          "line_num": 1,
+          "word_num": 11
+        },
+        {
+          "text": "147",
+          "confidence": 93.0,
+          "left": 968,
+          "top": 296,
+          "width": 60,
+          "height": 38,
+          "block_num": 4,
+          "line_num": 1,
+          "word_num": 12
+        },
+        {
+          "text": "-",
+          "confidence": 88.0,
+          "left": 1042,
+          "top": 316,
+          "width": 12,
+          "height": 8,
+          "block_num": 4,
+          "line_num": 1,
+          "word_num": 13
+        },
+        {
+          "text": "Shop",
+          "confidence": 96.0,
+          "left": 1066,
+          "top": 296,
+          "width": 94,
+          "height": 48,
+          "block_num": 4,
+          "line_num": 1,
+          "word_num": 14
+        },
+        {
+          "text": "6",
+          "confidence": 96.0,
+          "left": 1174,
+          "top": 298,
+          "width": 18,
+          "height": 36,
+          "block_num": 4,
+          "line_num": 1,
+          "word_num": 15
+        },
+        {
+          "text": "Mob.",
+          "confidence": 93.0,
+          "left": 34,
+          "top": 346,
+          "width": 102,
+          "height": 38,
+          "block_num": 5,
+          "line_num": 1,
+          "word_num": 1
+        },
+        {
+          "text": ":",
+          "confidence": 93.0,
+          "left": 154,
+          "top": 358,
+          "width": 8,
+          "height": 26,
+          "block_num": 5,
+          "line_num": 1,
+          "word_num": 2
+        },
+        {
+          "text": "99592042",
+          "confidence": 93.0,
+          "left": 180,
+          "top": 348,
+          "width": 198,
+          "height": 38,
+          "block_num": 5,
+          "line_num": 1,
+          "word_num": 3
+        },
+        {
+          "text": "-",
+          "confidence": 92.0,
+          "left": 396,
+          "top": 368,
+          "width": 12,
+          "height": 8,
+          "block_num": 5,
+          "line_num": 1,
+          "word_num": 4
+        },
+        {
+          "text": "98832402",
+          "confidence": 96.0,
+          "left": 422,
+          "top": 350,
+          "width": 200,
+          "height": 38,
+          "block_num": 5,
+          "line_num": 1,
+          "word_num": 5
+        },
+        {
+          "text": "E-mail",
+          "confidence": 93.0,
+          "left": 34,
+          "top": 408,
+          "width": 116,
+          "height": 34,
+          "block_num": 5,
+          "line_num": 2,
+          "word_num": 1
+        },
+        {
+          "text": ":",
+          "confidence": 67.0,
+          "left": 168,
+          "top": 418,
+          "width": 6,
+          "height": 24,
+          "block_num": 5,
+          "line_num": 2,
+          "word_num": 2
+        },
+        {
+          "text": "shuwaikhglobal@gmail.com",
+          "confidence": 90.0,
+          "left": 190,
+          "top": 408,
+          "width": 540,
+          "height": 46,
+          "block_num": 5,
+          "line_num": 2,
+          "word_num": 3
+        },
+        {
+          "text": "QroJisdl",
+          "confidence": 36.0,
+          "left": 1382,
+          "top": 56,
+          "width": 368,
+          "height": 102,
+          "block_num": 6,
+          "line_num": 1,
+          "word_num": 1
+        },
+        {
+          "text": "ayquid!",
+          "confidence": 0.0,
+          "left": 1782,
+          "top": 54,
+          "width": 318,
+          "height": 108,
+          "block_num": 6,
+          "line_num": 1,
+          "word_num": 2
+        },
+        {
+          "text": "Quuw",
+          "confidence": 0.0,
+          "left": 2130,
+          "top": 62,
+          "width": 256,
+          "height": 82,
+          "block_num": 6,
+          "line_num": 1,
+          "word_num": 3
+        },
+        {
+          "text": "6.",
+          "confidence": 0.0,
+          "left": 2396,
+          "top": 70,
+          "width": 84,
+          "height": 92,
+          "block_num": 6,
+          "line_num": 1,
+          "word_num": 4
+        },
+        {
+          "text": "dig",
+          "confidence": 39.0,
+          "left": 1384,
+          "top": 160,
+          "width": 108,
+          "height": 117,
+          "block_num": 7,
+          "line_num": 1,
+          "word_num": 1
+        },
+        {
+          "text": "SI",
+          "confidence": 12.0,
+          "left": 1540,
+          "top": 194,
+          "width": 108,
+          "height": 60,
+          "block_num": 7,
+          "line_num": 1,
+          "word_num": 2
+        },
+        {
+          "text": "g",
+          "confidence": 33.0,
+          "left": 1676,
+          "top": 198,
+          "width": 11,
+          "height": 58,
+          "block_num": 7,
+          "line_num": 1,
+          "word_num": 3
+        },
+        {
+          "text": "Ayils",
+          "confidence": 11.0,
+          "left": 1715,
+          "top": 160,
+          "width": 108,
+          "height": 117,
+          "block_num": 7,
+          "line_num": 1,
+          "word_num": 4
+        },
+        {
+          "text": "5955",
+          "confidence": 0.0,
+          "left": 1852,
+          "top": 160,
+          "width": 132,
+          "height": 117,
+          "block_num": 7,
+          "line_num": 1,
+          "word_num": 5
+        },
+        {
+          "text": "5gm",
+          "confidence": 0.0,
+          "left": 1984,
+          "top": 190,
+          "width": 166,
+          "height": 68,
+          "block_num": 7,
+          "line_num": 1,
+          "word_num": 6
+        },
+        {
+          "text": "SU",
+          "confidence": 44.0,
+          "left": 2105,
+          "top": 160,
+          "width": 40,
+          "height": 117,
+          "block_num": 7,
+          "line_num": 1,
+          "word_num": 7
+        },
+        {
+          "text": "Ad",
+          "confidence": 16.0,
+          "left": 2173,
+          "top": 160,
+          "width": 40,
+          "height": 117,
+          "block_num": 7,
+          "line_num": 1,
+          "word_num": 8
+        },
+        {
+          "text": "joes",
+          "confidence": 26.0,
+          "left": 2218,
+          "top": 198,
+          "width": 156,
+          "height": 64,
+          "block_num": 7,
+          "line_num": 1,
+          "word_num": 9
+        },
+        {
+          "text": "ao",
+          "confidence": 32.0,
+          "left": 2390,
+          "top": 210,
+          "width": 90,
+          "height": 60,
+          "block_num": 7,
+          "line_num": 1,
+          "word_num": 10
+        },
+        {
+          "text": "V",
+          "confidence": 79.0,
+          "left": 1386,
+          "top": 296,
+          "width": 16,
+          "height": 34,
+          "block_num": 9,
+          "line_num": 1,
+          "word_num": 1
+        },
+        {
+          "text": "dome",
+          "confidence": 44.0,
+          "left": 1418,
+          "top": 294,
+          "width": 112,
+          "height": 48,
+          "block_num": 9,
+          "line_num": 1,
+          "word_num": 2
+        },
+        {
+          "text": "=",
+          "confidence": 66.0,
+          "left": 1518,
+          "top": 290,
+          "width": 12,
+          "height": 68,
+          "block_num": 9,
+          "line_num": 1,
+          "word_num": 3
+        },
+        {
+          "text": "Werk",
+          "confidence": 15.0,
+          "left": 1550,
+          "top": 296,
+          "width": 156,
+          "height": 58,
+          "block_num": 9,
+          "line_num": 1,
+          "word_num": 4
+        },
+        {
+          "text": "VEY",
+          "confidence": 5.0,
+          "left": 1727,
+          "top": 296,
+          "width": 52,
+          "height": 38,
+          "block_num": 9,
+          "line_num": 1,
+          "word_num": 5
+        },
+        {
+          "text": "Ae",
+          "confidence": 33.0,
+          "left": 1801,
+          "top": 290,
+          "width": 40,
+          "height": 68,
+          "block_num": 9,
+          "line_num": 1,
+          "word_num": 6
+        },
+        {
+          "text": "tudtl",
+          "confidence": 0.0,
+          "left": 1794,
+          "top": 296,
+          "width": 176,
+          "height": 56,
+          "block_num": 9,
+          "line_num": 1,
+          "word_num": 7
+        },
+        {
+          "text": "»",
+          "confidence": 34.0,
+          "left": 1954,
+          "top": 290,
+          "width": 18,
+          "height": 68,
+          "block_num": 9,
+          "line_num": 1,
+          "word_num": 8
+        },
+        {
+          "text": "\\daladll",
+          "confidence": 20.0,
+          "left": 1990,
+          "top": 294,
+          "width": 150,
+          "height": 70,
+          "block_num": 9,
+          "line_num": 1,
+          "word_num": 9
+        },
+        {
+          "text": "~",
+          "confidence": 35.0,
+          "left": 2160,
+          "top": 324,
+          "width": 10,
+          "height": 8,
+          "block_num": 9,
+          "line_num": 1,
+          "word_num": 10
+        },
+        {
+          "text": "¥",
+          "confidence": 49.0,
+          "left": 2190,
+          "top": 302,
+          "width": 12,
+          "height": 36,
+          "block_num": 9,
+          "line_num": 1,
+          "word_num": 11
+        },
+        {
+          "text": "dpc",
+          "confidence": 0.0,
+          "left": 2225,
+          "top": 294,
+          "width": 59,
+          "height": 70,
+          "block_num": 9,
+          "line_num": 1,
+          "word_num": 12
+        },
+        {
+          "text": "linall",
+          "confidence": 0.0,
+          "left": 2289,
+          "top": 294,
+          "width": 89,
+          "height": 70,
+          "block_num": 9,
+          "line_num": 1,
+          "word_num": 13
+        },
+        {
+          "text": "rasp",
+          "confidence": 5.0,
+          "left": 2394,
+          "top": 294,
+          "width": 82,
+          "height": 70,
+          "block_num": 9,
+          "line_num": 1,
+          "word_num": 14
+        },
+        {
+          "text": "[",
+          "confidence": 29.0,
+          "left": 992,
+          "top": 372,
+          "width": 38,
+          "height": 128,
+          "block_num": 11,
+          "line_num": 1,
+          "word_num": 1
+        },
+        {
+          "text": "Cash",
+          "confidence": 96.0,
+          "left": 1192,
+          "top": 408,
+          "width": 92,
+          "height": 30,
+          "block_num": 11,
+          "line_num": 1,
+          "word_num": 2
+        },
+        {
+          "text": "Sales",
+          "confidence": 96.0,
+          "left": 1298,
+          "top": 408,
+          "width": 98,
+          "height": 30,
+          "block_num": 11,
+          "line_num": 1,
+          "word_num": 3
+        },
+        {
+          "text": ")",
+          "confidence": 88.0,
+          "left": 1514,
+          "top": 376,
+          "width": 42,
+          "height": 128,
+          "block_num": 11,
+          "line_num": 1,
+          "word_num": 4
+        },
+        {
+          "text": "VAAN",
+          "confidence": 12.0,
+          "left": 1886,
+          "top": 374,
+          "width": 250,
+          "height": 40,
+          "block_num": 13,
+          "line_num": 1,
+          "word_num": 1
+        },
+        {
+          "text": "YE",
+          "confidence": 12.0,
+          "left": 1994,
+          "top": 357,
+          "width": 51,
+          "height": 75,
+          "block_num": 13,
+          "line_num": 1,
+          "word_num": 2
+        },
+        {
+          "text": "HY",
+          "confidence": 10.0,
+          "left": 2057,
+          "top": 357,
+          "width": 44,
+          "height": 75,
+          "block_num": 13,
+          "line_num": 1,
+          "word_num": 3
+        },
+        {
+          "text": "=",
+          "confidence": 62.0,
+          "left": 2119,
+          "top": 357,
+          "width": 20,
+          "height": 75,
+          "block_num": 13,
+          "line_num": 1,
+          "word_num": 4
+        },
+        {
+          "text": "V4048Ye",
+          "confidence": 0.0,
+          "left": 2158,
+          "top": 378,
+          "width": 322,
+          "height": 50,
+          "block_num": 13,
+          "line_num": 1,
+          "word_num": 5
+        },
+        {
+          "text": "EY:",
+          "confidence": 56.0,
+          "left": 2325,
+          "top": 357,
+          "width": 76,
+          "height": 75,
+          "block_num": 13,
+          "line_num": 1,
+          "word_num": 6
+        },
+        {
+          "text": "SL",
+          "confidence": 85.0,
+          "left": 2419,
+          "top": 357,
+          "width": 57,
+          "height": 75,
+          "block_num": 13,
+          "line_num": 1,
+          "word_num": 7
+        },
+        {
+          "text": "Date",
+          "confidence": 93.0,
+          "left": 1924,
+          "top": 464,
+          "width": 94,
+          "height": 40,
+          "block_num": 25,
+          "line_num": 1,
+          "word_num": 1
+        },
+        {
+          "text": ":_",
+          "confidence": 17.0,
+          "left": 2036,
+          "top": 437,
+          "width": 47,
+          "height": 93,
+          "block_num": 25,
+          "line_num": 1,
+          "word_num": 2
+        },
+        {
+          "text": "13/05/2026.",
+          "confidence": 43.0,
+          "left": 2094,
+          "top": 460,
+          "width": 256,
+          "height": 52,
+          "block_num": 25,
+          "line_num": 1,
+          "word_num": 3
+        },
+        {
+          "text": "asst",
+          "confidence": 0.0,
+          "left": 2366,
+          "top": 470,
+          "width": 114,
+          "height": 56,
+          "block_num": 25,
+          "line_num": 1,
+          "word_num": 4
+        },
+        {
+          "text": "Inv",
+          "confidence": 96.0,
+          "left": 34,
+          "top": 530,
+          "width": 62,
+          "height": 38,
+          "block_num": 25,
+          "line_num": 2,
+          "word_num": 1
+        },
+        {
+          "text": "No.",
+          "confidence": 96.0,
+          "left": 112,
+          "top": 530,
+          "width": 68,
+          "height": 38,
+          "block_num": 25,
+          "line_num": 2,
+          "word_num": 2
+        },
+        {
+          "text": "ASA-6587",
+          "confidence": 82.0,
+          "left": 272,
+          "top": 524,
+          "width": 188,
+          "height": 57,
+          "block_num": 25,
+          "line_num": 2,
+          "word_num": 3
+        },
+        {
+          "text": "L.P.O.",
+          "confidence": 80.0,
+          "left": 574,
+          "top": 536,
+          "width": 120,
+          "height": 38,
+          "block_num": 25,
+          "line_num": 2,
+          "word_num": 4
+        },
+        {
+          "text": "No.*",
+          "confidence": 86.0,
+          "left": 712,
+          "top": 534,
+          "width": 84,
+          "height": 40,
+          "block_num": 25,
+          "line_num": 2,
+          "word_num": 5
+        },
+        {
+          "text": "Not",
+          "confidence": 84.0,
+          "left": 812,
+          "top": 534,
+          "width": 66,
+          "height": 32,
+          "block_num": 25,
+          "line_num": 2,
+          "word_num": 6
+        },
+        {
+          "text": "Applicable",
+          "confidence": 96.0,
+          "left": 888,
+          "top": 534,
+          "width": 206,
+          "height": 38,
+          "block_num": 25,
+          "line_num": 2,
+          "word_num": 7
+        },
+        {
+          "text": "L.P.O.",
+          "confidence": 88.0,
+          "left": 1192,
+          "top": 540,
+          "width": 120,
+          "height": 38,
+          "block_num": 25,
+          "line_num": 2,
+          "word_num": 8
+        },
+        {
+          "text": "Date.",
+          "confidence": 96.0,
+          "left": 1330,
+          "top": 542,
+          "width": 106,
+          "height": 38,
+          "block_num": 25,
+          "line_num": 2,
+          "word_num": 9
+        },
+        {
+          "text": "DO",
+          "confidence": 96.0,
+          "left": 1854,
+          "top": 546,
+          "width": 62,
+          "height": 38,
+          "block_num": 25,
+          "line_num": 2,
+          "word_num": 10
+        },
+        {
+          "text": "No.",
+          "confidence": 93.0,
+          "left": 1934,
+          "top": 546,
+          "width": 68,
+          "height": 38,
+          "block_num": 25,
+          "line_num": 2,
+          "word_num": 11
+        },
+        {
+          "text": "*",
+          "confidence": 92.0,
+          "left": 2022,
+          "top": 542,
+          "width": 20,
+          "height": 26,
+          "block_num": 25,
+          "line_num": 2,
+          "word_num": 12
+        },
+        {
+          "text": "Not",
+          "confidence": 96.0,
+          "left": 2056,
+          "top": 542,
+          "width": 66,
+          "height": 32,
+          "block_num": 25,
+          "line_num": 2,
+          "word_num": 13
+        },
+        {
+          "text": "Applicable",
+          "confidence": 96.0,
+          "left": 2132,
+          "top": 542,
+          "width": 208,
+          "height": 40,
+          "block_num": 25,
+          "line_num": 2,
+          "word_num": 14
+        },
+        {
+          "text": "AGILITY",
+          "confidence": 96.0,
+          "left": 418,
+          "top": 612,
+          "width": 158,
+          "height": 30,
+          "block_num": 25,
+          "line_num": 3,
+          "word_num": 1
+        },
+        {
+          "text": "Me",
+          "confidence": 4.0,
+          "left": 32,
+          "top": 650,
+          "width": 49,
+          "height": 38,
+          "block_num": 25,
+          "line_num": 4,
+          "word_num": 1
+        },
+        {
+          "text": "RUNES",
+          "confidence": 30.0,
+          "left": 88,
+          "top": 650,
+          "width": 208,
+          "height": 40,
+          "block_num": 25,
+          "line_num": 4,
+          "word_num": 2
+        },
+        {
+          "text": "Virerrrca",
+          "confidence": 0.0,
+          "left": 284,
+          "top": 646,
+          "width": 186,
+          "height": 70,
+          "block_num": 25,
+          "line_num": 4,
+          "word_num": 3
+        },
+        {
+          "text": "winnie",
+          "confidence": 20.0,
+          "left": 488,
+          "top": 690,
+          "width": 159,
+          "height": 6,
+          "block_num": 25,
+          "line_num": 4,
+          "word_num": 4
+        },
+        {
+          "text": "ae",
+          "confidence": 10.0,
+          "left": 675,
+          "top": 692,
+          "width": 95,
+          "height": 6,
+          "block_num": 25,
+          "line_num": 4,
+          "word_num": 5
+        },
+        {
+          "text": "tReet",
+          "confidence": 0.0,
+          "left": 815,
+          "top": 694,
+          "width": 413,
+          "height": 8,
+          "block_num": 25,
+          "line_num": 4,
+          "word_num": 6
+        },
+        {
+          "text": "eee",
+          "confidence": 17.0,
+          "left": 1433,
+          "top": 698,
+          "width": 195,
+          "height": 8,
+          "block_num": 25,
+          "line_num": 4,
+          "word_num": 7
+        },
+        {
+          "text": "Solid!",
+          "confidence": 6.0,
+          "left": 2184,
+          "top": 670,
+          "width": 136,
+          "height": 36,
+          "block_num": 25,
+          "line_num": 4,
+          "word_num": 8
+        },
+        {
+          "text": "/",
+          "confidence": 80.0,
+          "left": 2340,
+          "top": 672,
+          "width": 16,
+          "height": 42,
+          "block_num": 25,
+          "line_num": 4,
+          "word_num": 9
+        },
+        {
+          "text": "btn",
+          "confidence": 21.0,
+          "left": 2380,
+          "top": 678,
+          "width": 100,
+          "height": 44,
+          "block_num": 25,
+          "line_num": 4,
+          "word_num": 10
+        },
+        {
+          "text": "{©",
+          "confidence": 28.0,
+          "left": 32,
+          "top": 704,
+          "width": 52,
+          "height": 60,
+          "block_num": 25,
+          "line_num": 5,
+          "word_num": 1
+        },
+        {
+          "text": "oie!",
+          "confidence": 26.0,
+          "left": 194,
+          "top": 726,
+          "width": 146,
+          "height": 28,
+          "block_num": 25,
+          "line_num": 5,
+          "word_num": 2
+        },
+        {
+          "text": "a3,",
+          "confidence": 19.0,
+          "left": 352,
+          "top": 726,
+          "width": 82,
+          "height": 40,
+          "block_num": 25,
+          "line_num": 5,
+          "word_num": 3
+        },
+        {
+          "text": "wel",
+          "confidence": 0.0,
+          "left": 938,
+          "top": 726,
+          "width": 144,
+          "height": 48,
+          "block_num": 25,
+          "line_num": 5,
+          "word_num": 4
+        },
+        {
+          "text": "a",
+          "confidence": 0.0,
+          "left": 1094,
+          "top": 726,
+          "width": 20,
+          "height": 48,
+          "block_num": 25,
+          "line_num": 5,
+          "word_num": 5
+        },
+        {
+          "text": "isi",
+          "confidence": 0.0,
+          "left": 1134,
+          "top": 726,
+          "width": 52,
+          "height": 48,
+          "block_num": 25,
+          "line_num": 5,
+          "word_num": 6
+        },
+        {
+          "text": "Bum",
+          "confidence": 0.0,
+          "left": 1634,
+          "top": 736,
+          "width": 64,
+          "height": 48,
+          "block_num": 25,
+          "line_num": 5,
+          "word_num": 7
+        },
+        {
+          "text": "oll",
+          "confidence": 0.0,
+          "left": 1710,
+          "top": 736,
+          "width": 38,
+          "height": 48,
+          "block_num": 25,
+          "line_num": 5,
+          "word_num": 8
+        },
+        {
+          "text": "|",
+          "confidence": 83.0,
+          "left": 1774,
+          "top": 736,
+          "width": 16,
+          "height": 48,
+          "block_num": 25,
+          "line_num": 5,
+          "word_num": 9
+        },
+        {
+          "text": "AroS!",
+          "confidence": 0.0,
+          "left": 1810,
+          "top": 742,
+          "width": 102,
+          "height": 36,
+          "block_num": 25,
+          "line_num": 5,
+          "word_num": 10
+        },
+        {
+          "text": "|",
+          "confidence": 94.0,
+          "left": 1938,
+          "top": 736,
+          "width": 16,
+          "height": 48,
+          "block_num": 25,
+          "line_num": 5,
+          "word_num": 11
+        },
+        {
+          "text": "Ste",
+          "confidence": 0.0,
+          "left": 1964,
+          "top": 742,
+          "width": 196,
+          "height": 38,
+          "block_num": 25,
+          "line_num": 5,
+          "word_num": 12
+        },
+        {
+          "text": "oll",
+          "confidence": 0.0,
+          "left": 2042,
+          "top": 736,
+          "width": 44,
+          "height": 48,
+          "block_num": 25,
+          "line_num": 5,
+          "word_num": 13
+        },
+        {
+          "text": "paw",
+          "confidence": 59.0,
+          "left": 2102,
+          "top": 742,
+          "width": 58,
+          "height": 38,
+          "block_num": 25,
+          "line_num": 5,
+          "word_num": 14
+        },
+        {
+          "text": "iilee",
+          "confidence": 14.0,
+          "left": 2208,
+          "top": 738,
+          "width": 92,
+          "height": 50,
+          "block_num": 25,
+          "line_num": 5,
+          "word_num": 15
+        },
+        {
+          "text": "2",
+          "confidence": 33.0,
+          "left": 2316,
+          "top": 742,
+          "width": 28,
+          "height": 36,
+          "block_num": 25,
+          "line_num": 5,
+          "word_num": 16
+        },
+        {
+          "text": "raves)",
+          "confidence": 28.0,
+          "left": 2350,
+          "top": 730,
+          "width": 128,
+          "height": 59,
+          "block_num": 25,
+          "line_num": 5,
+          "word_num": 17
+        },
+        {
+          "text": "S",
+          "confidence": 67.0,
+          "left": 52,
+          "top": 774,
+          "width": 22,
+          "height": 26,
+          "block_num": 25,
+          "line_num": 6,
+          "word_num": 1
+        },
+        {
+          "text": "No.|",
+          "confidence": 67.0,
+          "left": 90,
+          "top": 774,
+          "width": 58,
+          "height": 26,
+          "block_num": 25,
+          "line_num": 6,
+          "word_num": 2
+        },
+        {
+          "text": "Item",
+          "confidence": 94.0,
+          "left": 196,
+          "top": 776,
+          "width": 76,
+          "height": 26,
+          "block_num": 25,
+          "line_num": 6,
+          "word_num": 3
+        },
+        {
+          "text": "Number",
+          "confidence": 95.0,
+          "left": 288,
+          "top": 776,
+          "width": 146,
+          "height": 28,
+          "block_num": 25,
+          "line_num": 6,
+          "word_num": 4
+        },
+        {
+          "text": "Description",
+          "confidence": 95.0,
+          "left": 938,
+          "top": 776,
+          "width": 252,
+          "height": 49,
+          "block_num": 25,
+          "line_num": 6,
+          "word_num": 5
+        },
+        {
+          "text": "Unit",
+          "confidence": 96.0,
+          "left": 1654,
+          "top": 781,
+          "width": 72,
+          "height": 48,
+          "block_num": 25,
+          "line_num": 6,
+          "word_num": 6
+        },
+        {
+          "text": "Qty.",
+          "confidence": 92.0,
+          "left": 1826,
+          "top": 788,
+          "width": 70,
+          "height": 32,
+          "block_num": 25,
+          "line_num": 6,
+          "word_num": 7
+        },
+        {
+          "text": "|",
+          "confidence": 92.0,
+          "left": 1934,
+          "top": 784,
+          "width": 16,
+          "height": 48,
+          "block_num": 25,
+          "line_num": 6,
+          "word_num": 8
+        },
+        {
+          "text": "Unit",
+          "confidence": 93.0,
+          "left": 1974,
+          "top": 792,
+          "width": 72,
+          "height": 26,
+          "block_num": 25,
+          "line_num": 6,
+          "word_num": 9
+        },
+        {
+          "text": "Price",
+          "confidence": 96.0,
+          "left": 2060,
+          "top": 794,
+          "width": 90,
+          "height": 24,
+          "block_num": 25,
+          "line_num": 6,
+          "word_num": 10
+        },
+        {
+          "text": "|",
+          "confidence": 96.0,
+          "left": 2182,
+          "top": 784,
+          "width": 16,
+          "height": 48,
+          "block_num": 25,
+          "line_num": 6,
+          "word_num": 11
+        },
+        {
+          "text": "Total",
+          "confidence": 96.0,
+          "left": 2218,
+          "top": 794,
+          "width": 86,
+          "height": 26,
+          "block_num": 25,
+          "line_num": 6,
+          "word_num": 12
+        },
+        {
+          "text": "Amount",
+          "confidence": 96.0,
+          "left": 2316,
+          "top": 796,
+          "width": 146,
+          "height": 26,
+          "block_num": 25,
+          "line_num": 6,
+          "word_num": 13
+        },
+        {
+          "text": "1",
+          "confidence": 46.0,
+          "left": 122,
+          "top": 878,
+          "width": 12,
+          "height": 28,
+          "block_num": 25,
+          "line_num": 7,
+          "word_num": 1
+        },
+        {
+          "text": "|",
+          "confidence": 46.0,
+          "left": 157,
+          "top": 869,
+          "width": 19,
+          "height": 53,
+          "block_num": 25,
+          "line_num": 7,
+          "word_num": 2
+        },
+        {
+          "text": "CELLPACK-M16)M16",
+          "confidence": 0.0,
+          "left": 218,
+          "top": 878,
+          "width": 320,
+          "height": 32,
+          "block_num": 25,
+          "line_num": 7,
+          "word_num": 3
+        },
+        {
+          "text": "CAST",
+          "confidence": 96.0,
+          "left": 554,
+          "top": 880,
+          "width": 102,
+          "height": 30,
+          "block_num": 25,
+          "line_num": 7,
+          "word_num": 4
+        },
+        {
+          "text": "RESIN",
+          "confidence": 96.0,
+          "left": 670,
+          "top": 882,
+          "width": 114,
+          "height": 30,
+          "block_num": 25,
+          "line_num": 7,
+          "word_num": 5
+        },
+        {
+          "text": "CABLE",
+          "confidence": 95.0,
+          "left": 800,
+          "top": 882,
+          "width": 124,
+          "height": 30,
+          "block_num": 25,
+          "line_num": 7,
+          "word_num": 6
+        },
+        {
+          "text": "JOINT",
+          "confidence": 95.0,
+          "left": 938,
+          "top": 884,
+          "width": 112,
+          "height": 30,
+          "block_num": 25,
+          "line_num": 7,
+          "word_num": 7
+        },
+        {
+          "text": "KIT",
+          "confidence": 93.0,
+          "left": 1064,
+          "top": 884,
+          "width": 58,
+          "height": 30,
+          "block_num": 25,
+          "line_num": 7,
+          "word_num": 8
+        },
+        {
+          "text": "CELLPACK",
+          "confidence": 91.0,
+          "left": 1134,
+          "top": 886,
+          "width": 202,
+          "height": 30,
+          "block_num": 25,
+          "line_num": 7,
+          "word_num": 9
+        },
+        {
+          "text": "GERMANY",
+          "confidence": 96.0,
+          "left": 1350,
+          "top": 886,
+          "width": 196,
+          "height": 30,
+          "block_num": 25,
+          "line_num": 7,
+          "word_num": 10
+        },
+        {
+          "text": "KIT",
+          "confidence": 96.0,
+          "left": 1652,
+          "top": 888,
+          "width": 58,
+          "height": 30,
+          "block_num": 25,
+          "line_num": 7,
+          "word_num": 11
+        },
+        {
+          "text": "1.000",
+          "confidence": 96.0,
+          "left": 1808,
+          "top": 890,
+          "width": 92,
+          "height": 30,
+          "block_num": 25,
+          "line_num": 7,
+          "word_num": 12
+        },
+        {
+          "text": "47.000",
+          "confidence": 96.0,
+          "left": 2018,
+          "top": 892,
+          "width": 116,
+          "height": 28,
+          "block_num": 25,
+          "line_num": 7,
+          "word_num": 13
+        },
+        {
+          "text": "47.00!",
+          "confidence": 79.0,
+          "left": 2378,
+          "top": 892,
+          "width": 102,
+          "height": 30,
+          "block_num": 25,
+          "line_num": 7,
+          "word_num": 14
+        },
+        {
+          "text": "iL",
+          "confidence": 23.0,
+          "left": 468,
+          "top": 928,
+          "width": 70,
+          "height": 36,
+          "block_num": 25,
+          "line_num": 8,
+          "word_num": 1
+        },
+        {
+          "text": "sclabine",
+          "confidence": 0.0,
+          "left": 554,
+          "top": 930,
+          "width": 98,
+          "height": 36,
+          "block_num": 25,
+          "line_num": 8,
+          "word_num": 2
+        },
+        {
+          "text": "M16",
+          "confidence": 41.0,
+          "left": 668,
+          "top": 936,
+          "width": 92,
+          "height": 28,
+          "block_num": 25,
+          "line_num": 8,
+          "word_num": 3
+        },
+        {
+          "text": "Gapped!",
+          "confidence": 0.0,
+          "left": 774,
+          "top": 932,
+          "width": 124,
+          "height": 36,
+          "block_num": 25,
+          "line_num": 8,
+          "word_num": 4
+        },
+        {
+          "text": "geiil",
+          "confidence": 0.0,
+          "left": 912,
+          "top": 932,
+          "width": 88,
+          "height": 42,
+          "block_num": 25,
+          "line_num": 8,
+          "word_num": 5
+        },
+        {
+          "text": "sl",
+          "confidence": 14.0,
+          "left": 978,
+          "top": 924,
+          "width": 27,
+          "height": 63,
+          "block_num": 25,
+          "line_num": 8,
+          "word_num": 6
+        },
+        {
+          "text": "ye",
+          "confidence": 49.0,
+          "left": 1014,
+          "top": 944,
+          "width": 38,
+          "height": 24,
+          "block_num": 25,
+          "line_num": 8,
+          "word_num": 7
+        },
+        {
+          "text": "GUIS",
+          "confidence": 45.0,
+          "left": 1066,
+          "top": 938,
+          "width": 92,
+          "height": 30,
+          "block_num": 25,
+          "line_num": 8,
+          "word_num": 8
+        },
+        {
+          "text": "Clue",
+          "confidence": 14.0,
+          "left": 1170,
+          "top": 938,
+          "width": 92,
+          "height": 26,
+          "block_num": 25,
+          "line_num": 8,
+          "word_num": 9
+        },
+        {
+          "text": "y",
+          "confidence": 45.0,
+          "left": 1272,
+          "top": 952,
+          "width": 6,
+          "height": 18,
+          "block_num": 25,
+          "line_num": 8,
+          "word_num": 10
+        },
+        {
+          "text": "pile",
+          "confidence": 16.0,
+          "left": 1290,
+          "top": 938,
+          "width": 54,
+          "height": 38,
+          "block_num": 25,
+          "line_num": 8,
+          "word_num": 11
+        },
+        {
+          "text": "ee",
+          "confidence": 48.0,
+          "left": 1204,
+          "top": 1881,
+          "width": 45,
+          "height": 60,
+          "block_num": 25,
+          "line_num": 9,
+          "word_num": 1
+        },
+        {
+          "text": "es",
+          "confidence": 37.0,
+          "left": 1356,
+          "top": 1899,
+          "width": 40,
+          "height": 22,
+          "block_num": 25,
+          "line_num": 9,
+          "word_num": 2
+        },
+        {
+          "text": "You",
+          "confidence": 73.0,
+          "left": 1560,
+          "top": 1875,
+          "width": 48,
+          "height": 52,
+          "block_num": 25,
+          "line_num": 9,
+          "word_num": 3
+        },
+        {
+          "text": "a",
+          "confidence": 38.0,
+          "left": 1702,
+          "top": 1885,
+          "width": 32,
+          "height": 36,
+          "block_num": 25,
+          "line_num": 9,
+          "word_num": 4
+        },
+        {
+          "text": "set)",
+          "confidence": 34.0,
+          "left": 1732,
+          "top": 1861,
+          "width": 98,
+          "height": 56,
+          "block_num": 25,
+          "line_num": 9,
+          "word_num": 5
+        },
+        {
+          "text": "Qer",
+          "confidence": 0.0,
+          "left": 1016,
+          "top": 1905,
+          "width": 182,
+          "height": 52,
+          "block_num": 25,
+          "line_num": 10,
+          "word_num": 1
+        },
+        {
+          "text": "wv",
+          "confidence": 0.0,
+          "left": 1306,
+          "top": 1905,
+          "width": 38,
+          "height": 26,
+          "block_num": 25,
+          "line_num": 10,
+          "word_num": 2
+        },
+        {
+          "text": "Ye",
+          "confidence": 76.0,
+          "left": 1486,
+          "top": 1889,
+          "width": 66,
+          "height": 62,
+          "block_num": 25,
+          "line_num": 10,
+          "word_num": 3
+        },
+        {
+          "text": "tery",
+          "confidence": 74.0,
+          "left": 1616,
+          "top": 1895,
+          "width": 48,
+          "height": 54,
+          "block_num": 25,
+          "line_num": 10,
+          "word_num": 4
+        },
+        {
+          "text": "iD",
+          "confidence": 19.0,
+          "left": 2134,
+          "top": 2007,
+          "width": 78,
+          "height": 54,
+          "block_num": 25,
+          "line_num": 11,
+          "word_num": 1
+        },
+        {
+          "text": "mA#s,|lod",
+          "confidence": 0.0,
+          "left": 1666,
+          "top": 1997,
+          "width": 410,
+          "height": 98,
+          "block_num": 25,
+          "line_num": 12,
+          "word_num": 1
+        },
+        {
+          "text": "3",
+          "confidence": 94.0,
+          "left": 2094,
+          "top": 2017,
+          "width": 34,
+          "height": 54,
+          "block_num": 25,
+          "line_num": 12,
+          "word_num": 2
+        },
+        {
+          "text": "es",
+          "confidence": 0.0,
+          "left": 2072,
+          "top": 2129,
+          "width": 40,
+          "height": 16,
+          "block_num": 25,
+          "line_num": 13,
+          "word_num": 1
+        },
+        {
+          "text": ".",
+          "confidence": 42.0,
+          "left": 762,
+          "top": 2187,
+          "width": 16,
+          "height": 6,
+          "block_num": 25,
+          "line_num": 14,
+          "word_num": 1
+        },
+        {
+          "text": "+e",
+          "confidence": 34.0,
+          "left": 1062,
+          "top": 2183,
+          "width": 148,
+          "height": 16,
+          "block_num": 25,
+          "line_num": 14,
+          "word_num": 2
+        },
+        {
+          "text": "MA-LIE",
+          "confidence": 46.0,
+          "left": 1650,
+          "top": 2129,
+          "width": 460,
+          "height": 84,
+          "block_num": 25,
+          "line_num": 14,
+          "word_num": 3
+        },
+        {
+          "text": "4d",
+          "confidence": 39.0,
+          "left": 2025,
+          "top": 2125,
+          "width": 86,
+          "height": 93,
+          "block_num": 25,
+          "line_num": 14,
+          "word_num": 4
+        },
+        {
+          "text": "Caos!",
+          "confidence": 20.0,
+          "left": 754,
+          "top": 2191,
+          "width": 284,
+          "height": 52,
+          "block_num": 25,
+          "line_num": 15,
+          "word_num": 1
+        },
+        {
+          "text": "Asoo",
+          "confidence": 0.0,
+          "left": 1054,
+          "top": 2191,
+          "width": 218,
+          "height": 50,
+          "block_num": 25,
+          "line_num": 15,
+          "word_num": 2
+        },
+        {
+          "text": "ALSHUWAIKH",
+          "confidence": 69.0,
+          "left": 752,
+          "top": 2305,
+          "width": 274,
+          "height": 34,
+          "block_num": 25,
+          "line_num": 16,
+          "word_num": 1
+        },
+        {
+          "text": "ALALAMIYA",
+          "confidence": 88.0,
+          "left": 1040,
+          "top": 2303,
+          "width": 238,
+          "height": 34,
+          "block_num": 25,
+          "line_num": 16,
+          "word_num": 2
+        },
+        {
+          "text": "C",
+          "confidence": 42.0,
+          "left": 1390,
+          "top": 2289,
+          "width": 87,
+          "height": 148,
+          "block_num": 25,
+          "line_num": 16,
+          "word_num": 3
+        },
+        {
+          "text": "Retail",
+          "confidence": 96.0,
+          "left": 750,
+          "top": 2349,
+          "width": 50,
+          "height": 20,
+          "block_num": 25,
+          "line_num": 17,
+          "word_num": 1
+        },
+        {
+          "text": "Establishment",
+          "confidence": 96.0,
+          "left": 808,
+          "top": 2349,
+          "width": 130,
+          "height": 20,
+          "block_num": 25,
+          "line_num": 17,
+          "word_num": 2
+        },
+        {
+          "text": "For",
+          "confidence": 96.0,
+          "left": 944,
+          "top": 2349,
+          "width": 30,
+          "height": 20,
+          "block_num": 25,
+          "line_num": 17,
+          "word_num": 3
+        },
+        {
+          "text": "Electrical",
+          "confidence": 93.0,
+          "left": 980,
+          "top": 2349,
+          "width": 82,
+          "height": 18,
+          "block_num": 25,
+          "line_num": 17,
+          "word_num": 4
+        },
+        {
+          "text": "and",
+          "confidence": 96.0,
+          "left": 1072,
+          "top": 2349,
+          "width": 30,
+          "height": 18,
+          "block_num": 25,
+          "line_num": 17,
+          "word_num": 5
+        },
+        {
+          "text": "Electronic",
+          "confidence": 92.0,
+          "left": 1110,
+          "top": 2349,
+          "width": 92,
+          "height": 18,
+          "block_num": 25,
+          "line_num": 17,
+          "word_num": 6
+        },
+        {
+          "text": "Devices",
+          "confidence": 88.0,
+          "left": 1208,
+          "top": 2349,
+          "width": 70,
+          "height": 18,
+          "block_num": 25,
+          "line_num": 17,
+          "word_num": 7
+        },
+        {
+          "text": ">)",
+          "confidence": 65.0,
+          "left": 1642,
+          "top": 2427,
+          "width": 82,
+          "height": 90,
+          "block_num": 25,
+          "line_num": 18,
+          "word_num": 1
+        },
+        {
+          "text": "ANN",
+          "confidence": 0.0,
+          "left": 1494,
+          "top": 2471,
+          "width": 160,
+          "height": 60,
+          "block_num": 25,
+          "line_num": 19,
+          "word_num": 1
+        },
+        {
+          "text": "PAID",
+          "confidence": 96.0,
+          "left": 910,
+          "top": 2545,
+          "width": 420,
+          "height": 144,
+          "block_num": 25,
+          "line_num": 20,
+          "word_num": 1
+        },
+        {
+          "text": "\"",
+          "confidence": 0.0,
+          "left": 1498,
+          "top": 2511,
+          "width": 60,
+          "height": 64,
+          "block_num": 25,
+          "line_num": 20,
+          "word_num": 2
+        },
+        {
+          "text": "-",
+          "confidence": 70.0,
+          "left": 964,
+          "top": 2845,
+          "width": 12,
+          "height": 6,
+          "block_num": 25,
+          "line_num": 21,
+          "word_num": 1
+        },
+        {
+          "text": ":",
+          "confidence": 13.0,
+          "left": 1036,
+          "top": 2717,
+          "width": 8,
+          "height": 120,
+          "block_num": 25,
+          "line_num": 21,
+          "word_num": 2
+        },
+        {
+          "text": "Discount",
+          "confidence": 91.0,
+          "left": 1670,
+          "top": 2835,
+          "width": 242,
+          "height": 40,
+          "block_num": 25,
+          "line_num": 21,
+          "word_num": 3
+        },
+        {
+          "text": "s—.>",
+          "confidence": 0.0,
+          "left": 1964,
+          "top": 2835,
+          "width": 158,
+          "height": 48,
+          "block_num": 25,
+          "line_num": 21,
+          "word_num": 4
+        },
+        {
+          "text": "E",
+          "confidence": 0.0,
+          "left": 282,
+          "top": 2943,
+          "width": 10,
+          "height": 8,
+          "block_num": 25,
+          "line_num": 22,
+          "word_num": 1
+        },
+        {
+          "text": "Kuwaiti",
+          "confidence": 96.0,
+          "left": 414,
+          "top": 2917,
+          "width": 142,
+          "height": 30,
+          "block_num": 25,
+          "line_num": 22,
+          "word_num": 2
+        },
+        {
+          "text": "Dinar",
+          "confidence": 96.0,
+          "left": 572,
+          "top": 2919,
+          "width": 104,
+          "height": 30,
+          "block_num": 25,
+          "line_num": 22,
+          "word_num": 3
+        },
+        {
+          "text": "Forty",
+          "confidence": 96.0,
+          "left": 690,
+          "top": 2919,
+          "width": 98,
+          "height": 38,
+          "block_num": 25,
+          "line_num": 22,
+          "word_num": 4
+        },
+        {
+          "text": "Seven",
+          "confidence": 96.0,
+          "left": 804,
+          "top": 2921,
+          "width": 116,
+          "height": 30,
+          "block_num": 25,
+          "line_num": 22,
+          "word_num": 5
+        },
+        {
+          "text": "Only",
+          "confidence": 95.0,
+          "left": 936,
+          "top": 2921,
+          "width": 88,
+          "height": 38,
+          "block_num": 25,
+          "line_num": 22,
+          "word_num": 6
+        },
+        {
+          "text": "5",
+          "confidence": 45.0,
+          "left": 1934,
+          "top": 2957,
+          "width": 10,
+          "height": 10,
+          "block_num": 25,
+          "line_num": 22,
+          "word_num": 7
+        },
+        {
+          "text": "47.00",
+          "confidence": 0.0,
+          "left": 2380,
+          "top": 2931,
+          "width": 100,
+          "height": 30,
+          "block_num": 25,
+          "line_num": 22,
+          "word_num": 8
+        },
+        {
+          "text": "TOTAL",
+          "confidence": 92.0,
+          "left": 72,
+          "top": 2929,
+          "width": 188,
+          "height": 42,
+          "block_num": 25,
+          "line_num": 23,
+          "word_num": 1
+        },
+        {
+          "text": ":",
+          "confidence": 92.0,
+          "left": 282,
+          "top": 2961,
+          "width": 10,
+          "height": 10,
+          "block_num": 25,
+          "line_num": 23,
+          "word_num": 2
+        },
+        {
+          "text": ":",
+          "confidence": 79.0,
+          "left": 1936,
+          "top": 2969,
+          "width": 8,
+          "height": 8,
+          "block_num": 25,
+          "line_num": 23,
+          "word_num": 3
+        },
+        {
+          "text": "&",
+          "confidence": 49.0,
+          "left": 1962,
+          "top": 2947,
+          "width": 26,
+          "height": 46,
+          "block_num": 25,
+          "line_num": 23,
+          "word_num": 4
+        },
+        {
+          "text": "gacell",
+          "confidence": 47.0,
+          "left": 2004,
+          "top": 2941,
+          "width": 118,
+          "height": 50,
+          "block_num": 25,
+          "line_num": 23,
+          "word_num": 5
+        },
+        {
+          "text": "Ne",
+          "confidence": 42.0,
+          "left": 24,
+          "top": 2951,
+          "width": 56,
+          "height": 50,
+          "block_num": 25,
+          "line_num": 24,
+          "word_num": 1
+        },
+        {
+          "text": "Goods",
+          "confidence": 96.0,
+          "left": 24,
+          "top": 3023,
+          "width": 130,
+          "height": 38,
+          "block_num": 27,
+          "line_num": 1,
+          "word_num": 1
+        },
+        {
+          "text": "Once",
+          "confidence": 96.0,
+          "left": 170,
+          "top": 3025,
+          "width": 102,
+          "height": 36,
+          "block_num": 27,
+          "line_num": 1,
+          "word_num": 2
+        },
+        {
+          "text": "Sold",
+          "confidence": 96.0,
+          "left": 288,
+          "top": 3025,
+          "width": 88,
+          "height": 38,
+          "block_num": 27,
+          "line_num": 1,
+          "word_num": 3
+        },
+        {
+          "text": "Ca",
+          "confidence": 95.0,
+          "left": 422,
+          "top": 3037,
+          "width": 20,
+          "height": 26,
+          "block_num": 27,
+          "line_num": 1,
+          "word_num": 4
+        },
+        {
+          "text": "Salesman",
+          "confidence": 96.0,
+          "left": 24,
+          "top": 3161,
+          "width": 240,
+          "height": 52,
+          "block_num": 29,
+          "line_num": 1,
+          "word_num": 1
+        },
+        {
+          "text": "Sigh.",
+          "confidence": 0.0,
+          "left": 332,
+          "top": 3177,
+          "width": 80,
+          "height": 44,
+          "block_num": 29,
+          "line_num": 1,
+          "word_num": 2
+        },
+        {
+          "text": "SS",
+          "confidence": 64.0,
+          "left": 2434,
+          "top": 3003,
+          "width": 46,
+          "height": 24,
+          "block_num": 30,
+          "line_num": 1,
+          "word_num": 1
+        },
+        {
+          "text": "ogg",
+          "confidence": 47.0,
+          "left": 1662,
+          "top": 3035,
+          "width": 84,
+          "height": 42,
+          "block_num": 30,
+          "line_num": 2,
+          "word_num": 1
+        },
+        {
+          "text": "10",
+          "confidence": 72.0,
+          "left": 1767,
+          "top": 3018,
+          "width": 37,
+          "height": 73,
+          "block_num": 30,
+          "line_num": 2,
+          "word_num": 2
+        },
+        {
+          "text": "JU",
+          "confidence": 59.0,
+          "left": 1808,
+          "top": 3035,
+          "width": 106,
+          "height": 42,
+          "block_num": 30,
+          "line_num": 2,
+          "word_num": 3
+        },
+        {
+          "text": "Achat",
+          "confidence": 16.0,
+          "left": 1930,
+          "top": 3037,
+          "width": 122,
+          "height": 42,
+          "block_num": 30,
+          "line_num": 2,
+          "word_num": 4
+        },
+        {
+          "text": "ala",
+          "confidence": 25.0,
+          "left": 2066,
+          "top": 3039,
+          "width": 152,
+          "height": 48,
+          "block_num": 30,
+          "line_num": 2,
+          "word_num": 5
+        },
+        {
+          "text": "Sachul",
+          "confidence": 0.0,
+          "left": 2230,
+          "top": 3039,
+          "width": 158,
+          "height": 42,
+          "block_num": 30,
+          "line_num": 2,
+          "word_num": 6
+        },
+        {
+          "text": "ySce",
+          "confidence": 0.0,
+          "left": 2402,
+          "top": 3041,
+          "width": 78,
+          "height": 44,
+          "block_num": 30,
+          "line_num": 2,
+          "word_num": 7
+        }
+      ]
+    }
+  ]
+}
