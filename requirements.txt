@@ -1,0 +1,13 @@
+streamlit
+openai
+python-dotenv
+chromadb
+sentence-transformers
+torch
+torchvision
+torchaudio
+PyMuPDF
+pypdf
+pillow
+pytesseract
+pdf2image
