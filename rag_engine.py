@@ -1,9 +1,19 @@
 import os
+import json
+import re
 from dotenv import load_dotenv
 
 from llm_provider import ask_llm
 
 load_dotenv()
+
+# Keywords that signal the user wants a chart / table / infographic
+_VIZ_KEYWORDS = frozenset([
+    "infographic", "chart", "graph", "plot", "visualize", "visualization",
+    "bar chart", "pie chart", "pie", "breakdown", "price list", "item list",
+    "items and price", "prices", "show items", "list items", "compare prices",
+    "table of", "summarize prices", "price breakdown", "cost breakdown",
+])
 
 
 def retrieve_context(question: str, collection, top_k: int = 5) -> list:
@@ -76,3 +86,66 @@ Answer:"""
         for c in chunks
     ]
     return {"answer": answer, "sources": sources}
+
+
+# ---------------------------------------------------------------------------
+# Visualization helpers
+# ---------------------------------------------------------------------------
+
+def is_visualization_request(text: str) -> bool:
+    """Return True when the user's question is asking for a chart / infographic."""
+    lower = text.lower()
+    return any(kw in lower for kw in _VIZ_KEYWORDS)
+
+
+def extract_items_prices(collection) -> dict | None:
+    """
+    Retrieve invoice/document context then ask the LLM to return structured
+    JSON with items and prices.  Returns None if extraction fails.
+    """
+    # Broad retrieval terms to pull invoice line-item content
+    chunks = retrieve_context(
+        "items description quantity unit price total amount",
+        collection,
+        top_k=10,
+    )
+    if not chunks:
+        return None
+
+    context_text = "\n\n".join(c["text"] for c in chunks)
+
+    prompt = f"""From the document below, extract every line item with its price.
+Return ONLY a JSON object in exactly this format — no explanation, no markdown:
+
+{{
+  "items": [
+    {{"name": "item name", "quantity": 1, "unit_price": 0.0, "total": 0.0}}
+  ],
+  "currency": "KD",
+  "subtotal": 0.0,
+  "tax": 0.0,
+  "grand_total": 0.0
+}}
+
+Rules:
+- All price fields must be numbers (float), not strings.
+- Use null for any field not found in the document.
+- Include every distinct product / service listed.
+- Infer the currency from the document if visible.
+
+Document:
+{context_text}
+
+JSON:"""
+
+    raw = ask_llm(prompt)
+
+    # Pull the first JSON object out of the response (handles extra prose)
+    match = re.search(r"\{[\s\S]*\}", raw)
+    if not match:
+        return None
+
+    try:
+        return json.loads(match.group())
+    except json.JSONDecodeError:
+        return None

@@ -3,11 +3,13 @@ from pathlib import Path
 
 import streamlit as st
 import chromadb
+import plotly.express as px
+import pandas as pd
 from chromadb.utils.embedding_functions import SentenceTransformerEmbeddingFunction
 
 from ingest_document import ingest_ocr_json_dict, ingest_ocr_json_file
 from ocr_engine import ocr_pdf, create_searchable_pdf, ocr_json_to_txt
-from rag_engine import answer_question
+from rag_engine import answer_question, is_visualization_request, extract_items_prices
 
 st.set_page_config(page_title="OCR PDF AI Reader", layout="wide")
 st.title("OCR PDF AI Reader")
@@ -70,6 +72,69 @@ with st.sidebar:
     if st.button("Clear Chat History", use_container_width=True):
         st.session_state.messages = []
         st.rerun()
+
+
+# ---------------------------------------------------------------------------
+# Chart helper
+# ---------------------------------------------------------------------------
+
+def _render_invoice_chart(viz_data: dict):
+    """
+    Build a Plotly bar chart + summary table from extracted items/prices data.
+    Returns (fig, df, summary_md) or (None, None, error_msg).
+    """
+    items = viz_data.get("items") or []
+    if not items:
+        return None, None, "No items could be extracted from the document."
+
+    currency = viz_data.get("currency") or ""
+    rows = []
+    for item in items:
+        name = str(item.get("name") or "Unknown")
+        try:
+            total = float(item.get("total") or item.get("unit_price") or 0)
+        except (TypeError, ValueError):
+            total = 0.0
+        try:
+            qty = float(item.get("quantity") or 1)
+        except (TypeError, ValueError):
+            qty = 1.0
+        try:
+            unit = float(item.get("unit_price") or 0)
+        except (TypeError, ValueError):
+            unit = 0.0
+        rows.append({"Item": name, "Qty": qty, f"Unit Price ({currency})": unit, f"Total ({currency})": total})
+
+    df = pd.DataFrame(rows)
+    total_col = f"Total ({currency})"
+
+    fig = px.bar(
+        df,
+        x="Item",
+        y=total_col,
+        text=total_col,
+        title=f"Invoice Items & Prices ({currency})" if currency else "Invoice Items & Prices",
+        color=total_col,
+        color_continuous_scale="Blues",
+        template="plotly_white",
+    )
+    fig.update_traces(texttemplate="%{text:.3f}", textposition="outside")
+    fig.update_layout(
+        coloraxis_showscale=False,
+        xaxis_tickangle=-30,
+        margin=dict(t=60, b=100),
+    )
+
+    parts = []
+    if viz_data.get("subtotal") is not None:
+        parts.append(f"**Subtotal:** {currency} {viz_data['subtotal']:.3f}")
+    if viz_data.get("tax") is not None:
+        parts.append(f"**Tax:** {currency} {viz_data['tax']:.3f}")
+    if viz_data.get("grand_total") is not None:
+        parts.append(f"**Grand Total:** {currency} {viz_data['grand_total']:.3f}")
+    summary_md = "  \n".join(parts) if parts else ""
+
+    return fig, df, summary_md
 
 
 # ---------------------------------------------------------------------------
@@ -202,7 +267,7 @@ with tab_chat:
         with st.chat_message(msg["role"]):
             st.markdown(msg["content"])
 
-    question = st.chat_input("Ask a question about the indexed documents…")
+    question = st.chat_input("Ask a question, or request a chart / infographic…")
 
     if question:
         st.session_state.messages.append({"role": "user", "content": question})
@@ -210,17 +275,52 @@ with tab_chat:
             st.markdown(question)
 
         with st.chat_message("assistant"):
-            with st.spinner("Searching and generating answer…"):
-                result = answer_question(question, collection)
+            # ── Visualization branch ──────────────────────────────────────
+            if is_visualization_request(question):
+                with st.spinner("Extracting items and prices from the document…"):
+                    viz_data = extract_items_prices(collection)
 
-            st.markdown(result["answer"])
+                if viz_data and viz_data.get("items"):
+                    fig, df, summary_md = _render_invoice_chart(viz_data)
 
-            if result["sources"]:
-                unique_sources = sorted(
-                    {f"{s['doc_id']} — Page {s['page']}" for s in result["sources"]}
-                )
-                st.markdown("**Sources:**")
-                for src in unique_sources:
-                    st.markdown(f"- {src}")
+                    if fig is not None:
+                        st.plotly_chart(fig, use_container_width=True)
 
-        st.session_state.messages.append({"role": "assistant", "content": result["answer"]})
+                    if df is not None:
+                        st.dataframe(df, use_container_width=True, hide_index=True)
+
+                    if summary_md:
+                        st.markdown(summary_md)
+
+                    history_text = (
+                        f"*Infographic generated.*\n\n{summary_md}"
+                        if summary_md else "*Infographic generated.*"
+                    )
+                else:
+                    # Extraction failed — fall back to regular Q&A
+                    st.info(
+                        "Could not extract structured item data. "
+                        "Falling back to document Q&A."
+                    )
+                    result = answer_question(question, collection)
+                    st.markdown(result["answer"])
+                    history_text = result["answer"]
+
+            # ── Regular Q&A branch ────────────────────────────────────────
+            else:
+                with st.spinner("Searching and generating answer…"):
+                    result = answer_question(question, collection)
+
+                st.markdown(result["answer"])
+
+                if result["sources"]:
+                    unique_sources = sorted(
+                        {f"{s['doc_id']} — Page {s['page']}" for s in result["sources"]}
+                    )
+                    st.markdown("**Sources:**")
+                    for src in unique_sources:
+                        st.markdown(f"- {src}")
+
+                history_text = result["answer"]
+
+        st.session_state.messages.append({"role": "assistant", "content": history_text})
