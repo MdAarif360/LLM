@@ -1,3 +1,4 @@
+import io
 import json
 from pathlib import Path
 
@@ -8,12 +9,24 @@ import pandas as pd
 from chromadb.utils.embedding_functions import SentenceTransformerEmbeddingFunction
 
 from ingest_document import ingest_ocr_json_dict, ingest_ocr_json_file
-from ocr_engine import ocr_pdf, create_searchable_pdf, ocr_json_to_txt
+from ocr_engine import (
+    process_document,
+    create_searchable_pdf,
+    image_to_searchable_pdf,
+    can_make_searchable_pdf,
+    ocr_json_to_txt,
+    IMAGE_TYPES,
+    XLSX_TYPES,
+    ALL_SUPPORTED,
+)
 from rag_engine import answer_question, is_visualization_request, extract_items_prices
 
 st.set_page_config(page_title="OCR PDF AI Reader", layout="wide")
 st.title("OCR PDF AI Reader")
-st.caption("Upload PDFs to extract text via OCR, then ask questions about your documents.")
+st.caption(
+    "Supported file types: **PDF · JPG · PNG · DOCX · XLSX** — "
+    "upload a document, then ask questions or request charts."
+)
 
 BASE_DIR = Path(__file__).resolve().parent
 OCR_TEXT_FOLDER = BASE_DIR / "data" / "ocr_text"
@@ -143,113 +156,169 @@ def _render_invoice_chart(viz_data: dict):
 tab_upload, tab_chat = st.tabs(["Upload & OCR", "Chat with Documents"])
 
 
-# ── Upload & OCR ────────────────────────────────────────────────────────────
+# ── Upload & Process ────────────────────────────────────────────────────────
 with tab_upload:
-    st.subheader("Upload a PDF for OCR Processing")
-    st.markdown(
-        "Uploaded files are processed **in-memory** — nothing is written to disk. "
-        "Download your results before closing the tab."
-    )
+    st.subheader("Upload a Document")
+
+    # Build accepted extension list from ocr_engine constants (no leading dots for Streamlit)
+    accepted_exts = [e.lstrip(".") for e in ALL_SUPPORTED]
+
+    # Human-readable type labels for the UI
+    _TYPE_LABELS = {
+        ".pdf": ("📄", "PDF"),
+        ".jpg": ("🖼️", "Image"),  ".jpeg": ("🖼️", "Image"),
+        ".png": ("🖼️", "Image"),  ".bmp":  ("🖼️", "Image"),
+        ".tiff":("🖼️", "Image"),  ".webp": ("🖼️", "Image"),
+        ".docx":("📝", "Word"),
+        ".xlsx":("📊", "Excel"),
+    }
 
     uploaded_file = st.file_uploader(
-        "Choose a PDF file",
-        type=["pdf"],
-        help="Scanned or digital PDF — text will be extracted via Tesseract OCR",
+        "Choose a file",
+        type=accepted_exts,
+        help="PDF · Images (JPG/PNG/BMP/TIFF) · Word (.docx) · Excel (.xlsx)",
     )
 
     if uploaded_file:
-        # Cache raw bytes so repeated reruns don't lose the file position
+        # Cache raw bytes — prevents losing file position on Streamlit reruns
         cache_key = f"bytes_{uploaded_file.name}_{uploaded_file.size}"
         if cache_key not in st.session_state:
             st.session_state[cache_key] = uploaded_file.read()
-        pdf_bytes = st.session_state[cache_key]
+        file_bytes = st.session_state[cache_key]
 
-        filename = uploaded_file.name
-        doc_stem = Path(filename).stem
-        ocr_key = f"ocr_{doc_stem}"
+        filename  = uploaded_file.name
+        doc_stem  = Path(filename).stem
+        file_ext  = Path(filename).suffix.lower()
+        ocr_key   = f"ocr_{doc_stem}"
+        icon, type_label = _TYPE_LABELS.get(file_ext, ("📁", "Document"))
 
-        col_info, col_btn = st.columns([3, 1])
-        with col_info:
-            st.info(f"**{filename}** — {len(pdf_bytes) / 1024:.1f} KB")
-        with col_btn:
-            run_ocr = st.button("Run OCR & Index", type="primary", use_container_width=True)
+        # ── Info row ──
+        c_info, c_btn = st.columns([3, 1])
+        with c_info:
+            st.info(f"{icon} **{filename}** · {type_label} · {len(file_bytes) / 1024:.1f} KB")
+        with c_btn:
+            btn_label = (
+                "Run OCR & Index"
+                if file_ext in IMAGE_TYPES | {".pdf"}
+                else "Extract & Index"
+            )
+            run_btn = st.button(btn_label, type="primary", use_container_width=True)
 
-        if run_ocr:
-            with st.spinner(f"Running OCR on {filename}… (may take a moment per page)"):
-                ocr_json = ocr_pdf(pdf_bytes, filename)
+        # ── Processing ──
+        if run_btn:
+            spinner_msg = (
+                f"Running OCR on {filename}… (may take a moment per page)"
+                if file_ext in IMAGE_TYPES | {".pdf"}
+                else f"Extracting text from {filename}…"
+            )
+            with st.spinner(spinner_msg):
+                try:
+                    ocr_json = process_document(file_bytes, filename)
+                except Exception as exc:
+                    st.error(f"Processing failed: {exc}")
+                    ocr_json = None
 
-            # Store result in session state
-            st.session_state[ocr_key] = {"ocr_json": ocr_json, "pdf_bytes": pdf_bytes}
+            if ocr_json is not None:
+                st.session_state[ocr_key] = {
+                    "ocr_json":   ocr_json,
+                    "file_bytes": file_bytes,
+                    "file_ext":   file_ext,
+                }
+                chunk_count = ingest_ocr_json_dict(ocr_json, collection)
+                if doc_stem not in st.session_state.session_docs:
+                    st.session_state.session_docs.append(doc_stem)
 
-            # Add to shared ChromaDB collection
-            chunk_count = ingest_ocr_json_dict(ocr_json, collection)
+                page_count = len(ocr_json.get("pages", []))
+                unit = "sheet(s)" if file_ext in XLSX_TYPES else "page(s)"
+                st.success(f"Done! {page_count} {unit} extracted · {chunk_count} chunks indexed.")
 
-            if doc_stem not in st.session_state.session_docs:
-                st.session_state.session_docs.append(doc_stem)
-
-            page_count = len(ocr_json.get("pages", []))
-            st.success(f"Done! {page_count} page(s) extracted · {chunk_count} chunks indexed.")
-
-        # Show download section if OCR has been run for this file
+        # ── Results & Downloads ──
         if ocr_key in st.session_state:
-            result = st.session_state[ocr_key]
-            ocr_json = result["ocr_json"]
+            res       = st.session_state[ocr_key]
+            ocr_json  = res["ocr_json"]
+            fb        = res["file_bytes"]
+            fext      = res["file_ext"]
 
             st.markdown("---")
-            st.subheader("Download Results")
+            st.subheader("Downloads")
 
             json_bytes = json.dumps(ocr_json, ensure_ascii=False, indent=2).encode("utf-8")
-            txt_bytes = ocr_json_to_txt(ocr_json).encode("utf-8")
+            txt_bytes  = ocr_json_to_txt(ocr_json).encode("utf-8")
 
             dl1, dl2, dl3 = st.columns(3)
 
             with dl1:
                 st.download_button(
-                    label="OCR JSON",
+                    "Extracted JSON",
                     data=json_bytes,
                     file_name=f"{doc_stem}.json",
                     mime="application/json",
                     use_container_width=True,
-                    help="Structured JSON with page and line data",
+                    help="Structured JSON with page/sheet and line data",
                 )
-
             with dl2:
                 st.download_button(
-                    label="OCR Text (.txt)",
+                    "Extracted Text (.txt)",
                     data=txt_bytes,
                     file_name=f"{doc_stem}.txt",
                     mime="text/plain",
                     use_container_width=True,
-                    help="Plain text extracted from all pages",
+                    help="Full plain-text extraction across all pages/sheets",
                 )
-
             with dl3:
-                searchable_key = f"searchable_{doc_stem}"
-                if searchable_key in st.session_state:
-                    st.download_button(
-                        label="Searchable PDF",
-                        data=st.session_state[searchable_key],
-                        file_name=f"{doc_stem}_searchable.pdf",
-                        mime="application/pdf",
-                        use_container_width=True,
-                        help="Original pages with invisible OCR text layer",
-                    )
+                if can_make_searchable_pdf(filename):
+                    s_key = f"searchable_{doc_stem}"
+                    if s_key in st.session_state:
+                        st.download_button(
+                            "Searchable PDF",
+                            data=st.session_state[s_key],
+                            file_name=f"{doc_stem}_searchable.pdf",
+                            mime="application/pdf",
+                            use_container_width=True,
+                            help="Original image with invisible OCR text layer — Ctrl+F searchable",
+                        )
+                    else:
+                        if st.button(
+                            "Generate Searchable PDF",
+                            use_container_width=True,
+                            help="Only for PDF / image inputs — embeds OCR text so the file is searchable",
+                        ):
+                            with st.spinner("Embedding OCR text layer…"):
+                                if fext == ".pdf":
+                                    st.session_state[s_key] = create_searchable_pdf(fb)
+                                else:
+                                    st.session_state[s_key] = image_to_searchable_pdf(fb)
+                            st.rerun()
                 else:
-                    if st.button(
-                        "Generate Searchable PDF",
-                        use_container_width=True,
-                        help="Embeds OCR text into the PDF so it becomes copy-paste and Ctrl+F searchable",
-                    ):
-                        with st.spinner("Embedding text layer into PDF…"):
-                            st.session_state[searchable_key] = create_searchable_pdf(
-                                result["pdf_bytes"]
-                            )
-                        st.rerun()
+                    st.caption("ℹ️ Searchable PDF not applicable — source is already native text.")
 
-            # Text preview
-            with st.expander("Preview extracted text"):
+            # ── Content preview ──
+            with st.expander("Preview extracted content"):
+                # For images: show the actual image first
+                if fext in IMAGE_TYPES:
+                    st.image(
+                        io.BytesIO(fb),
+                        caption=filename,
+                        use_container_width=True,
+                    )
+                    st.divider()
+
+                # For XLSX: also show the raw dataframe of the first sheet
+                if fext in XLSX_TYPES:
+                    try:
+                        df_preview = pd.read_excel(
+                            io.BytesIO(fb), sheet_name=0, engine="openpyxl"
+                        )
+                        st.markdown("**Spreadsheet preview (Sheet 1):**")
+                        st.dataframe(df_preview.head(20), use_container_width=True)
+                        st.divider()
+                    except Exception:
+                        pass
+
+                # Text preview for all types
+                page_label = "Sheet" if fext in XLSX_TYPES else "Page"
                 for page in ocr_json.get("pages", []):
-                    st.markdown(f"**Page {page['page']}**")
+                    st.markdown(f"**{page_label} {page['page']}**")
                     preview = page.get("text", "")
                     st.text(preview[:600] + ("…" if len(preview) > 600 else ""))
                     st.divider()

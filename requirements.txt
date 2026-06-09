@@ -21,6 +21,8 @@ pdf2image
 
 plotly
 pandas
+openpyxl
+python-docx
 
 langchain==0.2.11
 langchain-community==0.2.10
