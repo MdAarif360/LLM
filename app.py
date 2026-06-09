@@ -1,5 +1,6 @@
 import io
 import json
+from datetime import datetime, timedelta
 from pathlib import Path
 
 import streamlit as st
@@ -19,9 +20,14 @@ from ocr_engine import (
     XLSX_TYPES,
     ALL_SUPPORTED,
 )
-from rag_engine import answer_question, is_visualization_request, extract_items_prices
+from rag_engine import (
+    answer_question,
+    is_visualization_request,
+    extract_chart_data,
+    rewrite_query,
+)
 
-st.set_page_config(page_title="OCR PDF AI Reader", layout="wide")
+st.set_page_config(page_title="OCR PDF AI Reader", layout="wide", initial_sidebar_state="collapsed")
 st.title("OCR PDF AI Reader")
 st.caption(
     "Supported file types: **PDF · JPG · PNG · DOCX · XLSX** — "
@@ -88,66 +94,155 @@ with st.sidebar:
 
 
 # ---------------------------------------------------------------------------
-# Chart helper
+# Universal chart renderer — the LLM decides the type, we just draw it
 # ---------------------------------------------------------------------------
 
-def _render_invoice_chart(viz_data: dict):
+def _build_gantt_fig(gantt_rows: list, title: str) -> "go.Figure | None":
+    """Construct a Plotly Gantt/timeline figure from gantt_data records."""
+    rows, cursor = [], datetime.today().replace(day=1)
+    has_real_dates = False
+
+    for i, task in enumerate(gantt_rows):
+        name     = str(task.get("name") or f"Task {i+1}")
+        category = str(task.get("category") or "Task")
+        dur_w    = task.get("duration_weeks") or 2
+
+        try:
+            start = datetime.strptime(str(task.get("start", ""))[:10], "%Y-%m-%d")
+            has_real_dates = True
+        except (ValueError, TypeError):
+            start = cursor
+        try:
+            end = datetime.strptime(str(task.get("end", ""))[:10], "%Y-%m-%d")
+            has_real_dates = True
+        except (ValueError, TypeError):
+            try:
+                end = start + timedelta(weeks=float(dur_w))
+            except (ValueError, TypeError):
+                end = start + timedelta(weeks=2)
+
+        if end <= start:
+            end = start + timedelta(days=1)
+        cursor = end
+        rows.append({"Task": name, "Start": start.strftime("%Y-%m-%d"),
+                     "Finish": end.strftime("%Y-%m-%d"), "Category": category})
+
+    if not rows:
+        return None, False
+
+    df_g = pd.DataFrame(rows)
+    fig = px.timeline(df_g, x_start="Start", x_end="Finish", y="Task",
+                      color="Category", title=title, template="plotly_white",
+                      color_discrete_sequence=px.colors.qualitative.Set2)
+    fig.update_yaxes(autorange="reversed")
+    fig.add_vline(x=datetime.today().strftime("%Y-%m-%d"),
+                  line_dash="dash", line_color="red",
+                  annotation_text="Today", annotation_position="top right")
+    fig.update_layout(margin=dict(t=60, l=240, b=80),
+                      xaxis_title="Timeline", yaxis_title="", legend_title="Category")
+    return fig, has_real_dates
+
+
+def render_chart(chart_data: dict):
     """
-    Build a Plotly bar chart + summary table from extracted items/prices data.
-    Returns (fig, df, summary_md) or (None, None, error_msg).
+    Dynamic chart renderer — handles every chart type the LLM may return.
+    Returns (fig_or_None, df_or_None, note_str).
     """
-    items = viz_data.get("items") or []
-    if not items:
-        return None, None, "No items could be extracted from the document."
+    chart_type  = (chart_data.get("chart_type") or "none").lower().strip()
+    title       = chart_data.get("title") or "Chart"
+    description = chart_data.get("description") or ""
+    x_label     = chart_data.get("x_label") or ""
+    y_label     = chart_data.get("y_label") or ""
+    raw_data    = chart_data.get("data") or []
+    gantt_rows  = chart_data.get("gantt_data") or []
+    colors      = px.colors.qualitative.Set2
 
-    currency = viz_data.get("currency") or ""
-    rows = []
-    for item in items:
-        name = str(item.get("name") or "Unknown")
-        try:
-            total = float(item.get("total") or item.get("unit_price") or 0)
-        except (TypeError, ValueError):
-            total = 0.0
-        try:
-            qty = float(item.get("quantity") or 1)
-        except (TypeError, ValueError):
-            qty = 1.0
-        try:
-            unit = float(item.get("unit_price") or 0)
-        except (TypeError, ValueError):
-            unit = 0.0
-        rows.append({"Item": name, "Qty": qty, f"Unit Price ({currency})": unit, f"Total ({currency})": total})
+    # ── Gantt / Timeline ──────────────────────────────────────────────────
+    if chart_type == "gantt":
+        source = gantt_rows or raw_data          # LLM sometimes puts data in wrong key
+        fig, has_real = _build_gantt_fig(source, title)
+        note = ("" if has_real
+                else "ℹ️ *No explicit dates found — blocks are estimated placeholders.*")
+        df_out = pd.DataFrame(source) if source else None
+        return fig, df_out, (description + "\n\n" + note).strip()
 
-    df = pd.DataFrame(rows)
-    total_col = f"Total ({currency})"
+    # ── No data returned ─────────────────────────────────────────────────
+    if chart_type == "none" or not raw_data:
+        return None, None, description or "No chart data could be extracted from the document."
 
-    fig = px.bar(
-        df,
-        x="Item",
-        y=total_col,
-        text=total_col,
-        title=f"Invoice Items & Prices ({currency})" if currency else "Invoice Items & Prices",
-        color=total_col,
-        color_continuous_scale="Blues",
-        template="plotly_white",
-    )
-    fig.update_traces(texttemplate="%{text:.3f}", textposition="outside")
-    fig.update_layout(
-        coloraxis_showscale=False,
-        xaxis_tickangle=-30,
-        margin=dict(t=60, b=100),
-    )
+    # ── Build normalised DataFrame ────────────────────────────────────────
+    df = pd.DataFrame(raw_data)
+    if "x" not in df.columns:
+        return None, None, "The extracted data is missing the 'x' (category) field."
+    if "y" not in df.columns:
+        df["y"] = 0
+    df["y"] = pd.to_numeric(df["y"], errors="coerce").fillna(0)
 
-    parts = []
-    if viz_data.get("subtotal") is not None:
-        parts.append(f"**Subtotal:** {currency} {viz_data['subtotal']:.3f}")
-    if viz_data.get("tax") is not None:
-        parts.append(f"**Tax:** {currency} {viz_data['tax']:.3f}")
-    if viz_data.get("grand_total") is not None:
-        parts.append(f"**Grand Total:** {currency} {viz_data['grand_total']:.3f}")
-    summary_md = "  \n".join(parts) if parts else ""
+    has_group = "group" in df.columns and df["group"].notna().any() and df["group"].nunique() > 1
+    color_col = "group" if has_group else None
+    shared    = dict(template="plotly_white", color_discrete_sequence=colors)
 
-    return fig, df, summary_md
+    # ── Table (no figure, just dataframe) ────────────────────────────────
+    if chart_type == "table":
+        if has_group:
+            try:
+                pivot = df.pivot_table(index="x", columns="group",
+                                       values="y", aggfunc="sum")
+                pivot.index.name = x_label or "Category"
+                return None, pivot.reset_index(), description
+            except Exception:
+                pass
+        return None, df.rename(columns={"x": x_label or "Category",
+                                        "y": y_label or "Value"}), description
+
+    # ── All Plotly chart types ────────────────────────────────────────────
+    fig = None
+
+    if chart_type == "bar":
+        fig = px.bar(df, x="x", y="y", color=color_col, title=title,
+                     text="y", **shared)
+        fig.update_traces(texttemplate="%{text:,.2f}", textposition="outside")
+        fig.update_layout(xaxis_tickangle=-30)
+
+    elif chart_type == "horizontal_bar":
+        fig = px.bar(df, x="y", y="x", color=color_col, title=title,
+                     text="y", orientation="h", **shared)
+        fig.update_traces(texttemplate="%{text:,.2f}", textposition="outside")
+        fig.update_layout(yaxis=dict(autorange="reversed"))
+
+    elif chart_type == "line":
+        fig = px.line(df, x="x", y="y", color=color_col, title=title,
+                      markers=True, **shared)
+
+    elif chart_type in ("pie", "donut"):
+        fig = px.pie(df, names="x", values="y", title=title,
+                     hole=0.4 if chart_type == "donut" else 0,
+                     template="plotly_white",
+                     color_discrete_sequence=colors)
+        fig.update_traces(textposition="inside", textinfo="percent+label")
+
+    elif chart_type == "area":
+        fig = px.area(df, x="x", y="y", color=color_col, title=title, **shared)
+
+    elif chart_type == "scatter":
+        fig = px.scatter(df, x="x", y="y", color=color_col, title=title,
+                         size_max=15, **shared)
+
+    else:
+        # Unknown type — fall back to bar
+        fig = px.bar(df, x="x", y="y", color=color_col, title=title,
+                     text="y", **shared)
+        fig.update_traces(texttemplate="%{text:,.2f}", textposition="outside")
+
+    if fig:
+        fig.update_layout(xaxis_title=x_label or None,
+                          yaxis_title=y_label or None,
+                          margin=dict(t=60, b=100, l=80),
+                          legend_title="")
+
+    display_df = df.rename(columns={"x": x_label or "Category",
+                                    "y": y_label or "Value"})
+    return fig, display_df, description
 
 
 # ---------------------------------------------------------------------------
@@ -339,46 +434,62 @@ with tab_chat:
     question = st.chat_input("Ask a question, or request a chart / infographic…")
 
     if question:
+        # Snapshot history BEFORE appending the current turn.
+        # This is what gets passed to the LLM as "prior conversation".
+        prior_history = list(st.session_state.messages)
+
         st.session_state.messages.append({"role": "user", "content": question})
         with st.chat_message("user"):
             st.markdown(question)
 
         with st.chat_message("assistant"):
-            # ── Visualization branch ──────────────────────────────────────
+
+            # ── Visualization path ────────────────────────────────────────
             if is_visualization_request(question):
-                with st.spinner("Extracting items and prices from the document…"):
-                    viz_data = extract_items_prices(collection)
-
-                if viz_data and viz_data.get("items"):
-                    fig, df, summary_md = _render_invoice_chart(viz_data)
-
-                    if fig is not None:
-                        st.plotly_chart(fig, use_container_width=True)
-
-                    if df is not None:
-                        st.dataframe(df, use_container_width=True, hide_index=True)
-
-                    if summary_md:
-                        st.markdown(summary_md)
-
-                    history_text = (
-                        f"*Infographic generated.*\n\n{summary_md}"
-                        if summary_md else "*Infographic generated.*"
+                with st.spinner(
+                    "Analysing document and deciding the best chart type…"
+                ):
+                    chart_data = extract_chart_data(
+                        question, collection, chat_history=prior_history
                     )
-                else:
-                    # Extraction failed — fall back to regular Q&A
+
+                if chart_data is None:
+                    st.error("Chart extraction failed. Try rephrasing your request.")
+                    history_text = "Chart extraction failed."
+
+                elif chart_data.get("chart_type") == "none":
                     st.info(
-                        "Could not extract structured item data. "
-                        "Falling back to document Q&A."
+                        f"No chart data found: {chart_data.get('description', '')}  \n"
+                        "Answering as a plain document question instead."
                     )
-                    result = answer_question(question, collection)
+                    result = answer_question(
+                        question, collection, chat_history=prior_history
+                    )
                     st.markdown(result["answer"])
                     history_text = result["answer"]
 
-            # ── Regular Q&A branch ────────────────────────────────────────
+                else:
+                    fig, df, note = render_chart(chart_data)
+
+                    if fig is not None:
+                        st.plotly_chart(fig, use_container_width=True)
+                    if df is not None and not df.empty:
+                        st.dataframe(df, use_container_width=True, hide_index=True)
+                    if note:
+                        st.markdown(note)
+
+                    chart_label = (chart_data.get("chart_type") or "chart").title()
+                    history_text = (
+                        f"*{chart_label} generated: {chart_data.get('title', '')}*"
+                        + (f"\n\n{note}" if note else "")
+                    ).strip()
+
+            # ── Plain Q&A path ────────────────────────────────────────────
             else:
                 with st.spinner("Searching and generating answer…"):
-                    result = answer_question(question, collection)
+                    result = answer_question(
+                        question, collection, chat_history=prior_history
+                    )
 
                 st.markdown(result["answer"])
 
