@@ -20,8 +20,8 @@ from llm_provider import ask_llm
 # Metadata keys the extractor attaches to every record (prefixed with "_").
 META_KEYS = (
     "_doc", "_page", "_position", "_unclear_fields", "_handwritten_fields",
-    "_is_duplicate_copy", "_has_signature", "_notes", "_is_duplicate",
-    "_duplicate_group", "_duplicate_count",
+    "_suspect_fields", "_is_duplicate_copy", "_has_signature", "_notes",
+    "_is_duplicate", "_duplicate_group", "_duplicate_count",
 )
 
 
@@ -124,7 +124,7 @@ def extract_records_from_pages(pages: list, doc_id: str, progress_cb=None) -> li
     if progress_cb:
         progress_cb(total, total, None)
 
-    return flag_duplicates(records)
+    return validate_records(flag_duplicates(records))
 
 
 # ---------------------------------------------------------------------------
@@ -290,6 +290,111 @@ def _numeric_columns(df: pd.DataFrame, threshold: float = 0.6) -> list:
 
 
 # ---------------------------------------------------------------------------
+# 4b. Value validation — catch structurally-impossible OCR misreads
+#     (e.g. "5.q00", year 2626, hour 66) WITHOUT silently "correcting" them.
+# ---------------------------------------------------------------------------
+
+_VAL_DATE_RX  = re.compile(r"(\d{4})[-/.](\d{1,2})[-/.](\d{1,2})")
+_VAL_DATE_RX2 = re.compile(r"(\d{1,2})[-/.](\d{1,2})[-/.](\d{4})")
+_VAL_TIME_RX  = re.compile(r"(\d{1,2}):(\d{2})(?::(\d{2}))?")
+
+
+def _digit_ratio(s: str) -> float:
+    core = [c for c in s if not c.isspace()]
+    return sum(c.isdigit() for c in core) / len(core) if core else 0.0
+
+
+def _has_interior_letter(s: str) -> bool:
+    """A letter sitting BETWEEN two digits (e.g. '5.q00', '10O50') — a classic
+    OCR digit misread. Prefix/suffix letters (IDs 'A101', plates 'KW-1234') are
+    intentionally NOT flagged."""
+    digs = [i for i, c in enumerate(s) if c.isdigit()]
+    if len(digs) < 2:
+        return False
+    return any(s[i].isalpha() for i in range(digs[0] + 1, digs[-1]))
+
+
+def validate_value(value) -> str | None:
+    """
+    Return a reason string if `value` is structurally impossible/corrupt, else None.
+    Checks: implausible dates (year/month/day), invalid times (H/M/S), and letters
+    embedded inside numbers. Never alters the value — only flags it.
+    """
+    if value is None:
+        return None
+    s = str(value).strip()
+    if not s:
+        return None
+
+    reasons = []
+    md, dm = _VAL_DATE_RX.search(s), _VAL_DATE_RX2.search(s)
+    if md:
+        y, mo, d = (int(x) for x in md.groups())
+    elif dm:
+        d, mo, y = (int(x) for x in dm.groups())
+    else:
+        y = mo = d = None
+    if y is not None:
+        if not (1900 <= y <= 2100):
+            reasons.append(f"implausible year {y}")
+        if not (1 <= mo <= 12):
+            reasons.append(f"invalid month {mo}")
+        if not (1 <= d <= 31):
+            reasons.append(f"invalid day {d}")
+
+    tm = _VAL_TIME_RX.search(s)
+    if tm:
+        h, mi = int(tm.group(1)), int(tm.group(2))
+        se = int(tm.group(3) or 0)
+        if not (0 <= h <= 23):
+            reasons.append(f"invalid hour {h}")
+        if not (0 <= mi <= 59):
+            reasons.append(f"invalid minute {mi}")
+        if not (0 <= se <= 59):
+            reasons.append(f"invalid second {se}")
+
+    if _digit_ratio(s) >= 0.5 and _has_interior_letter(s):
+        reasons.append("letter inside numeric value (likely OCR error)")
+
+    return "; ".join(reasons) if reasons else None
+
+
+def validate_records(records: list) -> list:
+    """Stamp each record with `_suspect_fields` = ["field: reason", ...]. Idempotent."""
+    for rec in records:
+        suspects = []
+        for k, v in rec.items():
+            if k.startswith("_"):
+                continue
+            reason = validate_value(v)
+            if reason:
+                suspects.append(f"{k}: {reason}")
+        rec["_suspect_fields"] = suspects
+    return records
+
+
+def suspect_findings(df: pd.DataFrame, limit: int = 40) -> list:
+    """
+    Recompute validation issues directly from a DataFrame's raw values (works even
+    for records extracted before validation existed). Returns human-readable lines.
+    """
+    if df is None or df.empty:
+        return []
+    content_cols = [c for c in df.columns if not c.startswith("_")]
+    page_col = "_page" if "_page" in df.columns else None
+    out = []
+    for idx, row in df.iterrows():
+        for col in content_cols:
+            reason = validate_value(row[col])
+            if reason:
+                where = f"page {row[page_col]}, " if page_col else ""
+                out.append(f"{where}'{col}'='{row[col]}' — {reason}")
+                if len(out) >= limit:
+                    return out
+    return out
+
+
+# ---------------------------------------------------------------------------
 # 5. Deterministic data profile  (the authoritative numbers)
 # ---------------------------------------------------------------------------
 
@@ -373,6 +478,15 @@ def compute_data_profile(df: pd.DataFrame, max_groups: int = 60) -> str:
                     f"- {veh}: first={r['min']:,.0f}, last={r['max']:,.0f}, "
                     f"km_travelled={r['km_travelled']:,.0f}, readings={int(r['count'])}"
                 )
+        out.append("")
+
+    # ── Data-quality warnings (impossible values to flag, never to trust) ──
+    suspects = suspect_findings(df, limit=30)
+    if suspects:
+        out.append(f"**Data-quality warnings — {len(suspects)} value(s) failed validation "
+                   "(likely OCR misreads; treat as UNVERIFIED, do not present as clean):**")
+        for s in suspects:
+            out.append(f"- {s}")
         out.append("")
 
     return "\n".join(out)
@@ -492,6 +606,16 @@ def run_audit(df: pd.DataFrame) -> list:
         if n_nosig:
             findings.append(f"{n_nosig} record(s) with no detected signature.")
 
+    # Structurally-invalid values (impossible date/time, letters inside numbers)
+    suspects = suspect_findings(df, limit=40)
+    if suspects:
+        examples = "; ".join(suspects[:5])
+        findings.append(
+            f"{len(suspects)} value(s) failed validation — impossible date/time or "
+            f"letters inside numbers (likely OCR misreads, NOT corrected). "
+            f"Examples: {examples}"
+        )
+
     return findings or ["No issues detected by automated checks."]
 
 
@@ -529,3 +653,119 @@ def records_to_compact_json(df: pd.DataFrame, char_budget: int = 60000) -> tuple
         truncated.append(rec)
         n += len(s)
     return json.dumps(truncated, ensure_ascii=False, default=str), True
+
+
+# ---------------------------------------------------------------------------
+# 8. Deterministic table rendering  (so "make a table" ALWAYS yields a table,
+#    never an LLM-formatted bullet list)
+# ---------------------------------------------------------------------------
+
+# Concept synonyms so "amount and date" maps to the right columns regardless of
+# the exact field names the extractor chose.
+_TABLE_SYNONYMS = {
+    "amount":   ("amount", "total", "price", "cost", "value", "expense", "paid", "fare", "sum"),
+    "date":     ("date", "dated"),
+    "time":     ("time", "timestamp"),
+    "vehicle":  ("vehicle", "plate", "car", "truck", "lorry", "bus", "asset"),
+    "station":  ("station", "pump", "outlet", "vendor", "supplier", "merchant"),
+    "quantity": ("quantity", "qty", "liter", "litre", "liters", "litres", "volume", "gallons"),
+    "fuel":     ("fuel", "petrol", "diesel", "gasoline", "product"),
+    "receipt":  ("receipt", "invoice", "bill", "voucher", "reference"),
+    "odometer": ("odometer", "kilometer", "kilometre", "mileage", "meter", "reading"),
+    "driver":   ("driver", "employee", "operator"),
+}
+
+
+def _word_in(word: str, text: str) -> bool:
+    return re.search(rf"\b{re.escape(word)}\b", text) is not None
+
+
+def select_columns(question: str, df: pd.DataFrame) -> list:
+    """
+    Deterministically pick which content columns the user asked to see.
+    Matches the question against each column's own words and a synonym map.
+    Returns [] when nothing specific is requested (caller shows all columns).
+    """
+    q = question.lower()
+    content = [c for c in df.columns if not c.startswith("_")]
+    chosen = set()
+
+    for col in content:
+        cl = col.lower()
+        words = [w for w in re.split(r"[_\s]+", cl) if len(w) >= 3]
+        if any(_word_in(w, q) for w in words):
+            chosen.add(col)
+            continue
+        for syns in _TABLE_SYNONYMS.values():
+            related = cl in syns or any(w in syns for w in words)
+            if related and any(_word_in(s, q) for s in syns):
+                chosen.add(col)
+                break
+
+    return [c for c in content if c in chosen]   # preserve original order
+
+
+def df_to_markdown(df: pd.DataFrame) -> str:
+    """Render a DataFrame as a GitHub-flavored markdown table (dependency-free)."""
+    if df is None or df.empty:
+        return ""
+
+    def esc(v):
+        try:
+            if pd.isna(v):
+                return ""
+        except (TypeError, ValueError):
+            pass
+        return str(v).replace("|", "\\|").replace("\n", " ").strip()
+
+    cols = [str(c) for c in df.columns]
+    lines = [
+        "| " + " | ".join(cols) + " |",
+        "| " + " | ".join("---" for _ in cols) + " |",
+    ]
+    for _, row in df.iterrows():
+        lines.append("| " + " | ".join(esc(row[c]) for c in df.columns) + " |")
+    return "\n".join(lines)
+
+
+def build_records_table(question: str, df: pd.DataFrame, max_rows: int = 200) -> tuple[str, str]:
+    """
+    Build a real markdown table from the structured records.
+
+    - Projects to the columns the user asked for (or all, if unspecified).
+    - Always appends a Page column for source verification.
+    - Marks any value that fails validation with ' ⚠️' (never silently fixed).
+
+    Returns (markdown_table, note). The table is deterministic — it does not
+    depend on the LLM to format anything.
+    """
+    if df is None or df.empty:
+        return "", "No structured records available. Extract them on the Upload tab first."
+
+    content = [c for c in df.columns if not c.startswith("_")]
+    cols = select_columns(question, df) or content
+    cols = cols[:12]                      # keep the table readable
+
+    disp = pd.DataFrame(index=df.index)
+    has_suspect = False
+    for c in cols:
+        rendered = []
+        for v in df[c]:
+            mark = ""
+            if validate_value(v):
+                mark, has_suspect = " ⚠️", True
+            rendered.append(("" if pd.isna(v) else str(v)) + mark)
+        disp[c] = rendered
+
+    if "_page" in df.columns:
+        disp["Page"] = df["_page"].astype(str).values
+
+    note = ""
+    if len(disp) > max_rows:
+        note = (f"Showing first {max_rows} of {len(disp)} rows — "
+                "use the CSV/Excel export for the complete set.")
+    if has_suspect:
+        note = (note + "  \n" if note else "") + \
+            "⚠️ = value failed validation (likely OCR misread) — verify on the source page."
+
+    return df_to_markdown(disp.head(max_rows)), note

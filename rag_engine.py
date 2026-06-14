@@ -43,6 +43,14 @@ def is_export_request(text: str) -> bool:
     return any(kw in lower for kw in _EXPORT_GATE)
 
 
+def is_table_request(text: str) -> bool:
+    """True when the user wants the data laid out as a table (rendered
+    deterministically, not as LLM-formatted text)."""
+    lower = text.lower()
+    return any(kw in lower for kw in ("table", "tabular", "column", "columns",
+                                      "row-wise", "list out", "tabulate"))
+
+
 # ---------------------------------------------------------------------------
 # Visualization gate
 # ---------------------------------------------------------------------------
@@ -295,8 +303,16 @@ ABSOLUTE RULES:
    the user can verify it in the original document.
 5. If the answer is not derivable from this data, say exactly:
    "This information is not available in the extracted data."
-6. Be concise. Use markdown tables for lists. Show the currency/units exactly as they
-   appear in the data — do not assume a currency that isn't present.
+6. Be concise. Show the currency/units exactly as they appear in the data — do not
+   assume a currency that isn't present.
+7. TABLES: when the user asks for a "table" (or any column layout), output a proper
+   GitHub-flavored markdown table with a header row and a | Page | column. Do not use
+   bullet lists or em-dashes for tabular data.
+8. DATA QUALITY: the "Data-quality warnings" section lists values that failed
+   validation (impossible dates/times, letters inside numbers — OCR misreads). For any
+   such value, append " ⚠️(unverified)" next to it and NEVER present it as a clean or
+   confirmed value. Do NOT silently correct it (e.g. do not turn 2626 into 2026) — keep
+   it as-is, flagged, so the user knows to re-check that page.
 {truncation_note}
 Computed Aggregates (authoritative):
 {profile}

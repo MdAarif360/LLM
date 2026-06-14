@@ -26,12 +26,14 @@ from extraction_engine import (
     run_audit,
     df_to_csv_bytes,
     df_to_xlsx_bytes,
+    build_records_table,
 )
 from rag_engine import (
     answer_question,
     is_visualization_request,
     is_analytical_query,
     is_export_request,
+    is_table_request,
     answer_over_records,
     extract_chart_data,
     rewrite_query,
@@ -622,7 +624,19 @@ with tab_chat:
                         + (f"\n\n{note}" if note else "")
                     ).strip()
 
-            # ── 3. Analytical query over the full structured dataset ──────
+            # ── 3. Table request — render a REAL table deterministically ──
+            elif _has_records and is_table_request(question):
+                table_md, note = build_records_table(question, _records_df)
+                if table_md:
+                    st.markdown(table_md)
+                    if note:
+                        st.caption(note)
+                    history_text = table_md + (f"\n\n{note}" if note else "")
+                else:
+                    st.info(note or "No records to tabulate.")
+                    history_text = note or "No records to tabulate."
+
+            # ── 4. Analytical query over the full structured dataset ──────
             elif _has_records and is_analytical_query(question):
                 with st.spinner("Analysing the full extracted dataset…"):
                     answer = answer_over_records(question, _records_df, prior_history)
