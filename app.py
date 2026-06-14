@@ -15,6 +15,7 @@ from ocr_engine import (
     create_searchable_pdf,
     image_to_searchable_pdf,
     can_make_searchable_pdf,
+    render_page_images,
     ocr_json_to_txt,
     IMAGE_TYPES,
     XLSX_TYPES,
@@ -34,7 +35,10 @@ from rag_engine import (
     is_analytical_query,
     is_export_request,
     is_table_request,
+    is_summary_request,
     answer_over_records,
+    summarize_document,
+    summarize_document_vision,
     extract_chart_data,
     rewrite_query,
 )
@@ -99,6 +103,27 @@ def combined_records_df():
     if not frames:
         return pd.DataFrame()
     return pd.concat(frames, ignore_index=True)
+
+
+def active_doc_images(cap: int = 8):
+    """Page images of the most recently processed doc, for vision summary/Q&A.
+
+    Returns (images_list, filename, total_pages). Renders lazily and caches so we
+    don't rasterise the PDF on every question. Capped to keep the vision call sane.
+    """
+    ad = st.session_state.get("active_doc")
+    if not ad:
+        return [], None, 0
+    stem = ad["stem"]
+    cache = st.session_state.setdefault("page_imgs", {})
+    if stem not in cache:
+        try:
+            cache[stem] = render_page_images(ad["file_bytes"], ad["filename"])
+        except Exception:
+            cache[stem] = {}
+    imgs = cache[stem]
+    ordered_pages = sorted(imgs.keys())
+    return [imgs[p] for p in ordered_pages[:cap]], ad["filename"], len(ordered_pages)
 
 
 # ---------------------------------------------------------------------------
@@ -350,6 +375,11 @@ with tab_upload:
                     "file_bytes": file_bytes,
                     "file_ext":   file_ext,
                 }
+                # Remember the most recently processed doc so the chat's vision
+                # summary ("what is this file") knows which document to read.
+                st.session_state["active_doc"] = {
+                    "stem": doc_stem, "filename": filename, "file_bytes": file_bytes,
+                }
                 chunk_count = ingest_ocr_json_dict(ocr_json, collection)
                 if doc_stem not in st.session_state.session_docs:
                     st.session_state.session_docs.append(doc_stem)
@@ -468,23 +498,50 @@ with tab_upload:
                 if not pages:
                     st.warning("No text pages to extract from.")
                 else:
-                    prog = st.progress(0.0, text="Starting extraction…")
+                    # Render page images so the model can READ them directly (vision).
+                    # Far more accurate than OCR text on noisy/handwritten/Arabic scans.
+                    page_images = {}
+                    try:
+                        page_images = render_page_images(fb, filename)
+                    except Exception:
+                        page_images = {}
+
+                    start_mode = "vision (reading page images)" if page_images else "OCR text"
+                    prog = st.progress(0.0, text=f"Starting extraction via {start_mode}…")
 
                     def _cb(done, total, page_no):
                         frac = done / total if total else 1.0
                         label = (
-                            f"Extracting page {page_no}… ({done}/{total})"
+                            f"Reading page {page_no}… ({done}/{total})"
                             if page_no else f"Finalising… ({done}/{total})"
                         )
                         prog.progress(min(frac, 1.0), text=label)
 
-                    records = extract_records_from_pages(pages, doc_stem, progress_cb=_cb)
+                    stats = {}
+                    records = extract_records_from_pages(
+                        pages, doc_stem, page_images=page_images,
+                        progress_cb=_cb, stats=stats,
+                    )
                     df_records = records_to_dataframe(records)
                     st.session_state.structured[doc_stem] = {
                         "records": records, "df": df_records,
                     }
                     prog.empty()
-                    st.success(f"Extracted {len(records)} record(s) from {len(pages)} page(s).")
+                    st.success(
+                        f"Extracted {len(records)} record(s) from {len(pages)} page(s)."
+                    )
+                    if stats.get("vision_ok"):
+                        msg = f"🔍 Read {stats['vision_ok']} page(s) with **vision** (high accuracy)."
+                        if stats.get("vision_fail"):
+                            msg += (f" {stats['vision_fail']} page(s) fell back to OCR text "
+                                    "(check OPENAI_VISION_MODEL access in Secrets).")
+                        st.caption(msg)
+                    elif page_images:
+                        st.warning(
+                            "Vision extraction did not run — all pages used OCR text. "
+                            "Set a vision-capable **OPENAI_VISION_MODEL** (e.g. gpt-4o) "
+                            "in Streamlit Secrets for higher accuracy."
+                        )
 
             # Show extracted table + downloads + audit if available
             if doc_stem in st.session_state.structured:
@@ -583,7 +640,29 @@ with tab_chat:
                     "Downloads are also available on the Upload tab.*"
                 )
 
-            # ── 2. Visualization path ─────────────────────────────────────
+            # ── 2. Document summary / "what is this file" ─────────────────
+            elif is_summary_request(question):
+                with st.spinner("Reading the document…"):
+                    if _has_records:
+                        # Exact aggregates already available → precise summary
+                        answer = summarize_document(_records_df, prior_history)
+                    else:
+                        # No structured records yet → read the page images directly,
+                        # exactly like Sonnet does on any uploaded document.
+                        imgs, _fname, n_pages = active_doc_images(cap=8)
+                        if imgs:
+                            answer = summarize_document_vision(
+                                imgs, df=None, chat_history=prior_history,
+                                total_pages=n_pages,
+                            )
+                        else:
+                            answer = answer_question(
+                                question, collection, prior_history
+                            )["answer"]
+                st.markdown(answer)
+                history_text = answer
+
+            # ── 3. Visualization path ─────────────────────────────────────
             elif is_visualization_request(question):
                 with st.spinner("Analysing data and deciding the best chart type…"):
                     chart_data = extract_chart_data(
@@ -624,7 +703,7 @@ with tab_chat:
                         + (f"\n\n{note}" if note else "")
                     ).strip()
 
-            # ── 3. Table request — render a REAL table deterministically ──
+            # ── 4. Table request — render a REAL table deterministically ──
             elif _has_records and is_table_request(question):
                 table_md, note = build_records_table(question, _records_df)
                 if table_md:
@@ -636,14 +715,14 @@ with tab_chat:
                     st.info(note or "No records to tabulate.")
                     history_text = note or "No records to tabulate."
 
-            # ── 4. Analytical query over the full structured dataset ──────
+            # ── 5. Analytical query over the full structured dataset ──────
             elif _has_records and is_analytical_query(question):
                 with st.spinner("Analysing the full extracted dataset…"):
                     answer = answer_over_records(question, _records_df, prior_history)
                 st.markdown(answer)
                 history_text = answer
 
-            # ── 4. Plain semantic Q&A (RAG) ───────────────────────────────
+            # ── 6. Plain semantic Q&A (RAG) ───────────────────────────────
             else:
                 with st.spinner("Searching and generating answer…"):
                     result = answer_question(

@@ -3,7 +3,7 @@ import json
 import re
 from dotenv import load_dotenv
 
-from llm_provider import ask_llm
+from llm_provider import ask_llm, ask_llm_vision
 from extraction_engine import compute_data_profile, records_to_compact_json
 
 load_dotenv()
@@ -49,6 +49,21 @@ def is_table_request(text: str) -> bool:
     lower = text.lower()
     return any(kw in lower for kw in ("table", "tabular", "column", "columns",
                                       "row-wise", "list out", "tabulate"))
+
+
+_SUMMARY_GATE = (
+    "what is the content", "what's the content", "content of this", "contents of",
+    "what is this file", "what is this document", "what is in this", "what's in this",
+    "what does this contain", "what does it contain", "summarize", "summary",
+    "overview", "describe this", "tell me about this", "give me a summary",
+    "explain this document", "what is this about", "brief me", "walk me through",
+)
+
+
+def is_summary_request(text: str) -> bool:
+    """True when the user wants an overall summary / 'what is this' overview."""
+    lower = text.lower()
+    return any(kw in lower for kw in _SUMMARY_GATE)
 
 
 # ---------------------------------------------------------------------------
@@ -325,6 +340,105 @@ Question: {question}
 Answer:"""
 
     return ask_llm(prompt)
+
+
+def summarize_document(df, chat_history: list = None) -> str:
+    """
+    Produce a rich, well-structured overview of the document — the "what is this
+    file" experience: what it is, a compact table of the key records, and grounded
+    observations. All totals come from the authoritative pandas aggregates.
+    """
+    if df is None or df.empty:
+        return ("No structured records have been extracted yet. Click "
+                "**Extract Structured Records** on the Upload tab for a full summary, "
+                "or ask a specific question to search the document text.")
+
+    profile = compute_data_profile(df)
+    records_json, truncated = records_to_compact_json(df, char_budget=45000)
+
+    history = chat_history or []
+    history_section = ""
+    if history:
+        history_section = "\nRecent conversation:\n" + _format_history(history, 2) + "\n"
+
+    prompt = f"""You are a sharp analyst. Write a clear, helpful summary of the document \
+described by the structured data below. Match this structure:
+
+1. **What this is** — one or two sentences identifying the document type, source/entity,
+   and the period or scope it covers (only what the data supports).
+2. **Records** — a compact GitHub-flavored markdown table of the key records (pick the
+   most informative 4-6 columns; include a Page column). Keep it readable.
+3. **Key observations** — 4-7 bullet points of genuinely useful insight: totals, date
+   range, counts, per-vehicle/station/product highlights, notable patterns, and any
+   anomalies. Frame inferences cautiously ("suggests", "appears").
+4. End by offering to export the data (CSV/Excel) or break it down further.
+
+STRICT RULES:
+- Use ONLY the data below. Never invent values, names, stations, or totals.
+- All totals/counts/averages must come from the "Computed Aggregates" — they are exact
+  and authoritative; do not recompute them.
+- Any value listed under "Data-quality warnings" is an OCR misread: mark it
+  " ⚠️(unverified)" and never present it as a clean fact. Do not silently correct it.
+- Show currency/units exactly as they appear; do not assume a currency not in the data.
+{history_section}
+Computed Aggregates (authoritative):
+{profile}
+
+Records (JSON{', truncated — aggregates above are complete' if truncated else ''}):
+{records_json}
+
+Write the summary now:"""
+
+    return ask_llm(prompt)
+
+
+def summarize_document_vision(images: list, df=None, chat_history: list = None,
+                             total_pages: int = None) -> str:
+    """
+    Summarise ANY document by letting the vision model READ its page images —
+    exactly how Claude/Sonnet answers "what is this file". Works regardless of
+    document type (prose, contract, invoice, receipts, statement, form...) and
+    does NOT require structured extraction first.
+
+    If `df` (extracted records) is also available, its exact pandas aggregates are
+    supplied so any totals the model quotes are authoritative.
+    """
+    if not images:
+        return ("I could not render this document's pages to read them. "
+                "Try a PDF or image file, or ask a specific question.")
+
+    figures = ""
+    if df is not None and not df.empty:
+        figures = ("\nExact figures already computed from the extracted data "
+                   "(use these for any totals/counts — do not recompute):\n"
+                   + compute_data_profile(df) + "\n")
+
+    cap_note = ""
+    if total_pages and total_pages > len(images):
+        cap_note = (f"\nNote: you are shown the first {len(images)} of {total_pages} "
+                    "pages; say so if you summarise only part of the document.")
+
+    prompt = f"""You are shown the page image(s) of a document. Read them and write a \
+clear, genuinely useful summary — the way an expert analyst would describe the file.
+
+Structure:
+1. **What this is** — document type, source/issuer, and the period or scope it covers.
+2. **Key contents** — the important details. If the document is tabular or a set of
+   records, present them as a compact GitHub-flavored markdown table. If it is prose
+   (e.g. a contract or letter), give the key points as tight bullets.
+3. **Observations** — 3-6 useful insights, totals, or patterns. Frame anything inferred
+   cautiously ("appears", "suggests").
+4. Offer to go deeper (extract a full table, compute totals, export CSV/Excel).
+
+STRICT RULES:
+- Describe ONLY what is actually visible in the images. Never invent names, dates,
+  amounts, parties, or totals.
+- If a value is unreadable, say it is unclear — do not guess it.
+- Show currency/units exactly as printed; do not assume a currency that isn't shown.{cap_note}
+{figures}
+Write the summary now:"""
+
+    return ask_llm_vision(prompt, images)
 
 
 # ---------------------------------------------------------------------------

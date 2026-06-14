@@ -14,7 +14,7 @@ from collections import defaultdict
 
 import pandas as pd
 
-from llm_provider import ask_llm
+from llm_provider import ask_llm, ask_llm_vision
 
 
 # Metadata keys the extractor attaches to every record (prefixed with "_").
@@ -69,6 +69,56 @@ OCR text of page %(page_no)s:
 JSON:"""
 
 
+# Vision extraction — the model READS THE PAGE IMAGE directly. This is the key
+# quality lever: it sees the real pixels instead of garbled OCR text, so it
+# recovers correct digits, handwriting, Arabic, stamps, multi-receipt layouts.
+_VISION_EXTRACTION_PROMPT = """You are an expert document data-extraction engine with vision. \
+You are shown an IMAGE of ONE page of a scanned document. A raw OCR text version is \
+provided below as a NOISY hint only — when the OCR text and the image disagree, TRUST \
+THE IMAGE.
+
+Extract EVERY distinct record visible on the page (e.g. each receipt, invoice line,
+transaction, row, or form).
+
+READING RULES:
+- Read each value directly from the image. OCR often corrupts digits (e.g. shows
+  "5.q00" for 5.000, "2626" for 2026, "66:43" for 06:43). Report the value you can
+  actually SEE in the image.
+- Only report a value if you can genuinely read it in the image. If it is truly
+  unreadable, set the field to null and add the field name to "_unclear_fields".
+- NEVER invent a value that is not visible. Do not assume any name, date, amount, or
+  total that the image does not show.
+- Preserve numbers and codes exactly as printed.
+
+WHAT TO EXTRACT (this works for ANY document type — adapt to what you see):
+- First identify what this document is and what its repeating unit is. It could be an
+  invoice, a sales or fuel receipt, a purchase order, a timesheet, a payroll sheet, a
+  bank/credit-card statement, an inventory or packing list, a delivery note, a price
+  list, a medical/lab form, an attendance sheet, a ledger, etc.
+- Extract EACH instance of that unit (each line item / transaction / row / entry) as a
+  separate record.
+- Name every field after the label actually printed next to it on the page, in
+  snake_case. Capture all fields the document shows — do NOT limit yourself to any
+  fixed list. Use consistent field names across records on the page.
+- Only include fields that genuinely appear; omit anything not present.
+
+METADATA per record:
+- "_position": 1-based top-to-bottom position on the page (integer)
+- "_unclear_fields": list of field names you could not read confidently (those are null)
+- "_handwritten_fields": fields that appear handwritten rather than printed
+- "_is_duplicate_copy": true if marked duplicate / customer copy / copy, else false
+- "_has_signature": true / false / null
+- "_notes": short note on anything suspicious, stamped, or crossed-out; else null
+
+Return ONLY a JSON object: {"records": [ { ... }, ... ]}. No markdown, no code fences.
+
+Raw OCR hint for page %(page_no)s (may contain errors — prefer the image):
+\"\"\"
+%(page_text)s
+\"\"\"
+JSON:"""
+
+
 def _safe_json_obj(raw: str) -> dict | None:
     match = re.search(r"\{[\s\S]*\}", raw)
     if not match:
@@ -79,35 +129,61 @@ def _safe_json_obj(raw: str) -> dict | None:
         return None
 
 
-def extract_records_from_pages(pages: list, doc_id: str, progress_cb=None) -> list:
+def extract_records_from_pages(pages: list, doc_id: str, page_images: dict = None,
+                               progress_cb=None, stats: dict = None) -> list:
     """
-    Run per-page structured extraction over a document's OCR pages.
+    Run per-page structured extraction over a document.
 
-    pages       : list of {"page": int, "text": str, ...} (the ocr_json["pages"])
-    doc_id      : document identifier, tagged onto every record as "_doc"
-    progress_cb : optional callable(done, total, page_no) for UI progress.
+    pages        : list of {"page": int, "text": str, ...} (the ocr_json["pages"])
+    doc_id       : document identifier, tagged onto every record as "_doc"
+    page_images  : optional {page_no: png_bytes}. When an image is available for a
+                   page, a VISION model reads it directly (OCR text passed as a hint),
+                   which is far more accurate than OCR alone. Falls back to text-only
+                   extraction when no image is present or the vision call fails.
+    progress_cb  : optional callable(done, total, page_no) for UI progress.
+    stats        : optional dict; filled with vision_ok / vision_fail / text_only counts
+                   so the caller can report which mode actually ran.
 
     Returns a flat list of record dicts, each tagged with _doc and _page.
     """
+    page_images = page_images or {}
+    counts = {"vision_ok": 0, "vision_fail": 0, "text_only": 0}
     records: list = []
     total = len(pages)
 
     for idx, page in enumerate(pages, start=1):
         page_no = page.get("page", idx)
         page_text = (page.get("text") or "").strip()
+        image = page_images.get(page_no)
 
         if progress_cb:
             progress_cb(idx - 1, total, page_no)
 
-        if not page_text:
+        # Skip only when there is neither an image nor any text to work with
+        if not image and not page_text:
             continue
 
-        prompt = _EXTRACTION_PROMPT % {"page_no": page_no, "page_text": page_text[:6000]}
+        parsed = None
+        if image:
+            # Vision path — read the actual page image
+            vprompt = _VISION_EXTRACTION_PROMPT % {
+                "page_no": page_no, "page_text": page_text[:4000] or "(no OCR text)"
+            }
+            try:
+                parsed = _safe_json_obj(ask_llm_vision(vprompt, [image]))
+                if parsed is not None:
+                    counts["vision_ok"] += 1
+            except Exception:
+                parsed = None
 
-        try:
-            parsed = _safe_json_obj(ask_llm(prompt))
-        except Exception:
-            parsed = None
+        if parsed is None and page_text:
+            # Text-only fallback (no image, or vision unavailable/failed)
+            counts["vision_fail" if image else "text_only"] += 1
+            tprompt = _EXTRACTION_PROMPT % {"page_no": page_no, "page_text": page_text[:6000]}
+            try:
+                parsed = _safe_json_obj(ask_llm(tprompt))
+            except Exception:
+                parsed = None
 
         if not parsed:
             continue
@@ -123,6 +199,9 @@ def extract_records_from_pages(pages: list, doc_id: str, progress_cb=None) -> li
 
     if progress_cb:
         progress_cb(total, total, None)
+
+    if stats is not None:
+        stats.update(counts)
 
     return validate_records(flag_duplicates(records))
 
@@ -461,23 +540,34 @@ def compute_data_profile(df: pd.DataFrame, max_groups: int = 60) -> str:
         out.append(f"**Duplicates:** {len(dup_rows)} record(s) across {n_groups} duplicate group(s).")
         out.append("")
 
-    # ── Per-vehicle odometer span (km travelled) ──
+    # ── Per-vehicle odometer span (km travelled) + fuel economy ──
     veh_col = next((c for c in content_cols if _name_matches(c, _VEHICLE_PATTERNS)), None)
     odo_col = next((c for c in content_cols if _name_matches(c, _ODO_PATTERNS) and c in num_cols), None)
+    qty_col = next((c for c in content_cols if c in num_cols and (
+        "liter" in c.lower() or "litre" in c.lower()
+        or c.lower() in ("quantity", "qty", "volume"))), None)
     if veh_col and odo_col:
         out.append(f"**Odometer span by {veh_col} (using {odo_col}):**")
-        tmp = pd.DataFrame({
+        cols = {
             "veh": df[veh_col].astype(str).str.strip().replace("", None),
             "odo": _numeric_series(df[odo_col]),
-        }).dropna()
+        }
+        if qty_col:
+            cols["qty"] = _numeric_series(df[qty_col])
+        tmp = pd.DataFrame(cols).dropna(subset=["veh", "odo"])
         if not tmp.empty:
             grp = tmp.groupby("veh")["odo"].agg(["min", "max", "count"])
             grp["km_travelled"] = grp["max"] - grp["min"]
+            qty_by_veh = tmp.groupby("veh")["qty"].sum() if qty_col else None
             for veh, r in grp.head(max_groups).iterrows():
-                out.append(
-                    f"- {veh}: first={r['min']:,.0f}, last={r['max']:,.0f}, "
-                    f"km_travelled={r['km_travelled']:,.0f}, readings={int(r['count'])}"
-                )
+                line = (f"- {veh}: first={r['min']:,.0f}, last={r['max']:,.0f}, "
+                        f"km_travelled={r['km_travelled']:,.0f}, readings={int(r['count'])}")
+                if qty_by_veh is not None:
+                    liters = qty_by_veh.get(veh, 0)
+                    line += f", total_{qty_col}={liters:,.3f}"
+                    if liters > 0 and r["km_travelled"] > 0:
+                        line += f", efficiency~={r['km_travelled'] / liters:,.2f} km per {qty_col}"
+                out.append(line)
         out.append("")
 
     # ── Data-quality warnings (impossible values to flag, never to trust) ──
@@ -662,17 +752,24 @@ def records_to_compact_json(df: pd.DataFrame, char_budget: int = 60000) -> tuple
 
 # Concept synonyms so "amount and date" maps to the right columns regardless of
 # the exact field names the extractor chose.
+# Generic + domain concept synonyms for table column selection. Works across
+# document types; when nothing matches, the caller simply shows all columns.
 _TABLE_SYNONYMS = {
-    "amount":   ("amount", "total", "price", "cost", "value", "expense", "paid", "fare", "sum"),
-    "date":     ("date", "dated"),
-    "time":     ("time", "timestamp"),
-    "vehicle":  ("vehicle", "plate", "car", "truck", "lorry", "bus", "asset"),
-    "station":  ("station", "pump", "outlet", "vendor", "supplier", "merchant"),
-    "quantity": ("quantity", "qty", "liter", "litre", "liters", "litres", "volume", "gallons"),
-    "fuel":     ("fuel", "petrol", "diesel", "gasoline", "product"),
-    "receipt":  ("receipt", "invoice", "bill", "voucher", "reference"),
-    "odometer": ("odometer", "kilometer", "kilometre", "mileage", "meter", "reading"),
-    "driver":   ("driver", "employee", "operator"),
+    "amount":      ("amount", "total", "price", "cost", "value", "expense", "paid",
+                    "fare", "sum", "subtotal", "balance", "debit", "credit", "salary", "wage"),
+    "date":        ("date", "dated", "day"),
+    "time":        ("time", "timestamp"),
+    "quantity":    ("quantity", "qty", "units", "count", "liter", "litre", "liters",
+                    "litres", "volume", "gallons", "hours", "weight"),
+    "name":        ("name", "customer", "client", "employee", "driver", "patient",
+                    "vendor", "supplier", "party", "person"),
+    "id":          ("id", "number", "no", "code", "ref", "reference", "receipt",
+                    "invoice", "bill", "voucher", "account", "sku", "barcode"),
+    "description": ("description", "item", "product", "details", "particulars", "service"),
+    "status":      ("status", "state", "category", "type", "department", "location",
+                    "station", "site", "branch", "outlet"),
+    "vehicle":     ("vehicle", "plate", "car", "truck", "lorry", "bus", "asset"),
+    "odometer":    ("odometer", "kilometer", "kilometre", "mileage", "meter", "reading"),
 }
 
 

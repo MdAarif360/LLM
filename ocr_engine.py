@@ -250,6 +250,35 @@ def can_make_searchable_pdf(filename: str) -> bool:
     return Path(filename).suffix.lower() in SEARCHABLE_PDF_TYPES
 
 
+def render_page_images(file_bytes: bytes, filename: str, dpi: int = 180,
+                       max_pages: int = 80) -> dict:
+    """
+    Render each page to a PNG image, keyed by page number — for vision-based
+    extraction (the model reads the actual page instead of noisy OCR text).
+
+    PDFs are rasterised with PyMuPDF (no poppler needed). Images are normalised
+    to PNG. DOCX/XLSX return {} (no meaningful page image).
+    """
+    ext = Path(filename).suffix.lower()
+    images: dict[int, bytes] = {}
+
+    if ext == ".pdf":
+        doc = fitz.open(stream=file_bytes, filetype="pdf")
+        matrix = fitz.Matrix(dpi / 72, dpi / 72)
+        for i in range(min(doc.page_count, max_pages)):
+            pix = doc[i].get_pixmap(matrix=matrix)
+            images[i + 1] = pix.tobytes("png")
+        doc.close()
+
+    elif ext in IMAGE_TYPES:
+        im = Image.open(io.BytesIO(file_bytes)).convert("RGB")
+        buf = io.BytesIO()
+        im.save(buf, format="PNG")
+        images[1] = buf.getvalue()
+
+    return images
+
+
 # ---------------------------------------------------------------------------
 # Shared util
 # ---------------------------------------------------------------------------
