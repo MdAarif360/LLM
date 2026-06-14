@@ -4,8 +4,43 @@ import re
 from dotenv import load_dotenv
 
 from llm_provider import ask_llm
+from extraction_engine import compute_data_profile, records_to_compact_json
 
 load_dotenv()
+
+
+# ---------------------------------------------------------------------------
+# Query-intent gates (used only when structured records exist)
+# ---------------------------------------------------------------------------
+_ANALYTICAL_GATE = frozenset([
+    "how many", "count", "number of", "total", "sum", "subtotal", "average",
+    "avg", "mean", "list", "show all", "show me all", "show me the", "find",
+    "which", "by vehicle", "by station", "by date", "by product", "per vehicle",
+    "per station", "per km", "per litre", "per liter", "cost per", "duplicate",
+    "duplicates", "missing", "incomplete", "audit", "suspicious", "verify",
+    "verification", "reimbursement", "summary", "summarize", "highest", "lowest",
+    "most", "least", "group", "breakdown", "compare", "difference", "odometer",
+    "kilometer", "kilometre", "mileage", "liters", "litres", "amount", "expense",
+    "page-wise", "page wise", "date-wise", "vehicle-wise", "unreadable", "unclear",
+    "without signature", "manual verification", "highest amount", "consumed",
+])
+
+_EXPORT_GATE = frozenset([
+    "csv", "excel", "xlsx", "spreadsheet", "export", "excel-ready", "excel ready",
+    "csv output", "download", "csv file", "excel file", "excel table",
+])
+
+
+def is_analytical_query(text: str) -> bool:
+    """True when the question is a count/total/list/audit/group-style query."""
+    lower = text.lower()
+    return any(kw in lower for kw in _ANALYTICAL_GATE)
+
+
+def is_export_request(text: str) -> bool:
+    """True when the user is asking for a CSV / Excel / downloadable table."""
+    lower = text.lower()
+    return any(kw in lower for kw in _EXPORT_GATE)
 
 
 # ---------------------------------------------------------------------------
@@ -213,25 +248,99 @@ Answer:"""
 
 
 # ---------------------------------------------------------------------------
+# Analytics over the COMPLETE structured dataset (no RAG truncation)
+# ---------------------------------------------------------------------------
+
+def answer_over_records(question: str, df, chat_history: list = None) -> str:
+    """
+    Answer an analytical / list / audit question using the full extracted table.
+
+    Anti-hallucination design:
+      • All aggregates are pre-computed by pandas (compute_data_profile) and given
+        to the LLM as AUTHORITATIVE numbers it must not recompute.
+      • The full record set is provided so the LLM can select/list/filter rows.
+      • The LLM is instructed to answer ONLY from this data and to say so when a
+        value is missing rather than inventing one.
+    """
+    if df is None or df.empty:
+        return ("No structured records have been extracted yet. Open the **Upload & OCR** "
+                "tab, process the document, then click **Extract Structured Records**.")
+
+    profile = compute_data_profile(df)
+    records_json, truncated = records_to_compact_json(df)
+
+    history = chat_history or []
+    history_section = ""
+    if history:
+        history_section = "\nConversation History:\n" + _format_history(history, 3) + "\n"
+
+    truncation_note = ""
+    if truncated:
+        truncation_note = (
+            "\nNOTE: Only a subset of raw rows is shown below, but the Computed "
+            "Aggregates above cover ALL records and are complete and authoritative. "
+            "For a full row-by-row listing, tell the user to use the CSV/Excel export.\n"
+        )
+
+    prompt = f"""You are a meticulous data analyst. Answer the user's question about a \
+dataset that was extracted from a scanned document.
+
+ABSOLUTE RULES:
+1. Use ONLY the data provided below. Never invent, assume, or fill in values.
+2. The "Computed Aggregates" are exact, pandas-computed, and AUTHORITATIVE. When the
+   question needs a total, count, average, or group sum, take the number directly from
+   there. Do NOT recompute or estimate it yourself.
+3. Treat null / blank / missing values as missing — never guess them.
+4. When listing or filtering records, include each record's _page (and _position) so
+   the user can verify it in the original document.
+5. If the answer is not derivable from this data, say exactly:
+   "This information is not available in the extracted data."
+6. Be concise. Use markdown tables for lists. Show the currency/units exactly as they
+   appear in the data — do not assume a currency that isn't present.
+{truncation_note}
+Computed Aggregates (authoritative):
+{profile}
+
+Full Records (JSON):
+{records_json}
+{history_section}
+Question: {question}
+
+Answer:"""
+
+    return ask_llm(prompt)
+
+
+# ---------------------------------------------------------------------------
 # LLM-driven universal chart extractor
 # ---------------------------------------------------------------------------
 
-def extract_chart_data(question: str, collection, chat_history: list = None) -> dict | None:
+def extract_chart_data(question: str, collection, chat_history: list = None,
+                       records_df=None) -> dict | None:
     """
     Decide chart type and extract data from the document — entirely LLM-driven.
-    Passes recent conversation history so follow-up chart requests work correctly
-    (e.g. "show the same data as a pie chart").
+
+    If `records_df` is provided (structured records were extracted), the chart is
+    built from the COMPLETE table + its exact pandas aggregates, so charts like
+    "total amount by station" use every record — not just 10 retrieved chunks.
+    Otherwise it falls back to RAG retrieval over the indexed text.
     """
     history = chat_history or []
 
-    # Rewrite the query so retrieval picks up the right document sections
-    search_query = rewrite_query(question, history)
-    chunks = retrieve_context(search_query, collection, top_k=10)
-
-    if not chunks:
-        return {"chart_type": "none", "description": "No indexed documents found."}
-
-    context_text = "\n\n".join(c["text"] for c in chunks)
+    if records_df is not None and not records_df.empty:
+        # Use the full structured dataset + authoritative aggregates as the source
+        profile = compute_data_profile(records_df)
+        records_json, _ = records_to_compact_json(records_df, char_budget=40000)
+        context_text = (
+            f"Computed Aggregates (exact, authoritative — use these numbers):\n{profile}\n\n"
+            f"Full Records (JSON):\n{records_json}"
+        )
+    else:
+        search_query = rewrite_query(question, history)
+        chunks = retrieve_context(search_query, collection, top_k=10)
+        if not chunks:
+            return {"chart_type": "none", "description": "No indexed documents found."}
+        context_text = "\n\n".join(c["text"] for c in chunks)
 
     history_section = ""
     if history:

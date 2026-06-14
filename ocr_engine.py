@@ -1,4 +1,5 @@
 import io
+import os
 from pathlib import Path
 
 import fitz
@@ -19,14 +20,45 @@ ALL_SUPPORTED = sorted(PDF_TYPES | IMAGE_TYPES | DOCX_TYPES | XLSX_TYPES)
 # Types for which we can produce a searchable PDF
 SEARCHABLE_PDF_TYPES = PDF_TYPES | IMAGE_TYPES
 
+# OCR languages — Arabic + English by default. Override with OCR_LANG env var.
+# Requires the matching Tesseract language packs (see packages.txt).
+OCR_LANG = os.getenv("OCR_LANG", "eng+ara")
+_OCR_DPI = int(os.getenv("OCR_DPI", "300"))
+
+# Runtime language state — downgraded to "eng" automatically if a language
+# pack (e.g. Arabic) is missing, so the app never hard-crashes.
+_lang_state = {"lang": OCR_LANG}
+
+
+def _current_lang() -> str:
+    return _lang_state["lang"]
+
+
+def _run_tess(func, img, **kwargs):
+    """
+    Call a pytesseract function with the configured language.
+    If the language pack is missing, downgrade to English once and retry.
+    """
+    try:
+        return func(img, lang=_current_lang(), **kwargs)
+    except pytesseract.TesseractError as exc:
+        if _current_lang() != "eng" and (
+            "failed loading language" in str(exc).lower()
+            or "could not initialize" in str(exc).lower()
+            or "data file" in str(exc).lower()
+        ):
+            _lang_state["lang"] = "eng"
+            return func(img, lang="eng", **kwargs)
+        raise
+
 
 # ---------------------------------------------------------------------------
 # Internal OCR helper shared by PDF and image processors
 # ---------------------------------------------------------------------------
 def _ocr_pil_image(img: Image.Image, doc_id: str, page_num: int, file_name: str) -> dict | None:
     """Run Tesseract on a PIL image. Returns a page dict or None if no text found."""
-    page_text = pytesseract.image_to_string(img, lang="eng").strip()
-    data = pytesseract.image_to_data(img, output_type=pytesseract.Output.DICT, lang="eng")
+    page_text = _run_tess(pytesseract.image_to_string, img).strip()
+    data = _run_tess(pytesseract.image_to_data, img, output_type=pytesseract.Output.DICT)
 
     line_map = {}
     for i, word in enumerate(data["text"]):
@@ -48,7 +80,7 @@ def _ocr_pil_image(img: Image.Image, doc_id: str, page_num: int, file_name: str)
 def ocr_pdf(pdf_bytes: bytes, filename: str) -> dict:
     """OCR every page of a PDF and return structured JSON."""
     doc_id = Path(filename).stem
-    images = convert_from_bytes(pdf_bytes, dpi=300)
+    images = convert_from_bytes(pdf_bytes, dpi=_OCR_DPI)
     pages = [
         p for p in (
             _ocr_pil_image(img, doc_id, num, filename)
@@ -61,8 +93,11 @@ def ocr_pdf(pdf_bytes: bytes, filename: str) -> dict:
 
 def create_searchable_pdf(pdf_bytes: bytes) -> bytes:
     """Embed an invisible OCR text layer into every page of a scanned PDF."""
-    images = convert_from_bytes(pdf_bytes, dpi=300)
-    parts = [pytesseract.image_to_pdf_or_hocr(img, extension="pdf", lang="eng") for img in images]
+    images = convert_from_bytes(pdf_bytes, dpi=_OCR_DPI)
+    parts = [
+        _run_tess(pytesseract.image_to_pdf_or_hocr, img, extension="pdf")
+        for img in images
+    ]
 
     if len(parts) == 1:
         return parts[0]
@@ -94,7 +129,7 @@ def ocr_image(file_bytes: bytes, filename: str) -> dict:
 def image_to_searchable_pdf(file_bytes: bytes) -> bytes:
     """Convert a single image to a one-page searchable PDF."""
     img = Image.open(io.BytesIO(file_bytes)).convert("RGB")
-    return pytesseract.image_to_pdf_or_hocr(img, extension="pdf", lang="eng")
+    return _run_tess(pytesseract.image_to_pdf_or_hocr, img, extension="pdf")
 
 
 # ---------------------------------------------------------------------------
@@ -164,7 +199,6 @@ def extract_xlsx(file_bytes: bytes, filename: str) -> dict:
 
     for page_num, sheet_name in enumerate(xl.sheet_names, start=1):
         df = xl.parse(sheet_name, header=None, dtype=str).fillna("")
-        # Drop rows that are entirely blank
         df = df[df.apply(lambda r: r.str.strip().any(), axis=1)]
 
         if df.empty:

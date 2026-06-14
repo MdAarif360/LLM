@@ -20,9 +20,19 @@ from ocr_engine import (
     XLSX_TYPES,
     ALL_SUPPORTED,
 )
+from extraction_engine import (
+    extract_records_from_pages,
+    records_to_dataframe,
+    run_audit,
+    df_to_csv_bytes,
+    df_to_xlsx_bytes,
+)
 from rag_engine import (
     answer_question,
     is_visualization_request,
+    is_analytical_query,
+    is_export_request,
+    answer_over_records,
     extract_chart_data,
     rewrite_query,
 )
@@ -68,6 +78,25 @@ if "messages" not in st.session_state:
     st.session_state.messages = []
 if "session_docs" not in st.session_state:
     st.session_state.session_docs = []  # stems of docs uploaded this session
+if "structured" not in st.session_state:
+    # doc_stem -> {"records": [...], "df": DataFrame}
+    st.session_state.structured = {}
+
+
+def combined_records_df():
+    """Concatenate every extracted document's records into one DataFrame.
+
+    Returns an empty DataFrame when nothing has been extracted yet. This is the
+    complete dataset analytical chat queries run against.
+    """
+    frames = [
+        entry["df"]
+        for entry in st.session_state.structured.values()
+        if entry.get("df") is not None and not entry["df"].empty
+    ]
+    if not frames:
+        return pd.DataFrame()
+    return pd.concat(frames, ignore_index=True)
 
 
 # ---------------------------------------------------------------------------
@@ -418,6 +447,75 @@ with tab_upload:
                     st.text(preview[:600] + ("…" if len(preview) > 600 else ""))
                     st.divider()
 
+            # ── Structured extraction (for analytics / audit / export) ──
+            st.markdown("---")
+            st.subheader("Structured Records  ·  Analytics / Audit / Export")
+            st.caption(
+                "Convert this document into a verifiable table of records. Each page is "
+                "read individually; unreadable values are left blank (never guessed). "
+                "Required before analytical chat questions (totals, duplicates, audits, exports)."
+            )
+
+            already = doc_stem in st.session_state.structured
+            extract_label = (
+                "Re-extract Structured Records" if already else "Extract Structured Records"
+            )
+
+            if st.button(extract_label, type="secondary", use_container_width=True):
+                pages = ocr_json.get("pages", [])
+                if not pages:
+                    st.warning("No text pages to extract from.")
+                else:
+                    prog = st.progress(0.0, text="Starting extraction…")
+
+                    def _cb(done, total, page_no):
+                        frac = done / total if total else 1.0
+                        label = (
+                            f"Extracting page {page_no}… ({done}/{total})"
+                            if page_no else f"Finalising… ({done}/{total})"
+                        )
+                        prog.progress(min(frac, 1.0), text=label)
+
+                    records = extract_records_from_pages(pages, doc_stem, progress_cb=_cb)
+                    df_records = records_to_dataframe(records)
+                    st.session_state.structured[doc_stem] = {
+                        "records": records, "df": df_records,
+                    }
+                    prog.empty()
+                    st.success(f"Extracted {len(records)} record(s) from {len(pages)} page(s).")
+
+            # Show extracted table + downloads + audit if available
+            if doc_stem in st.session_state.structured:
+                df_records = st.session_state.structured[doc_stem]["df"]
+
+                if df_records.empty:
+                    st.info("No structured records were found in this document.")
+                else:
+                    st.markdown(f"**{len(df_records)} record(s) extracted:**")
+                    st.dataframe(df_records, use_container_width=True, hide_index=True)
+
+                    ex1, ex2 = st.columns(2)
+                    with ex1:
+                        st.download_button(
+                            "Download CSV",
+                            data=df_to_csv_bytes(df_records),
+                            file_name=f"{doc_stem}_records.csv",
+                            mime="text/csv",
+                            use_container_width=True,
+                        )
+                    with ex2:
+                        st.download_button(
+                            "Download Excel",
+                            data=df_to_xlsx_bytes(df_records),
+                            file_name=f"{doc_stem}_records.xlsx",
+                            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                            use_container_width=True,
+                        )
+
+                    with st.expander("Automated audit findings"):
+                        for finding in run_audit(df_records):
+                            st.markdown(f"- {finding}")
+
 
 # ── Chat ────────────────────────────────────────────────────────────────────
 with tab_chat:
@@ -427,15 +525,28 @@ with tab_chat:
             "Go to the **Upload & OCR** tab and process a PDF first."
         )
 
+    # Status banner: is the structured dataset available for analytics?
+    _records_df = combined_records_df()
+    _has_records = not _records_df.empty
+    if _has_records:
+        st.caption(
+            f"✅ {len(_records_df)} structured record(s) available — "
+            "you can ask for totals, group-bys, duplicates, audits, charts, or CSV/Excel exports."
+        )
+    elif bundled_docs or st.session_state.session_docs:
+        st.caption(
+            "ℹ️ For totals, duplicate detection, audits or exports, first click "
+            "**Extract Structured Records** on the Upload tab. Plain Q&A works without it."
+        )
+
     for msg in st.session_state.messages:
         with st.chat_message(msg["role"]):
             st.markdown(msg["content"])
 
-    question = st.chat_input("Ask a question, or request a chart / infographic…")
+    question = st.chat_input("Ask a question, request a chart, totals, an audit, or a CSV/Excel export…")
 
     if question:
         # Snapshot history BEFORE appending the current turn.
-        # This is what gets passed to the LLM as "prior conversation".
         prior_history = list(st.session_state.messages)
 
         st.session_state.messages.append({"role": "user", "content": question})
@@ -444,13 +555,38 @@ with tab_chat:
 
         with st.chat_message("assistant"):
 
-            # ── Visualization path ────────────────────────────────────────
-            if is_visualization_request(question):
-                with st.spinner(
-                    "Analysing document and deciding the best chart type…"
-                ):
+            # ── 1. Export request (CSV / Excel) — needs structured records ──
+            if _has_records and is_export_request(question):
+                st.markdown("Here is your downloadable export of all extracted records:")
+                ec1, ec2 = st.columns(2)
+                with ec1:
+                    st.download_button(
+                        "Download CSV",
+                        data=df_to_csv_bytes(_records_df),
+                        file_name="extracted_records.csv",
+                        mime="text/csv",
+                        use_container_width=True,
+                    )
+                with ec2:
+                    st.download_button(
+                        "Download Excel",
+                        data=df_to_xlsx_bytes(_records_df),
+                        file_name="extracted_records.xlsx",
+                        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                        use_container_width=True,
+                    )
+                st.dataframe(_records_df, use_container_width=True, hide_index=True)
+                history_text = (
+                    f"*Prepared CSV and Excel export of {len(_records_df)} record(s). "
+                    "Downloads are also available on the Upload tab.*"
+                )
+
+            # ── 2. Visualization path ─────────────────────────────────────
+            elif is_visualization_request(question):
+                with st.spinner("Analysing data and deciding the best chart type…"):
                     chart_data = extract_chart_data(
-                        question, collection, chat_history=prior_history
+                        question, collection, chat_history=prior_history,
+                        records_df=_records_df if _has_records else None,
                     )
 
                 if chart_data is None:
@@ -460,17 +596,19 @@ with tab_chat:
                 elif chart_data.get("chart_type") == "none":
                     st.info(
                         f"No chart data found: {chart_data.get('description', '')}  \n"
-                        "Answering as a plain document question instead."
+                        "Answering as a question instead."
                     )
-                    result = answer_question(
-                        question, collection, chat_history=prior_history
-                    )
-                    st.markdown(result["answer"])
-                    history_text = result["answer"]
+                    if _has_records and is_analytical_query(question):
+                        answer = answer_over_records(question, _records_df, prior_history)
+                    else:
+                        answer = answer_question(
+                            question, collection, chat_history=prior_history
+                        )["answer"]
+                    st.markdown(answer)
+                    history_text = answer
 
                 else:
                     fig, df, note = render_chart(chart_data)
-
                     if fig is not None:
                         st.plotly_chart(fig, use_container_width=True)
                     if df is not None and not df.empty:
@@ -484,13 +622,19 @@ with tab_chat:
                         + (f"\n\n{note}" if note else "")
                     ).strip()
 
-            # ── Plain Q&A path ────────────────────────────────────────────
+            # ── 3. Analytical query over the full structured dataset ──────
+            elif _has_records and is_analytical_query(question):
+                with st.spinner("Analysing the full extracted dataset…"):
+                    answer = answer_over_records(question, _records_df, prior_history)
+                st.markdown(answer)
+                history_text = answer
+
+            # ── 4. Plain semantic Q&A (RAG) ───────────────────────────────
             else:
                 with st.spinner("Searching and generating answer…"):
                     result = answer_question(
                         question, collection, chat_history=prior_history
                     )
-
                 st.markdown(result["answer"])
 
                 if result["sources"]:
