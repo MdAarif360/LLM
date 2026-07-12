@@ -19,6 +19,6 @@ jobs:
 
       - name: Push to Hub
         env:
-          HF_TOKEN: ${{ secrets.HUGGINGFACE }}
+          HF_TOKEN: ${{ secrets.HFTOKEN }}
         run: | 
-          git push --force https://sandyrana545:$HF_TOKEN@huggingface.co/spaces/sandyrana545/OCR main
+          git push --force https://mdarifpics:$HF_TOKEN@huggingface.co/spaces/mdarifpics/OCRBOT main
